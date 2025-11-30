@@ -1,0 +1,57 @@
+.footer {
+            background: linear-gradient(135deg, #0f2438 0%, #1a3a52 50%, #12304a 100%);
+            padding: 60px 20px 40px;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 4px solid rgba(255,255,255,0.04);
+            color: #ffffff;
+        }
+
+        .footer::before {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #fbbf24;
+            margin: 0 auto 24px;
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .footer-links li {
+            position: relative;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: color 0.25s ease, transform 0.25s ease;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .footer-links a:hover {
+            color: #fbbf24;
+            transform: translateY(-3px);
+            border-bottom-color: #fbbf24;
+        }
+
+        .footer::after {
+            content: '© 2025 DriveXPress. All rights reserved.';
+            display: block;
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 13px;
+        }
