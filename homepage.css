@@ -4,6 +4,16 @@
             box-sizing: border-box;
         }
 
+ :root {
+            --nav-dark: #1a3a52;
+            --nav-accent: #cbd5e1;
+            --accent: #f59e0b;
+            --muted: #6b7280;
+            --dark: #09203f;
+            --footer-bg-1: #112a3d;
+            --footer-bg-2: #0b2030;
+            --text-light: rgba(255,255,255,0.95);
+        }
         body {
             font-family: Arial, sans-serif;
         }
@@ -56,7 +66,31 @@
             text-decoration: none;
             font-size: 18px;
             font-weight: 500;
-        }
+            transition: color 0.18s ease, transform 0.18s ease;
+            position: relative;
+       }
+
+        .nav-links a::after {
+           content: '';
+           position: absolute;
+           bottom: -8px;
+           left: 0;
+           width: 0;
+           height: 3px;
+           background: linear-gradient(90deg, #f59e0b, #fbbf24);
+           transition: width 0.3s ease;
+           border-radius: 2px;
+       }
+
+        .nav-links a:hover {
+          color: #f59e0b;
+          transform: translateY(-2px);
+       }
+
+        .nav-links a:hover::after {
+           width: 100%;
+       }
+
 
         .user-icon {
             background-color: white;
@@ -335,60 +369,99 @@
             }
         }
 
-        .footer {
-            background: linear-gradient(135deg, #0f2438 0%, #1a3a52 50%, #12304a 100%);
-            padding: 60px 20px 40px;
-            text-align: center;
-            margin-top: 40px;
-            border-top: 4px solid rgba(255,255,255,0.04);
-            color: #ffffff;
+        footer {
+            background: linear-gradient(180deg, var(--footer-bg-1), var(--footer-bg-2));
+            color: var(--text-light);
+            padding: 48px 20px 28px;
         }
 
-        .footer::before {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background-color: #fbbf24;
-            margin: 0 auto 24px;
-            border-radius: 2px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 28px;
+            margin-bottom: 24px;
+            align-items: start;
+        }
+
+        .footer-column h4 {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            color: var(--nav-accent);
+            letter-spacing: 0.2px;
+        }
+
+        .footer-column p {
+            color: rgba(255,255,255,0.85);
+            font-size: 14px;
+            line-height: 1.5;
         }
 
         .footer-links {
-            display: flex;
-            justify-content: center;
             list-style: none;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin-bottom: 18px;
+            padding: 0;
+            margin: 0;
         }
 
         .footer-links li {
-            position: relative;
+            margin-bottom: 10px;
         }
 
         .footer-links a {
-            color: #ffffff;
+            color: rgba(255,255,255,0.9);
             text-decoration: none;
-            font-size: 18px;
+            transition: color 0.18s ease, transform 0.18s ease;
+            display: inline-block;
             font-weight: 500;
-            transition: color 0.25s ease, transform 0.25s ease;
-            padding: 6px 0;
-            border-bottom: 2px solid transparent;
         }
 
         .footer-links a:hover {
-            color: #fbbf24;
-            transform: translateY(-3px);
-            border-bottom-color: #fbbf24;
+            color: var(--accent);
+            transform: translateX(4px);
         }
 
-        .footer::after {
-            content: '© 2025 DriveXPress. All rights reserved.';
-            display: block;
-            margin-top: 20px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, 0.07);
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 13px;
+        
+        .footer-divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin: 24px 0 16px;
         }
+
+        .copyright {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+
+        @media (max-width: 560px) {
+            .footer-container { gap: 16px; }
+            .social-links a { width: 34px; height: 34px; }
+            .footer-column h4 { font-size: 1rem; }
+        }
+
+        /* Contact icon styles */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.95);
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .contact-icon {
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+            display: inline-block;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            fill: none;
+        }
+
+        .contact-item span { display: inline-block; }
