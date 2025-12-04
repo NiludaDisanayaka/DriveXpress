@@ -1,0 +1,255 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #0768AC;
+    padding: 15px 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;     /* Hand cursor */
+    transition: transform 0.2s ease;
+}
+
+/* Pop-up only */
+.navbar a:hover {
+    transform: scale(1.15);
+}
+
+
+
+/* Section titles */
+.section-title {
+    margin-left: 25px;
+}
+
+.service-grid {
+    background-color: #d9d9d9;
+    padding: 30px;
+    margin: 25px;
+    border-radius: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /* 4 boxes per row */
+    gap: 20px;  /* space between boxes */
+}
+
+/* Box Styling */
+.box {
+    background-color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 6px;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.box:hover {
+    background-color: #e6f3ff;
+    border-color: #0A6DAF;
+}
+
+/* Responsive for mobile (1 column) */
+@media (max-width: 600px) {
+    .service-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet (2 columns) */
+@media (max-width: 900px) {
+    .service-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+.service-box {
+    background: #dddddd;
+    padding: 30px;
+    border-radius: 15px;
+    width: 80%;
+    margin: 25px;
+}
+
+/* Row of 3 buttons */
+.package-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Service package buttons (same size as service categories) */
+.pkg-btn {
+    background-color: white;
+     padding: 15px 85px;
+    text-align: center;
+    border-radius: 6px;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+    cursor: pointer;
+}
+/* Hover effect */
+.pkg-btn:hover {
+    background-color: #e6f3ff;
+    border-color: #0A6DAF;
+}
+
+
+/* Bottom Book a Drive button */
+.book-row {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.book-btn {
+    width: 200px;            /* SAME SIZE as the above buttons */
+    height: 55px;
+    background: #356fa1;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+/* POP-UP effect ONLY (no highlight) */
+.book-btn:hover {
+    background-color: #072836;
+}
+
+
+/* Footer */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --nav-dark: #1a3a52;
+    --nav-accent: #cbd5e1;
+    --accent: #f59e0b;
+    --muted: #6b7280;
+    --dark: #09203f;
+    --footer-bg-1: #112a3d;
+    --footer-bg-2: #0b2030;
+    --text-light: rgba(255,255,255,0.95);
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+footer {
+            background: linear-gradient(180deg, var(--footer-bg-1), var(--footer-bg-2));
+            color: var(--text-light);
+            padding: 48px 20px 28px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 28px;
+            margin-bottom: 24px;
+            align-items: start;
+        }
+
+        .footer-column h4 {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            color: var(--nav-accent);
+            letter-spacing: 0.2px;
+        }
+
+        .footer-column p {
+            color: rgba(255,255,255,0.85);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: color 0.18s ease, transform 0.18s ease;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        
+        .footer-divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin: 24px 0 16px;
+        }
+
+        .copyright {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+
+        @media (max-width: 560px) {
+            .footer-container { gap: 16px; }
+            .social-links a { width: 34px; height: 34px; }
+            .footer-column h4 { font-size: 1rem; }
+        }
+
+        /* Contact icon styles */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.95);
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .contact-icon {
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+            display: inline-block;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            fill: none;
+        }
+
+        .contact-item span { display: inline-block; }
