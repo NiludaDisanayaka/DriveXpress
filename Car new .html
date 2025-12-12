@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveXPress - New & Used Cars</title>
+    <style>
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        main {
+            min-height: 70vh;
+            padding: 40px 0;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            fill: #3498db;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        .nav-links a.active {
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #3498db;
+            border-radius: 3px;
+        }
+
+        .user-icon {
+            cursor: pointer;
+        }
+
+        .user-icon-svg {
+            fill: #2c3e50;
+            transition: all 0.3s ease;
+        }
+
+        .user-icon:hover .user-icon-svg {
+            fill: #3498db;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(26, 37, 48, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        .hero-search {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .search-button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: linear-gradient(135deg, #2980b9 0%, #1c5a7a 100%);
+            transform: translateY(-2px);
+        }
+
+        /* ===== TABS SECTION ===== */
+        .tabs-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .tabs-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tabs-header h2 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .tabs-header p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab {
+            padding: 15px 40px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            color: #3498db;
+        }
+
+        .tab.active {
+            color: #3498db;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #3498db;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== FILTER SECTION ===== */
+        .filter-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 1px solid #eaeaea;
+        }
+
+        .filter-section h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-icon {
+            width: 24px;
+            height: 24px;
+            fill: #3498db;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .filter-select {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: white;
+            font-size: 1rem;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .filter-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.apply {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .filter-btn.reset {
+            background-color: #f8f9fa;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== CAR LISTINGS ===== */
+        .cars-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .cars-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+
+        .results-count {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #eaeaea;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .car-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .car-badge.new {
+            background-color: #2ecc71;
+        }
+
+        .car-badge.featured {
+            background-color: #f39c12;
+        }
+
+        .car-badge.certified {
+            background-color: #3498db;
+        }
+
+        .car-image-container {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .car-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .car-card:hover .car-image {
+            transform: scale(1.05);
+        }
+
+        .car-details {
+            padding: 25px;
+        }
+
+        .car-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .car-price {
+            font-size: 1.8rem;
+            color: #2ecc71;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .car-price span {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .car-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .spec-icon {
+            width: 20px;
+            height: 20px;
+            color: #3498db;
+        }
+
+        .car-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .car-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, #2980b9 0%, #1c5a7a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+        }
+
+        .cta-button.secondary:hover {
+            background: linear-gradient(135deg, #7f8c8d 0%, #666 100%);
+            box-shadow: 0 5px 15px rgba(127, 140, 141, 0.3);
+        }
+
+        /* ===== WHY CHOOSE SECTION ===== */
+        .why-choose-section {
+            background: white;
+            padding: 60px 0;
+            border-radius: 12px;
+            margin-top: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            font-size: 1.1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: #e3f2fd;
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            color: #3498db;
+        }
+
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            padding: 60px 0;
+            margin-top: 60px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #3498db;
+        }
+
+        .footer-column p {
+            color: #bdc3c7;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+            padding-left: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .contact-icon {
+            width: 20px;
+            height: 20px;
+            color: #3498db;
+        }
+
+        .footer-divider {
+            border: none;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 30px 0;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #bdc3c7;
+            font-size: 0.95rem;
+        }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .page-btn {
+            padding: 10px 18px;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .page-btn:hover {
+            background-color: #f8f9fa;
+            border-color: #3498db;
+        }
+
+        .page-btn.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .cars-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cars-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .car-actions {
+                flex-direction: column;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs-container {
+                flex-direction: column;
+            }
+            
+            .tab {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+            }
+            
+            .hero-search {
+                flex-direction: column;
+            }
+            
+            .search-input, .search-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span>DriveXPress</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">New & Used Cars</a></li>
+                <li><a href="#">Car Reviews</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Finance & Insurance</a></li>
+            </ul>
+            <div class="user-icon">
+                <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+                </svg>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Find Your Perfect Car</h1>
+            <p>Browse through our extensive collection of new and used cars. Quality vehicles at unbeatable prices with transparent buying process.</p>
+            <div class="hero-search">
+                <input type="text" class="search-input" placeholder="Search by make, model, or keyword...">
+                <button class="search-button">Search Cars</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Tabs Section -->
+            <section class="tabs-section">
+                <div class="tabs-header">
+                    <h2>Browse Our Car Collection</h2>
+                    <p>Choose between brand new models with latest technology or quality used cars with great value</p>
+                </div>
+                
+                <div class="tabs-container">
+                    <button class="tab active" data-tab="new-cars">New Cars</button>
+                    <button class="tab" data-tab="used-cars">Used Cars</button>
+                </div>
+
+                <!-- New Cars Content -->
+                <div id="new-cars" class="tab-content active">
+                    <!-- Filter Section -->
+                    <div class="filter-section">
+                        <h3><svg class="filter-icon" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg> Filter New Cars</h3>
+                        <div class="filter-grid">
+                            <div class="filter-group">
+                                <label for="new-price">Price Range</label>
+                                <select id="new-price" class="filter-select">
+                                    <option value="">Any Price</option>
+                                    <option value="under-30k">Under $30,000</option>
+                                    <option value="30k-50k">$30,000 - $50,000</option>
+                                    <option value="50k-80k">$50,000 - $80,000</option>
+                                    <option value="80k-120k">$80,000 - $120,000</option>
+                                    <option value="over-120k">Over $120,000</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="new-type">Car Type</label>
+                                <select id="new-type" class="filter-select">
+                                    <option value="">Any Type</option>
+                                    <option value="electric">Electric</option>
+                                    <option value="hybrid">Hybrid</option>
+                                    <option value="suv">SUV</option>
+                                    <option value="sedan">Sedan</option>
+                                    <option value="sports">Sports</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="new-make">Car Make</label>
+                                <select id="new-make" class="filter-select">
+                                    <option value="">Any Make</option>
+                                    <option value="tesla">Tesla</option>
+                                    <option value="bmw">BMW</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                    <option value="toyota">Toyota</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="new-year">Model Year</label>
+                                <select id="new-year" class="filter-select">
+                                    <option value="">Any Year</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button class="filter-btn reset">Reset Filters</button>
+                            <button class="filter-btn apply">Apply Filters</button>
+                        </div>
+                    </div>
+
+                    <!-- New Cars Listings -->
+                    <div class="cars-header">
+                        <h2>New Car Collection</h2>
+                        <div class="results-count">Showing 6 cars</div>
+                    </div>
+
+                    <div class="cars-grid">
+                        <!-- New Car 1 -->
+                        <div class="car-card">
+                            <div class="car-badge new">New</div>
+                            <div class="car-image-container">
+                                <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tesla Model S" class="car-image">
+                            </div>
+                            <div class="car-details">
+                                <h3 class="car-title">Tesla Model S Plaid 2024</h3>
+                                <div class="car-price">$89,990</div>
+                                <div class="car-specs">
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2L1 21h22L12 2z" fill="currentColor"/>
+                                        </svg>
+                                        Electric
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" fill="currentColor"/>
+                                        </svg>
+                                        396 mi range
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                                        </svg>
+                                        2024 Model
+                                    </div>
+                                </div>
+                                <p class="car-description">The Tesla Model S Plaid is the highest-performing sedan ever built. With tri-motor all-wheel drive, it delivers 0-60 mph in under 2 seconds.</p>
+                                <div class="car-actions">
+                                    <button class="cta-button">View Details</button>
+                                    <button class="cta-button secondary">Book Test Drive</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- New Car 2 -->
+                        <div class="car-card">
+                            <div class="car-badge new">New</div>
+                            <div class="car-image-container">
+                                <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="BMW i7" class="car-image">
+                            </div>
+                            <div class="car-details">
+                                <h3 class="car-title">BMW i7 xDrive60 2024</h3>
+                                <div class="car-price">$119,300</div>
+                                <div class="car-specs">
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2L1 21h22L12 2z" fill="currentColor"/>
+                                        </svg>
+                                        Electric
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" fill="currentColor"/>
+                                        </svg>
+                                        318 mi range
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                                        </svg>
+                                        2024 Model
+                                    </div>
+                                </div>
+                                <p class="car-description">The first all-electric luxury sedan from BMW featuring the ultimate in luxury, technology, and sustainable performance.</p>
+                                <div class="car-actions">
+                                    <button class="cta-button">View Details</button>
+                                    <button class="cta-button secondary">Book Test Drive</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- New Car 3 -->
+                        <div class="car-card">
+                            <div class="car-badge new">New</div>
+                            <div class="car-badge featured">Featured</div>
+                            <div class="car-image-container">
+                                <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mercedes EQS" class="car-image">
+                            </div>
+                            <div class="car-details">
+                                <h3 class="car-title">Mercedes-Benz EQS 580 2024</h3>
+                                <div class="car-price">$125,900</div>
+                                <div class="car-specs">
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2L1 21h22L12 2z" fill="currentColor"/>
+                                        </svg>
+                                        Electric
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" fill="currentColor"/>
+                                        </svg>
+                                        340 mi range
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                                        </svg>
+                                        2024 Model
+                                    </div>
+                                </div>
+                                <p class="car-description">The EQS 580 4MATIC combines extraordinary comfort with exceptional performance and a groundbreaking electric range.</p>
+                                <div class="car-actions">
+                                    <button class="cta-button">View Details</button>
+                                    <button class="cta-button secondary">Book Test Drive</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Used Cars Content -->
+                <div id="used-cars" class="tab-content">
+                    <!-- Filter Section -->
+                    <div class="filter-section">
+                        <h3><svg class="filter-icon" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg> Filter Used Cars</h3>
+                        <div class="filter-grid">
+                            <div class="filter-group">
+                                <label for="used-price">Price Range</label>
+                                <select id="used-price" class="filter-select">
+                                    <option value="">Any Price</option>
+                                    <option value="under-10k">Under $10,000</option>
+                                    <option value="10k-20k">$10,000 - $20,000</option>
+                                    <option value="20k-30k">$20,000 - $30,000</option>
+                                    <option value="30k-50k">$30,000 - $50,000</option>
+                                    <option value="over-50k">Over $50,000</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="used-make">Car Make</label>
+                                <select id="used-make" class="filter-select">
+                                    <option value="">Any Make</option>
+                                    <option value="toyota">Toyota</option>
+                                    <option value="honda">Honda</option>
+                                    <option value="ford">Ford</option>
+                                    <option value="bmw">BMW</option>
+                                    <option value="mercedes">Mercedes</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="used-year">Year</label>
+                                <select id="used-year" class="filter-select">
+                                    <option value="">Any Year</option>
+                                    <option value="2020-2023">2020 - 2023</option>
+                                    <option value="2017-2019">2017 - 2019</option>
+                                    <option value="2014-2016">2014 - 2016</option>
+                                    <option value="before-2014">Before 2014</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="used-mileage">Max Mileage</label>
+                                <select id="used-mileage" class="filter-select">
+                                    <option value="">Any Mileage</option>
+                                    <option value="under-30k">Under 30,000 mi</option>
+                                    <option value="30k-60k">30,000 - 60,000 mi</option>
+                                    <option value="60k-100k">60,000 - 100,000 mi</option>
+                                    <option value="over-100k">Over 100,000 mi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button class="filter-btn reset">Reset Filters</button>
+                            <button class="filter-btn apply">Apply Filters</button>
+                        </div>
+                    </div>
+
+                    <!-- Used Cars Listings -->
+                    <div class="cars-header">
+                        <h2>Quality Used Cars</h2>
+                        <div class="results-count">Showing 6 cars</div>
+                    </div>
+
+                    <div class="cars-grid">
+                        <!-- Used Car 1 -->
+                        <div class="car-card">
+                            <div class="car-badge certified">Certified</div>
+                            <div class="car-image-container">
+                                <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Toyota Camry" class="car-image">
+                            </div>
+                            <div class="car-details">
+                                <h3 class="car-title">Toyota Camry Hybrid 2022</h3>
+                                <div class="car-price">$28,500 <span>/ 15,800 mi</span></div>
+                                <div class="car-specs">
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2L1 21h22L12 2z" fill="currentColor"/>
+                                        </svg>
+                                        Hybrid
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" fill="currentColor"/>
+                                        </svg>
+                                        51 MPG
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                                        </svg>
+                                        2022 Model
+                                    </div>
+                                </div>
+                                <p class="car-description">One owner, clean history, regularly serviced. Excellent condition with all service records available.</p>
+                                <div class="car-actions">
+                                    <button class="cta-button">View Details</button>
+                                    <button class="cta-button secondary">Contact Seller</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Used Car 2 -->
+                        <div class="car-card">
+                            <div class="car-badge certified">Certified</div>
+                            <div class="car-badge featured">Featured</div>
+                            <div class="car-image-container">
+                                <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ford Mustang" class="car-image">
+                            </div>
+                            <div class="car-details">
+                                <h3 class="car-title">Ford Mustang GT 2021</h3>
+                                <div class="car-price">$42,900 <span>/ 22,100 mi</span></div>
+                                <div class="car-specs">
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M3.55 19.09l1.41 1.41 1.79-1.8-1.41-1.41zM11 20h2v3h-2zM1 11h3v2H1zm12-6.95v3.96l1 .58c1.24.72 2 2.04 2 3.46 0 2.21-1.79 4-4 4s-4-1.79-4-4c0-1.42.77-2.74 2-3.46l1-.58V4.05h2m2-2H9v4.81C7.21 7.9 6 9.83 6 12.05c0 3.31 2.69 6 6 6s6-2.69 6-6c0-2.22-1.21-4.15-3-5.19V2.05zM20 11h3v2h-3zm-2.76 7.71l1.79 1.8 1.41-1.41-1.8-1.79z" fill="currentColor"/>
+                                        </svg>
+                                        Petrol
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4zm2 2H5V5h14v14zm0-16H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="currentColor"/>
+                                        </svg>
+                                        460 HP
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                                        </svg>
+                                        2021 Model
+                                    </div>
+                                </div>
+                                <p class="car-description">Performance package with V8 engine. Low mileage, garage kept, and in excellent mechanical condition.</p>
+                                <div class="car-actions">
+                                    <button class="cta-button">View Details</button>
+                                    <button class="cta-button secondary">Contact Seller</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Used Car 3 -->
+                        <div class="car-card">
+                            <div class="car-badge certified">Certified</div>
+                            <div class="car-image-container">
+                                <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Honda Civic" class="car-image">
+                            </div>
+                            <div class="car-details">
+                                <h3 class="car-title">Honda Civic Type R 2020</h3>
+                                <div class="car-price">$36,800 <span>/ 18,500 mi</span></div>
+                                <div class="car-specs">
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M3.55 19.09l1.41 1.41 1.79-1.8-1.41-1.41zM11 20h2v3h-2zM1 11h3v2H1zm12-6.95v3.96l1 .58c1.24.72 2 2.04 2 3.46 0 2.21-1.79 4-4 4s-4-1.79-4-4c0-1.42.77-2.74 2-3.46l1-.58V4.05h2m2-2H9v4.81C7.21 7.9 6 9.83 6 12.05c0 3.31 2.69 6 6 6s6-2.69 6-6c0-2.22-1.21-4.15-3-5.19V2.05zM20 11h3v2h-3zm-2.76 7.71l1.79 1.8 1.41-1.41-1.8-1.79z" fill="currentColor"/>
+                                        </svg>
+                                        Petrol
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4zm2 2H5V5h14v14zm0-16H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="currentColor"/>
+                                        </svg>
+                                        306 HP
+                                    </div>
+                                    <div class="spec-item">
+                                        <svg class="spec-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                                        </svg>
+                                        2020 Model
+                                    </div>
+                                </div>
+                                <p class="car-description">Performance model with limited slip differential. Excellent condition, never tracked, all stock.</p>
+                                <div class="car-actions">
+                                    <button class="cta-button">View Details</button>
+                                    <button class="cta-button secondary">Contact Seller</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Why Choose Section -->
+            <section class="why-choose-section">
+                <div class="container">
+                    <h2 class="section-title">Why Choose DriveXPress?</h2>
+                    <p class="section-subtitle">Experience the best car buying journey with our premium services and customer-focused approach</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <svg class="feature-icon" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" fill="currentColor"/>
+                            </svg>
+                            <h3>Quality Assurance</h3>
+                            <p>All vehicles undergo 150-point inspection. Certified pre-owned cars come with comprehensive warranty coverage.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <svg class="feature-icon" viewBox="0 0 24 24">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" fill="currentColor"/>
+                            </svg>
+                            <h3>Best Value</h3>
+                            <p>Competitive pricing on both new and used cars. Price match guarantee and transparent pricing with no hidden fees.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <svg class="feature-icon" viewBox="0 0 24 24">
+                                <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" fill="currentColor"/>
+                            </svg>
+                            <h3>Expert Support</h3>
+                            <p>Dedicated car experts to guide you through the entire process. Financing options available for all credit types.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials -->
+            <section class="testimonials-section">
+                <h2 class="section-title">What Our Customers Say</h2>
+                <p class="section-subtitle">Hear from satisfied customers who found their perfect car at DriveXPress</p>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">"I bought my first electric car from DriveXPress and the experience was fantastic! The team helped me understand everything about EV charging and range. Highly recommended!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Michael Chen" class="author-avatar">
+                            <div class="author-info">
+                                <h4>Michael Chen</h4>
+                                <p>Purchased Tesla Model S 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">"As a first-time used car buyer, I was nervous about the process. DriveXPress made it so easy with their certification process and financing help. Love my Camry!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616c113a1c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Sarah Johnson" class="author-avatar">
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>Purchased Toyota Camry 2022</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">"The test drive experience was amazing! They brought the car to my home and gave me plenty of time to decide. Ended up buying the BMW i7 and couldn't be happier!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="David Rodriguez" class="author-avatar">
+                            <div class="author-info">
+                                <h4>David Rodriguez</h4>
+                                <p>Purchased BMW i7 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h4>DriveXPress</h4>
+                    <p>Your trusted partner for quality new and used cars. We offer comprehensive services with transparent pricing and customer satisfaction guarantee.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#terms">Terms & Conditions</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="new-cars-link">New Cars</a></li>
+                        <li><a href="#" class="used-cars-link">Used Cars</a></li>
+                        <li><a href="#finance">Finance & Insurance</a></li>
+                        <li><a href="#tradein">Trade-In Valuation</a></li>
+                    </ul>
+                </div>
+            
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="currentColor"/>
+                            </svg>
+                            <span>+94 7713535351</span>
+                        </li>
+                        <li class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg>
+                            <span>info@DriveXPress.ru</span>
+                        </li>
+                        <li class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                            </svg>
+                            <span>123 Auto Mall, Colombo, Sri Lanka</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="footer-divider" />
+            <div class="copyright">
+                    <p>&copy; 2025 DriveXPress. All rights reserved. | Your Journey, Our Priority</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTab = tab.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+            
+            // Footer links to switch tabs
+            document.querySelector('.new-cars-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                document.querySelector('[data-tab="new-cars"]').classList.add('active');
+                document.getElementById('new-cars').classList.add('active');
+                
+                window.scrollTo({
+                    top: document.querySelector('.tabs-section').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+            
+            document.querySelector('.used-cars-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                document.querySelector('[data-tab="used-cars"]').classList.add('active');
+                document.getElementById('used-cars').classList.add('active');
+                
+                window.scrollTo({
+                    top: document.querySelector('.tabs-section').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Filter functionality
+            document.querySelectorAll('.filter-btn.apply').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const activeTab = document.querySelector('.tab-content.active').id;
+                    alert(`Filters applied for ${activeTab.replace('-', ' ')}! This would filter the car listings in a real implementation.`);
+                });
+            });
+            
+            document.querySelectorAll('.filter-btn.reset').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const parent = this.closest('.filter-section');
+                    parent.querySelectorAll('.filter-select').forEach(select => {
+                        select.value = '';
+                    });
+                    alert('Filters reset!');
+                });
+            });
+            
+            // Search functionality
+            document.querySelector('.search-button').addEventListener('click', function() {
+                const searchTerm = document.querySelector('.search-input').value;
+                if (searchTerm) {
+                    alert(`Searching for: "${searchTerm}"\n\nIn a real application, this would search through the car inventory and show matching results.`);
+                } else {
+                    alert('Please enter a search term');
+                }
+            });
+            
+            // View Details buttons
+            document.querySelectorAll('.cta-button:not(.secondary)').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const carTitle = this.closest('.car-card').querySelector('.car-title').textContent;
+                    const carPrice = this.closest('.car-card').querySelector('.car-price').textContent;
+                    alert(`Viewing details for:\n\n${carTitle}\n${carPrice}\n\nIn a real application, this would open a detailed car page with specifications, photos, and contact options.`);
+                });
+            });
+            
+            // Secondary buttons (Test Drive/Contact Seller)
+            document.querySelectorAll('.cta-button.secondary').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const carTitle = this.closest('.car-card').querySelector('.car-title').textContent;
+                    const action = this.textContent;
+                    alert(`${action} for:\n\n${carTitle}\n\nIn a real application, this would open a contact form or schedule a test drive.`);
+                });
+            });
+            
+            // Pagination buttons
+            document.querySelectorAll('.page-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.page-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    
+                    if (!this.textContent.includes('Next')) {
+                        this.classList.add('active');
+                    }
+                    
+                    // In a real app, this would load the corresponding page
+                    if (this.textContent === 'Next') {
+                        alert('Loading next page of results...');
+                    }
+                });
+            });
+            
+            // Add animation to car cards on scroll
+            const carCards = document.querySelectorAll('.car-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            carCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
