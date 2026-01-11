@@ -59,7 +59,7 @@
             display: flex;
             list-style: none;
             flex: 1;
-            margin-left: 20px;
+            margin-left: 100px;
         }
 
         .nav-links li {
@@ -122,4 +122,5 @@
             stroke-linecap: round;
             stroke-linejoin: round;
             fill: none;
+
         }
