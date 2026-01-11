@@ -60,7 +60,7 @@
             display: flex;
             list-style: none;
             flex: 1;
-            margin-left: 20px;
+            margin-left: 100px;
         }
 
         .nav-links li {
@@ -469,5 +469,6 @@
             stroke-width: 1.6;
             fill: none;
         }
+
 
         .contact-item span { display: inline-block; }
