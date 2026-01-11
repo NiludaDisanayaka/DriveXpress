@@ -33,7 +33,7 @@
         }
 
         .logo {
-            background-color: #cbd5e1;
+            background: linear-gradient(135deg, #1a3a52 0%, #1a3a52 100%);
             padding: 20px 30px;
             font-weight: bold;
             color: #333;
@@ -48,6 +48,11 @@
             stroke-linecap: round;
             stroke-linejoin: round;
             fill: none;
+        }
+
+        .logo img {
+            max-width: 50px;
+            height: auto;
         }
 
         .nav-links {
