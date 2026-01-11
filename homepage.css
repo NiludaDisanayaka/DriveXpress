@@ -32,8 +32,8 @@
             width: 100%;
         }
 
-        .logo {
-            background-color: #cbd5e1;
+         .logo {
+            background: linear-gradient(135deg, #1a3a52 0%, #1a3a52 100%);
             padding: 20px 30px;
             font-weight: bold;
             color: #333;
@@ -41,6 +41,12 @@
             align-items: center;
             gap: 10px;
         }
+
+        .logo img {
+            max-width: 50px;
+            height: auto;
+        }
+
 
         .logo-icon {
             stroke: #333;
