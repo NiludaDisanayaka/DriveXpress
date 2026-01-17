@@ -17,6 +17,7 @@
 
 body {
     font-family: Arial, sans-serif;
+     line-height: 1.6;
 }
 footer {
             background: linear-gradient(180deg, var(--footer-bg-1), var(--footer-bg-2));
