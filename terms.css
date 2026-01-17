@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 :root {
-    --nav-dark: #1a3a52;
+    --nav-dark: #112a3d;
     --nav-accent: #cbd5e1;
     --accent: #f59e0b;
     --muted: #6b7280;
@@ -14,7 +14,7 @@
     --footer-bg-2: #0b2030;
 }
 .header {
-            background-color: #1a3a52;
+            background-color: #112a3d;
             padding: 0;
             display: flex;
             justify-content: space-between;
@@ -28,7 +28,7 @@
         }
 
         .logo {
-            background: linear-gradient(135deg, #1a3a52 0%, #1a3a52 100%);
+            background: linear-gradient(135deg, #112a3d 0%, #112a3d 100%);
             padding: 20px 30px;
             font-weight: bold;
             color: #333;
