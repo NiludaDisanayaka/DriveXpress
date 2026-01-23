@@ -30,105 +30,461 @@
         </nav>
     </header>
     <section class="hero-section">
-        <div class="hero-image">
-            <img src="first.jpg">
-            <div class="hero-overlay">
-                <div class="hero-content">
-                    <h1>Find Your Perfect Vehicle Today</h1>
-                    <p class="hero-sub">Quality cars · Trusted service · Great prices</p>
-                    <a class="btn-cta" href="#">Explore Inventory</a>
-                </div>
+        <div class="hero-slideshow">
+            <div class="hero-slide active">
+                <img src="herosection2.jpg" alt="Hero Image 1">
+            </div>
+            <div class="hero-slide">
+                <img src="herosection1.jpg" alt="Hero Image 2">
+            </div>
+            <div class="hero-slide">
+                <img src="herosection15.jpg" alt="Hero Image 3">
+            </div>
+            <div class="hero-slide">
+                <img src="herosection7.jpg" alt="Hero Image 4">
+            </div>
+        </div>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Find Your Perfect Vehicle Today</h1>
+                <p class="hero-sub">Quality cars · Trusted service · Great prices</p>
+                <a class="btn-cta" href="#">Explore Inventory</a>
             </div>
         </div>
     </section>
 
     <section class="featured-section">
-        <h2>Featured Vehicles</h2>
+        <div class="featured-header">
+            <h2>Featured Vehicles</h2>
+            <p class="featured-subtitle">Discover our handpicked selection of premium vehicles, each chosen for exceptional quality, performance, and value</p>
+        </div>
         <div class="featured-grid">
-            <div class="featured-card">
-                <img src="Honda Prius.webp" alt="Vehicle 1">
+            <div class="featured-card" onclick="window.location.href='cardetails.html'">
+                <div class="featured-image-wrapper">
+                    <img src="Honda Prius.webp" alt="Honda Prius">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info">
+                        </div>
+                    </div>
+                </div>
                 <div class="featured-info">
-                    <h3>Honda Prius</h3>
-                    <p class="price">Rs 12,000,000</p>
-                    <p class="specs">2024 • 15K miles • Automatic</p>
+                    <div class="featured-title-section">
+                        <h3>Honda Prius</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item">
+                            <span class="spec-icon">📅</span>
+                            <span>2024 Model</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">🏁</span>
+                            <span>15K miles</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">⚙️</span>
+                            <span>Automatic</span>
+                        </div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 12,000,000</p>
+                            <span class="emi-info">EMI from Rs 180,000/month</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="featured-card">
-                <img src="toyota camri.webp" alt="Vehicle 2">
+            <div class="featured-card" onclick="window.location.href='cardetails.html'">
+                <div class="featured-image-wrapper">
+                    <img src="toyota camri.webp" alt="Toyota Camry">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info">
+                        </div>
+                    </div>
+                </div>
                 <div class="featured-info">
-                    <h3>Toyota Camri</h3>
-                    <p class="price">Rs 10,520,500</p>
-                    <p class="specs">2025 • 8K miles • AWD</p>
+                    <div class="featured-title-section">
+                        <h3>Toyota Camry</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item">
+                            <span class="spec-icon">📅</span>
+                            <span>2025 Model</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">🏁</span>
+                            <span>8K miles</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">⚙️</span>
+                            <span>AWD</span>
+                        </div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 10,520,500</p>
+                            <span class="emi-info">EMI from Rs 158,000/month</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="featured-card">
-                <img src="Toyota Corolla.webp" alt="Vehicle 3">
+            <div class="featured-card" onclick="window.location.href='cardetails.html'">
+                <div class="featured-image-wrapper">
+                    <img src="Toyota Corolla.webp" alt="Toyota Corolla">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info">
+                        </div>
+                    </div>
+                </div>
                 <div class="featured-info">
-                    <h3>Toyota Corolla</h3>
-                    <p class="price">Rs 17,520,500</p>
-                    <p class="specs">2026 • 22K miles • Automatic</p>
+                    <div class="featured-title-section">
+                        <h3>Toyota Corolla</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item">
+                            <span class="spec-icon">📅</span>
+                            <span>2026 Model</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">🏁</span>
+                            <span>22K miles</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">⚙️</span>
+                            <span>Automatic</span>
+                        </div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 17,520,500</p>
+                            <span class="emi-info">EMI from Rs 263,000/month</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="featured-card">
-                <img src="Mitsubishi Outlander.webp" alt="Vehicle 4">
+            <div class="featured-card" onclick="window.location.href='cardetails.html'">
+                <div class="featured-image-wrapper">
+                    <img src="Mitsubishi Outlander.webp" alt="Mitsubishi Outlander">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info">
+                        </div>
+                    </div>
+                </div>
                 <div class="featured-info">
-                    <h3>Mitsubishi Outlander</h3>
-                    <p class="price">Rs 10,520,500</p>
-                    <p class="specs">2025 • 8K miles • AWD</p>
+                    <div class="featured-title-section">
+                        <h3>Mitsubishi Outlander</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item">
+                            <span class="spec-icon">📅</span>
+                            <span>2025 Model</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">🏁</span>
+                            <span>8K miles</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">⚙️</span>
+                            <span>AWD</span>
+                        </div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 10,520,500</p>
+                            <span class="emi-info">EMI from Rs 158,000/month</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="featured-card">
-                <img src="Nissan Pathfinder.webp" alt="Vehicle 5">
+            <div class="featured-card" onclick="window.location.href='cardetails.html'">
+                <div class="featured-image-wrapper">
+                    <img src="Nissan Pathfinder.webp" alt="Nissan Pathfinder">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info">
+                        </div>
+                    </div>
+                </div>
                 <div class="featured-info">
-                    <h3>Nissan Pathfinder</h3>
-                    <p class="price">Rs 20,520,500</p>
-                    <p class="specs">2025 • 42K miles • AWD</p>
+                    <div class="featured-title-section">
+                        <h3>Nissan Pathfinder</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item">
+                            <span class="spec-icon">📅</span>
+                            <span>2025 Model</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">🏁</span>
+                            <span>42K miles</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">⚙️</span>
+                            <span>AWD</span>
+                        </div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 20,520,500</p>
+                            <span class="emi-info">EMI from Rs 308,000/month</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="featured-card">
-                <img src="Hyundai Santa.webp" alt="Vehicle 6">
+            <div class="featured-card" onclick="window.location.href='cardetails.html'">
+                <div class="featured-image-wrapper">
+                    <img src="Hyundai Santa.webp" alt="Hyundai Santa Fe">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info">
+                        </div>
+                    </div>
+                </div>
                 <div class="featured-info">
-                    <h3>Hyundai Santa Fe</h3>
-                    <p class="price">Rs 80,520,500</p>
-                    <p class="specs">2025 • 4K miles • AWD</p>
+                    <div class="featured-title-section">
+                        <h3>Hyundai Santa Fe</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item">
+                            <span class="spec-icon">📅</span>
+                            <span>2025 Model</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">🏁</span>
+                            <span>4K miles</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">⚙️</span>
+                            <span>AWD</span>
+                        </div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 80,520,500</p>
+                            <span class="emi-info">EMI from Rs 1,208,000/month</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="featured-card">
-                <img src="paught 3008.jpg" alt="Vehicle 7">
+            <div class="featured-card" onclick="window.location.href='cardetails.html'">
+                <div class="featured-image-wrapper">
+                    <img src="paught 3008.jpg" alt="Peugeot 3008">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info">
+                        </div>
+                    </div>
+                </div>
                 <div class="featured-info">
-                    <h3>Peugeot 3008</h3>
-                    <p class="price">Rs 100,520,500</p>
-                    <p class="specs">2025 • 8K miles • AWD</p>
+                    <div class="featured-title-section">
+                        <h3>Peugeot 3008</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item">
+                            <span class="spec-icon">📅</span>
+                            <span>2025 Model</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">🏁</span>
+                            <span>8K miles</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">⚙️</span>
+                            <span>AWD</span>
+                        </div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 100,520,500</p>
+                            <span class="emi-info">EMI from Rs 1,508,000/month</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="featured-card">
-                <img src="BYD Tang.jpg" alt="Vehicle 8">
+            <div class="featured-card" onclick="window.location.href='cardetails.html'">
+                <div class="featured-image-wrapper">
+                    <img src="BYD Tang.jpg" alt="BYD Tang">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info">
+                        </div>
+                    </div>
+                </div>
                 <div class="featured-info">
-                    <h3>BYD Tang</h3>
-                    <p class="price">Rs 80,520,500</p>
-                    <p class="specs">2025 • 4K miles • AWD</p>
+                    <div class="featured-title-section">
+                        <h3>BYD Tang</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item">
+                            <span class="spec-icon">📅</span>
+                            <span>2025 Model</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">🏁</span>
+                            <span>4K miles</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">⚙️</span>
+                            <span>AWD</span>
+                        </div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 80,520,500</p>
+                            <span class="emi-info">EMI from Rs 1,208,000/month</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-           
     </section>
 
     <section class="bookings-section">
         <h2>Quick Bookings</h2>
-        <div class="bookings-grid">
-            <div class="booking-card" style="background-image: url('book\ a\ vehicle.jpg');">
-                <div class="booking-overlay">
+        <div class="bookings-text">
+            <div class="booking-item" onclick="window.location.href='cardetails.html'">
+                <div class="booking-icon">
+                    <svg viewBox="0 0 24 24" width="32" height="32">
+                        <path d="M5 17h14v2H5v-2zm7-12l5 5H7l5-5zm0 4l-5 5h10l-5-5z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="booking-content">
                     <h3>Book a Vehicle</h3>
+                    <p>Explore our comprehensive collection of new and pre-owned vehicles. Our extensive inventory includes a wide range of makes and models to suit every budget and preference. Get expert guidance from our knowledgeable staff and enjoy flexible financing options to make your dream car a reality.</p>
+                    <div class="booking-features">
+                        <span class="feature-tag">✓ Extensive Inventory</span>
+                        <span class="feature-tag">✓ Expert Guidance</span>
+                        <span class="feature-tag">✓ Flexible Financing</span>
+                    </div>
+                </div>
+                <div class="booking-arrow">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" fill="currentColor"/>
+                    </svg>
                 </div>
             </div>
-            <div class="booking-card" style="background-image: url('Test\ drive.jpg');">
-                <div class="booking-overlay">
-                    <h3>Test Drive</h3>
+            <div class="booking-item" onclick="window.location.href='book a test drive.html'">
+                <div class="booking-icon">
+                    <svg viewBox="0 0 24 24" width="32" height="32">
+                        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="booking-content">
+                    <h3>Test Drive Experience</h3>
+                    <p>Experience the thrill of driving your potential new vehicle before making a commitment. Our professional test drive routes are designed to showcase each car's handling, comfort, and performance in real-world conditions. Learn about advanced safety features and performance capabilities firsthand.</p>
+                        <div class="booking-features">
+                        <span class="feature-tag">✓ Professional Routes</span>
+                        <span class="feature-tag">✓ Safety Feature Demo</span>
+                        <span class="feature-tag">✓ Performance Testing</span>
+                    </div>
+                </div>
+                <div class="booking-arrow">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" fill="currentColor"/>
+                    </svg>
                 </div>
             </div>
-            <div class="booking-card" style="background-image: url('services.jpg');">
-                <div class="booking-overlay">
-                    <h3>Services</h3>
+            <div class="booking-item" onclick="window.location.href='services overview.html'">
+                <div class="booking-icon">
+                    <svg viewBox="0 0 24 24" width="32" height="32">
+                        <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="booking-content">
+                    <h3>Professional Services</h3>
+                    <p>Keep your vehicle in top condition with our comprehensive professional services. From routine maintenance to complex repairs, our certified technicians use genuine parts and advanced diagnostics to ensure your vehicle performs at its best. All services come with warranty coverage for your peace of mind.</p>
+                    <div class="booking-features">
+                        <span class="feature-tag">✓ Certified Technicians</span>
+                        <span class="feature-tag">✓ Genuine Parts</span>
+                        <span class="feature-tag">✓ Warranty Backed</span>
+                    </div>
+                </div>
+                <div class="booking-arrow">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" fill="currentColor"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="finance-insurance-section">
+        <div class="finance-insurance-header">
+            <h2>Finance & Insurance</h2>
+            <p class="finance-insurance-subtitle">Comprehensive financial solutions and insurance coverage to protect your investment and make ownership hassle-free</p>
+        </div>
+        <div class="finance-insurance-grid">
+            <div class="finance-insurance-card">
+                <div class="finance-insurance-image-wrapper">
+                    <img src="services.jpg" alt="Car Finance">
+                    <div class="finance-insurance-overlay">
+                        <div class="finance-insurance-badge">Popular</div>
+                    </div>
+                </div>
+                <div class="finance-insurance-content">
+                    <div class="finance-insurance-icon">
+                        <svg viewBox="0 0 24 24" width="48" height="48">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Car Financing</h3>
+                    <p>Get approved for competitive auto loans with flexible terms and low interest rates. Our financing experts work with multiple lenders to find the best rates for your budget.</p>
+                    <ul class="finance-insurance-features">
+                        <li>✓ Low Interest Rates</li>
+                        <li>✓ Flexible Terms (1-7 years)</li>
+                        <li>✓ Quick Approval Process</li>
+                        <li>✓ No Hidden Fees</li>
+                    </ul>
+                    <div class="finance-insurance-cta">
+                        <button class="btn-finance-insurance">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="finance-insurance-card">
+                <div class="finance-insurance-image-wrapper">
+                    <img src="services.jpg" alt="Vehicle Insurance">
+                    <div class="finance-insurance-overlay">
+                        <div class="finance-insurance-badge">Essential</div>
+                    </div>
+                </div>
+                <div class="finance-insurance-content">
+                    <div class="finance-insurance-icon">
+                        <svg viewBox="0 0 24 24" width="48" height="48">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Vehicle Insurance</h3>
+                    <p>Protect your vehicle and yourself with comprehensive insurance coverage. Choose from multiple providers to find the perfect policy that fits your needs and budget.</p>
+                    <ul class="finance-insurance-features">
+                        <li>✓ Comprehensive Coverage</li>
+                        <li>✓ Third-Party Liability</li>
+                        <li>✓ 24/7 Roadside Assistance</li>
+                        <li>✓ Theft Protection</li>
+                    </ul>
+                    <div class="finance-insurance-cta">
+                        <button class="btn-finance-insurance">Get Quote</button>
+                    </div>
+                </div>
+            </div>
+            <div class="finance-insurance-card">
+                <div class="finance-insurance-image-wrapper">
+                    <img src="services.jpg" alt="Extended Warranty">
+                    <div class="finance-insurance-overlay">
+                        <div class="finance-insurance-badge">Optional</div>
+                    </div>
+                </div>
+                <div class="finance-insurance-content">
+                    <div class="finance-insurance-icon">
+                        <svg viewBox="0 0 24 24" width="48" height="48">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Extended Warranty</h3>
+                    <p>Extend your peace of mind with our extended warranty plans. Get additional coverage beyond the manufacturer's warranty for major repairs and breakdowns.</p>
+                    <ul class="finance-insurance-features">
+                        <li>✓ Powertrain Coverage</li>
+                        <li>✓ Major Component Protection</li>
+                        <li>✓ Nationwide Coverage</li>
+                        <li>✓ Transferable Plans</li>
+                    </ul>
+                    <div class="finance-insurance-cta">
+                        <button class="btn-finance-insurance">Learn More</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -191,6 +547,32 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                });
+                slides[index].classList.add('active');
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            // Start automatic slideshow
+            setInterval(nextSlide, 4000);
+
+            // Initialize first slide
+            showSlide(0);
+        });
+    </script>
 </body>
 </html>
 
