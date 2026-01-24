@@ -3,42 +3,14 @@
 <head>
 <title>Finance Options</title>
 
+<!-- Add Font for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
     body{
         margin:0;
         font-family: Arial, Helvetica, sans-serif;
         background:#f1f1f1;
-    }
-
-    .container{
-        width:85%;
-        margin:30px auto;
-    }
-
-    h3{
-        margin-top:30px;
-    }
-
-    .box{
-        background:#ddd;
-        padding:15px 20px;
-        margin:10px 0;
-        border-radius:4px;
-    }
-
-    .button{
-        display:block;
-        margin:40px auto;
-        background:#ddd;
-        padding:12px 25px;
-        border:none;
-        cursor:pointer;
-        font-size:16px;
-        border-radius:4px;
-    }
-
-    .button:hover{
-        background:#c5c5c5;
     }
 
     .profile{
@@ -50,10 +22,255 @@
         background:lightgray;
         border-radius:50%;
     }
+
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        width: 90%;
+        margin: 30px auto;
+        max-width: 1200px;
+    }
+
+    .content-section {
+        flex: 3;
+        min-width: 300px;
+    }
+
+    .finance-side-section {
+        flex: 2;
+        min-width: 300px;
+        background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+        border-radius: 12px;
+        padding: 30px;
+        color: white;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .finance-side-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(41, 128, 185, 0.85);
+        border-radius: 12px;
+    }
+
+    .finance-side-section > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .finance-side-section h2 {
+        font-size: 28px;
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: white;
+    }
+
+    .finance-side-section .subtitle {
+        font-size: 16px;
+        opacity: 0.95;
+        margin-bottom: 30px;
+        font-weight: 500;
+    }
+
+    .finance-features {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 30px;
+    }
+
+    .finance-features li {
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.25);
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .finance-features li:last-child {
+        border-bottom: none;
+    }
+
+    .finance-icon {
+        color: #2980b9;
+        font-size: 22px;
+        background: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .finance-text strong {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 8px;
+        color: white;
+    }
+
+    .finance-text p {
+        margin: 0;
+        opacity: 0.9;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .finance-benefits {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        padding: 20px;
+        margin: 25px 0;
+        backdrop-filter: blur(5px);
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+        padding: 8px 0;
+    }
+
+    .benefit-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .benefit-icon {
+        color: #2ecc71;
+        font-size: 18px;
+    }
+
+    .finance-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: white;
+        color: #2980b9;
+        padding: 18px 35px;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        width: 100%;
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .finance-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        background: #f0f8ff;
+        color: #1a5276;
+    }
+
+    .signin-link {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 16px;
+    }
+
+    .signin-link a {
+        color: #aed6f1;
+        text-decoration: none;
+        font-weight: bold;
+        border-bottom: 1px solid #aed6f1;
+        padding-bottom: 2px;
+    }
+
+    .signin-link a:hover {
+        color: white;
+        border-bottom-color: white;
+    }
+
+    h3{
+        margin-top:30px;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 8px;
+        font-size: 24px;
+    }
+
+    .box{
+        background:#fff;
+        padding:20px 25px;
+        margin:15px 0;
+        border-radius:8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-left: 5px solid #3498db;
+    }
+
+    .box ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .box li {
+        padding: 15px 0;
+        border-bottom: 1px dashed #e0e0e0;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 17px;
+    }
+
+    .box li:last-child {
+        border-bottom: none;
+    }
+
+    .check-icon {
+        color: #3498db;
+        font-size: 20px;
+        width: 28px;
+        text-align: center;
+    }
+
+    .button{
+        display:block;
+        margin:50px auto;
+        background:#3498db;
+        color: white;
+        padding:16px 35px;
+        border:none;
+        cursor:pointer;
+        font-size:18px;
+        border-radius:6px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+        max-width: 320px;
+    }
+
+    .button:hover{
+        background:#2980b9;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
+    }
+
+    }
 </style>
     
-    <link rel="stylesheet" href="footer.css">
-    <link rel="stylesheet" href="navigation3.css">
+<link rel="stylesheet" href="navigation3.css">
+<link rel="stylesheet" href="footer.css">
     
 </head>
 
@@ -63,7 +280,7 @@
         <nav class="nav">
             <div class="logo">
                 <a href="HTML/homepage.html">
-                    <img src= "C:\Users\nilud\Desktop\project\wireframes\logo\DriveXPress1crop.png"alt="DriveXPress Logo" class="logo-icon">
+                    <img src="logo.webp.png" alt="DriveXPress Logo" class="logo-icon">
                 </a>
             </div>
             <ul class="nav-links">
@@ -71,7 +288,6 @@
                 <li><a href="#">Insurance Options</a></li>
                 <li><a href="#">Apply</a></li>
                 <li><a href="#">EMI Calculator</a></li>
-               
             </ul>
             <div class="user-icon">
                 <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
@@ -83,38 +299,108 @@
 
 <div class="profile"></div>
 
-<div class="container">
-    <h3>Loan plans</h3>
-    <div class="box">
-        <ul>
-            <li>Bank Financing</li>
-            <li>Dealer Financing</li>
-            <li>Leasing options</li>
-        </ul>
+<div class="main-container">
+    
+    <div class="content-section">
+        <h3>Loan plans</h3>
+        <div class="box">
+            <ul>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Bank Financing</strong> - Competitive rates from partner banks</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Dealer Financing</strong> - In-house financing options</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Leasing options</strong> - Flexible lease terms available</li>
+            </ul>
+        </div>
+
+        <h3>Eligibility requirements</h3>
+        <div class="box">
+            <ul>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Income requirements</strong> - Minimum monthly income criteria</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Documents needed</strong> - ID, proof of income, and address verification</li>
+            </ul>
+        </div>
+
+        <h3>Advantages</h3>
+        <div class="box">
+            <ul>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Low interest plans</strong> - Starting from 7.9% APR</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Easy approval process</strong> - Quick decision within 24 hours</li>
+            </ul>
+        </div>
+
+        <button class="button" onclick="applyFinance()">Apply for Finance</button>
     </div>
 
-    <h3>Eligibility requirements</h3>
-    <div class="box">
-        <ul>
-            <li>Income requirements</li>
-            <li>Documents needed</li>
+    <!-- Right Finance Benefits Section -->
+    <div class="finance-side-section">
+        <h2>Financing</h2>
+        <p class="subtitle">Prequalify now</p>
+        
+        <ul class="finance-features">
+            <li>
+                <div class="finance-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="finance-text">
+                    <strong>Real rates, real monthly payment</strong>
+                    <p>See your personalized rate from our network of lenders.</p>
+                </div>
+            </li>
+            <li>
+                <div class="finance-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="finance-text">
+                    <strong>No impact to your credit</strong>
+                    <p>Prequalification with our lenders will not affect your credit score.</p>
+                </div>
+            </li>
+            <li>
+                <div class="finance-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="finance-text">
+                    <strong>It only takes a few minutes</strong>
+                    <p>Answer a few basic questions and instantly see your personalized results.</p>
+                </div>
+            </li>
         </ul>
+        
+        <div class="finance-benefits">
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>No application fees</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>Flexible repayment terms</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>Early repayment options</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>Online account management</span>
+            </div>
+        </div>
+        
+        <a href="#" class="finance-btn" onclick="getPrequalified()">
+            <i class="fas fa-rocket"></i> Get prequalified
+        </a>
+        
+        <p class="signin-link">
+            Already prequalified? <a href="#">Sign in to continue</a>
+        </p>
     </div>
-
-    <h3>Advantages</h3>
-    <div class="box">
-        <ul>
-            <li>Low interest plans</li>
-            <li>Easy approval process</li>
-        </ul>
-    </div>
-
-    <button class="button" onclick="applyFinance()">Apply for Finance</button>
 </div>
 
 <script>
 function applyFinance(){
     alert("Finance application form not implemented yet!");
+}
+
+function getPrequalified(){
+    alert("Prequalification feature not implemented yet!");
 }
 </script>
     
@@ -132,7 +418,6 @@ function applyFinance(){
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#terms">Terms</a></li>
                         <li><a href="#Privacy">Privacy</a></li>
-
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -143,7 +428,6 @@ function applyFinance(){
                         <li><a href="#finance">Finance & Insurance</a></li>
                     </ul>
                 </div>
-            
                 <div class="footer-column">
                     <h4>Contact Info</h4>
                     <ul class="footer-links">
