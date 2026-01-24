@@ -320,8 +320,6 @@
                 <li><i class="fas fa-check-circle check-icon"></i><strong>Roadside assistance</strong> - 24/7 help for breakdowns and emergencies</li>
             </ul>
         </div>
-
-        <button class="button" onclick="getInsurance()">Get Insurance Quote</button>
     </div>
 
     <!-- Right Insurance Benefits Section -->
