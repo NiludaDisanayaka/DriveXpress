@@ -1,0 +1,432 @@
+<!doctype html>
+<html>
+<head>
+  <title>Car Reviews</title>
+  <style>
+    :root{
+      --bg: #f3f5f7;
+      --primary: #1f6fb3;
+      --muted: #9aa3ab;
+      --card: #ffffff;
+      --accent: #b98f8f; 
+      --accent-2: rgba(185,143,143,0.08);
+      --radius: 12px;
+      --maxw: 1100px;
+      --gap: 20px;
+      --text: #222;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .page {
+      max-width: var(--maxw);
+      margin: 36px auto;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.05);
+      background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
+      border-radius: 6px;
+      overflow: hidden;
+      padding: 28px;
+    }
+
+    /* Top hero / search area */
+    .hero {
+      background: linear-gradient(#eef2f4, #f7f8f9);
+      padding: 40px 28px;
+      border-radius: 6px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero h1{
+      margin: 0 0 12px;
+      font-size: 20px;
+      letter-spacing: 0.2px;
+      color: #333;
+      font-weight: 600;
+    }
+    .hero p{
+      margin:0 0 22px;
+      color:var(--muted);
+      font-size: 14px;
+    }
+
+    /* Search card */
+    .search-card{
+      width: clamp(320px, 78%, 760px);
+      margin: 0 auto;
+      background: var(--accent);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    }
+
+    .search-row{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .select, .search-input{
+      min-width: 140px;
+      flex: 1 1 140px;
+    }
+
+    label{
+      font-size: 12px;
+      color: #3f2f2f;
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
+    }
+
+    select, input[type="text"]{
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border: none;
+      outline: none;
+      font-size:14px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+      background: white;
+    }
+
+    .search-button{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 14px;
+      border: none;
+      cursor:pointer;
+      min-width: 88px;
+      justify-content:center;
+      font-weight:700;
+      letter-spacing:0.2px;
+    }
+
+    /* section heading */
+    .section-head{
+      margin: 28px 8px 14px;
+      font-size:16px;
+      font-weight:600;
+      color:#333;
+    }
+    
+    /* grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--gap);
+      padding: 8px;
+    }
+
+    .card{
+      background: var(--card);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(15,20,25,0.04);
+      display:flex;
+      flex-direction:column;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .card:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 18px 30px rgba(15,20,25,0.08);
+    }
+
+    .card img{
+      width:100%;
+      height:150px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .card-body{
+      padding:12px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex:1;
+    }
+
+    .meta{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .title{
+      font-size:15px;
+      font-weight:700;
+      color:#111;
+      margin:0;
+      line-height:1.2;
+    }
+
+    .excerpt{
+      font-size:13px;
+      color:#555;
+      margin-top:6px;
+      flex:1;
+    }
+
+    /* small layout adjustments */
+    @media (max-width:520px){
+      .search-row { gap:8px; }
+      .search-button{ min-width:72px; padding:8px 10px; }
+      .card img { height:130px; }
+    }
+
+    /* tiny utility */
+    .row { display:flex; gap:12px; align-items:center; }
+    .chip {
+      font-size:12px;
+      padding:6px 8px;
+      border-radius:999px;
+      background:var(--accent-2);
+      color:#4a2d2d;
+      font-weight:600;
+    }
+  </style>
+    <link rel="stylesheet" href="navigation palat.css">
+    <link rel="stylesheet" href="footer.css">
+</head>
+<body>
+    
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span>DriveXPress</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">New cars</a></li>
+                <li><a href="#">Used cars</a></li>
+                <li><a href="#">Car reviews</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Finance & Insurance</a></li>
+            </ul>
+            <div class="user-icon">
+                <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+                </svg>
+            </div>
+        </nav>
+    </header>
+    
+  <main class="page" role="main" aria-labelledby="pageTitle">
+
+    <!-- HERO + SEARCH -->
+    <section class="hero" aria-label="Search car reviews">
+      <h1 id="pageTitle">Car news and reviews</h1>
+      <p>Find the latest reviews, safety tech, and guides — filter by make and model or search for topics.</p>
+
+      <div class="search-card" role="region" aria-label="Search filters">
+        <form id="searchForm" class="search-row" onsubmit="event.preventDefault(); performSearch();">
+          <div class="select" style="min-width:140px;">
+            <label for="make">Make</label>
+            <select id="make" name="make" aria-label="Select make">
+              <option value="">Any</option>
+              <option value="bmw">BMW</option>
+              <option value="audi">Audi</option>
+              <option value="tesla">Tesla</option>
+              <option value="toyota">Toyota</option>
+            </select>
+          </div>
+
+          <div class="select" style="min-width:140px;">
+            <label for="model">Model</label>
+            <select id="model" name="model" aria-label="Select model">
+              <option value="">Any</option>
+              <option value="3series">3 Series</option>
+              <option value="s-class">S-Class</option>
+              <option value="model3">Model 3</option>
+            </select>
+          </div>
+
+          <div class="search-input" style="flex:2 1 220px;">
+            <label for="q">Search</label>
+            <input id="q" type="text" placeholder="Search reviews, safety, technology..." />
+          </div>
+
+          <div style="flex:0 0 auto;">
+            <button class="search-button" type="submit" aria-label="Search">
+              🔍 Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECTION: Cards -->
+    <h2 class="section-head">Car guides & news</h2>
+
+    <section class="grid" id="cardsContainer" aria-live="polite">
+      <!-- Example cards. Replace image URLs and text with real data. -->
+      <article class="card" data-make="bmw">
+        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=60" alt="White BMW parked under lights">
+        <div class="card-body">
+          <div class="meta">Car reviews • Jan 2025</div>
+          <h3 class="title">2025 Lexus Showdown: Top 5 Family Cars Reviewed</h3>
+          <p class="excerpt">An in-depth look at reliability, comfort and safety features across the newest family-friendly sedans.</p>
+        </div>
+      </article>
+
+      <article class="card" data-make="tesla">
+        <img src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=60" alt="Car interior dashboard closeup">
+        <div class="card-body">
+          <div class="meta">Tech • Feb 2025</div>
+          <h3 class="title">Electric Revolution: Latest EVs Changing the Market</h3>
+          <p class="excerpt">From charging speed to battery management — what buyers should expect from the next-gen EVs.</p>
+        </div>
+      </article>
+
+      <article class="card" data-make="audi">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=60" alt="Closeup of car infotainment screen">
+        <div class="card-body">
+          <div class="meta">Safety • Mar 2025</div>
+          <h3 class="title">Smart Technology: Advanced Safety Features Explained</h3>
+          <p class="excerpt">A buyer's guide to lane assist, adaptive cruise and driver monitoring systems—what works, what doesn't.</p>
+        </div>
+      </article>
+
+      <article class="card" data-make="toyota">
+        <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1200&q=60" alt="City street with car driving">
+        <div class="card-body">
+          <div class="meta">Buying guides • Apr 2025</div>
+          <h3 class="title">Ten Tiny Repairs: A Guide to Maintenance Costs</h3>
+          <p class="excerpt">Practical tips on the small repairs that add up — and how to minimize ownership costs over time.</p>
+        </div>
+      </article>
+
+      <article class="card" data-make="bmw">
+        <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1200&q=60" alt="Black luxury car profile">
+        <div class="card-body">
+          <div class="meta">Comparison • May 2025</div>
+          <h3 class="title">2025 vs 2024 Sedan Matchup: What's Right for You?</h3>
+          <p class="excerpt">We compare trims, tech and total cost of ownership to help you choose the right model year.</p>
+        </div>
+      </article>
+
+      <article class="card" data-make="audi">
+        <img src="https://images.unsplash.com/photo-1471478337419-8b6b7f3f1f3e?auto=format&fit=crop&w=1200&q=60" alt="Overview of car wheel and side">
+        <div class="card-body">
+          <div class="meta">Reviews • Jun 2025</div>
+          <h3 class="title">How Interior Materials Affect Comfort and Longevity</h3>
+          <p class="excerpt">Leather vs cloth vs synthetic — which interior will serve long-term owners best?</p>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <script>
+    // Simple client-side search / filter logic
+    function performSearch() {
+      const make = document.getElementById('make').value.toLowerCase();
+      const model = document.getElementById('model').value.toLowerCase();
+      const q = document.getElementById('q').value.trim().toLowerCase();
+
+      const cards = Array.from(document.querySelectorAll('#cardsContainer .card'));
+
+      cards.forEach(card => {
+        const title = card.querySelector('.title').textContent.toLowerCase();
+        const excerpt = card.querySelector('.excerpt') ? card.querySelector('.excerpt').textContent.toLowerCase() : '';
+        const cardMake = (card.getAttribute('data-make') || '').toLowerCase();
+
+        // Filter by make if selected
+        let visible = true;
+        if (make && make !== '') {
+          visible = cardMake === make;
+        }
+
+        // Filter by model if selected (example: dataset doesn't have models; adjust if you add them)
+        if (visible && model && model !== '') {
+          // in a real dataset you'd compare card.dataset.model
+          visible = title.includes(model) || excerpt.includes(model);
+        }
+
+        // Text search across title and excerpt
+        if (visible && q) {
+          visible = (title + ' ' + excerpt).includes(q);
+        }
+
+        card.style.display = visible ? '' : 'none';
+      });
+    }
+
+    // Optional: show all initially; attach enter key to search input
+    document.getElementById('q').addEventListener('keydown', function(e){
+      if (e.key === 'Enter') { e.preventDefault(); performSearch(); }
+    });
+
+    // If you later populate cards dynamically, re-run performSearch() after loading.
+  </script>
+    
+     <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h4>DriveXPress</h4>
+                    <p>Your trusted partner for quality used cars in DriveXPress.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#terms">Terms</a></li>
+                        <li><a href="#Privacy">Privacy</a></li>
+
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#newcars">New cars</a></li>
+                        <li><a href="#usedcars">Used cars</a></li>
+                        <li><a href="#finance">Finance & Insurance</a></li>
+                    </ul>
+                </div>
+            
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="currentColor"/>
+                            </svg>
+                            <span>+94 7713535351</span>
+                        </li>
+                        <li class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg>
+                            <span>info@DriveXPress.ru</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="footer-divider" />
+            <div class="copyright">
+                    <p>&copy; 2025 DriveXPress. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
