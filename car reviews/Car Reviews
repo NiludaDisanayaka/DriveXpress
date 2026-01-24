@@ -76,7 +76,7 @@
       justify-content:center;
     }
 
-    .select, .search-input{
+    .select{
       min-width: 140px;
       flex: 1 1 140px;
     }
@@ -207,16 +207,14 @@
     <header class="header">
         <nav class="nav">
             <div class="logo">
-                <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                    <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
-                <span>DriveXPress</span>
+                <a href="HTML/homepage.html">
+                    <img src= "logo_webp.png"alt="DriveXPress Logo" class="logo-icon">
+                </a>
             </div>
             <ul class="nav-links">
-                <li><a href="#">New cars</a></li>
-                <li><a href="#">Used cars</a></li>
-                <li><a href="#">Car reviews</a></li>
+                <li><a href="#">New Cars</a></li>
+                <li><a href="#">Used Cars</a></li>
+                <li><a href="#">Car Reviews</a></li>
                 <li><a href="#">Services</a></li>
                 <li><a href="#">Finance & Insurance</a></li>
             </ul>
@@ -230,7 +228,7 @@
     
   <main class="page" role="main" aria-labelledby="pageTitle">
 
-    <!-- HERO + SEARCH -->
+    <!--SEARCH -->
     <section class="hero" aria-label="Search car reviews">
       <h1 id="pageTitle">Car news and reviews</h1>
       <p>Find the latest reviews, safety tech, and guides — filter by make and model or search for topics.</p>
@@ -240,29 +238,43 @@
           <div class="select" style="min-width:140px;">
             <label for="make">Make</label>
             <select id="make" name="make" aria-label="Select make">
-              <option value="">Any</option>
-              <option value="bmw">BMW</option>
-              <option value="audi">Audi</option>
-              <option value="tesla">Tesla</option>
-              <option value="toyota">Toyota</option>
+              <option value="any">Any</option>
+                        <option value="toyota">Toyota</option>
+                        <option value="suzuki">Suzuki</option>
+                        <option value="mitsubishi">Mitsubishi</option>
+                        <option value="honda">Honda</option>
+                        <option value="nissan">Nissan</option>
+                        <option value="mg">MG</option>
+                        <option value="byd">BYD</option>
             </select>
           </div>
 
           <div class="select" style="min-width:140px;">
             <label for="model">Model</label>
             <select id="model" name="model" aria-label="Select model">
-              <option value="">Any</option>
-              <option value="3series">3 Series</option>
-              <option value="s-class">S-Class</option>
-              <option value="model3">Model 3</option>
+              <option value="any">Any</option>
+                        <option value="aqua">Aqua</option>
+                        <option value="swift">Swift</option>
+                        <option value="corolla">Corolla</option>
+                        <option value="vezel">Vezel</option>
+                        <option value="montero">Montero</option>
+                        <option value="city">City</option>
             </select>
           </div>
 
-          <div class="search-input" style="flex:2 1 220px;">
-            <label for="q">Search</label>
-            <input id="q" type="text" placeholder="Search reviews, safety, technology..." />
+            <div class="select" style="min-width:140px;">
+            <label for="year"> Year</label>
+            <select id="year" name="year" aria-label="Select year">
+              <option value="any">Any</option>
+                        <option value="2026">2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+            </select>
           </div>
-
+            
           <div style="flex:0 0 auto;">
             <button class="search-button" type="submit" aria-label="Search">
               🔍 Search
@@ -272,13 +284,13 @@
       </div>
     </section>
 
-    <!-- SECTION: Cards -->
+   
     <h2 class="section-head">Car guides & news</h2>
 
     <section class="grid" id="cardsContainer" aria-live="polite">
-      <!-- Example cards. Replace image URLs and text with real data. -->
+     
       <article class="card" data-make="bmw">
-        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=60" alt="White BMW parked under lights">
+        <img src="photo-1511919884226-fd3cad34687c.avif" alt="White BMW parked under lights">
         <div class="card-body">
           <div class="meta">Car reviews • Jan 2025</div>
           <h3 class="title">2025 Lexus Showdown: Top 5 Family Cars Reviewed</h3>
@@ -287,7 +299,7 @@
       </article>
 
       <article class="card" data-make="tesla">
-        <img src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=60" alt="Car interior dashboard closeup">
+        <img src="photo-1503736334956-4c8f8e92946d.avif" alt="Car interior dashboard closeup">
         <div class="card-body">
           <div class="meta">Tech • Feb 2025</div>
           <h3 class="title">Electric Revolution: Latest EVs Changing the Market</h3>
@@ -296,7 +308,7 @@
       </article>
 
       <article class="card" data-make="audi">
-        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=60" alt="Closeup of car infotainment screen">
+        <img src="photo-1503376780353-7e6692767b70.avif" alt="Closeup of car infotainment screen">
         <div class="card-body">
           <div class="meta">Safety • Mar 2025</div>
           <h3 class="title">Smart Technology: Advanced Safety Features Explained</h3>
@@ -305,7 +317,7 @@
       </article>
 
       <article class="card" data-make="toyota">
-        <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1200&q=60" alt="City street with car driving">
+        <img src="photo-1549924231-f129b911e442.avif" alt="City street with car driving">
         <div class="card-body">
           <div class="meta">Buying guides • Apr 2025</div>
           <h3 class="title">Ten Tiny Repairs: A Guide to Maintenance Costs</h3>
@@ -314,7 +326,7 @@
       </article>
 
       <article class="card" data-make="bmw">
-        <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1200&q=60" alt="Black luxury car profile">
+        <img src="photo-1493238792000-8113da705763.avif" alt="Black luxury car profile">
         <div class="card-body">
           <div class="meta">Comparison • May 2025</div>
           <h3 class="title">2025 vs 2024 Sedan Matchup: What's Right for You?</h3>
@@ -323,7 +335,7 @@
       </article>
 
       <article class="card" data-make="audi">
-        <img src="https://images.unsplash.com/photo-1471478337419-8b6b7f3f1f3e?auto=format&fit=crop&w=1200&q=60" alt="Overview of car wheel and side">
+        <img src="leather-vs-cloth-in-cars-5eb3d407a13ef.avif">
         <div class="card-body">
           <div class="meta">Reviews • Jun 2025</div>
           <h3 class="title">How Interior Materials Affect Comfort and Longevity</h3>
@@ -335,7 +347,7 @@
   </main>
 
   <script>
-    // Simple client-side search / filter logic
+    
     function performSearch() {
       const make = document.getElementById('make').value.toLowerCase();
       const model = document.getElementById('model').value.toLowerCase();
