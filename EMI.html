@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html >
+<head>
+   
+    <title>EMI Calculator</title>
+    
+    <link rel="stylesheet" href="EMI.css">
+</head>
+<body>
+
+    
+
+    <!-- Page Container -->
+    <main class="container">
+
+        <!-- EMI Form -->
+        <section class="emi-card">
+            <h2>EMI Calculator</h2>
+            <p class="subtitle">Enter loan details to calculate EMI</p>
+
+            <div class="form-group">
+                <label>Loan Amount (Rs.)</label>
+                <input type="number" id="loanAmount" placeholder="e.g. 500000">
+            </div>
+
+            <div class="form-group">
+                <label>Annual Interest Rate (%)</label>
+                <input type="number" id="interestRate" placeholder="e.g. 12">
+            </div>
+
+            <div class="form-group">
+                <label>Loan Duration (Months)</label>
+                <input type="number" id="loanDuration" placeholder="e.g. 60">
+            </div>
+
+            <p class="error" id="errorMsg"></p>
+
+            <button onclick="calculateEMI()">Calculate EMI</button>
+        </section>
+
+        <!-- EMI Output (Outside the form) -->
+        <section class="output-box" id="outputBox">
+            <div class="output-item">
+                <h4>Monthly EMI</h4>
+                <p id="emi">Rs. 0.00</p>
+            </div>
+
+            <div class="output-item">
+                <h4>Total Payment</h4>
+                <p id="totalPayment">Rs. 0.00</p>
+            </div>
+
+            <div class="output-item">
+                <h4>Interest Payable</h4>
+                <p id="totalInterest">Rs. 0.00</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="EMI.js"></script>
+</body>
+</html>
