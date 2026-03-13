@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User History</title>
+    <link rel="stylesheet" href="homepage.css">
+    <style>
+        .history-section {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .history-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+        .history-card h4 {
+            margin: 0 0 5px 0;
+        }
+        .history-card p {
+            margin: 2px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header (reuse existing header) -->
+    <header class="header">
+       <nav class="nav">
+            <div class="logo">
+                <a href="homepage.html"><img src="logo.png" alt="DriveXPress Logo" class="logo-icon"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">New Cars</a></li>
+                <li><a href="#">Used Cars</a></li>
+                <li><a href="#">Car Reviews</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Finance & Insurance</a></li>
+            </ul>
+
+            <!-- User Icon -->
+            <div class="user-icon">
+                <span id="userNameDisplay"></span>
+            </div>
+       </nav>
+    </header>
+
+    <!-- User History Section -->
+    <section class="history-section">
+        <h2>Your Booking History</h2>
+        <div id="historyContainer">
+            <!-- History items will be injected here by JS -->
+        </div>
+    </section>
+
+    <!-- Footer (reuse existing footer) -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h4>DriveXPress</h4>
+                    <p>Your trusted partner for quality used cars in DriveXPress.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#terms">Terms</a></li>
+                        <li><a href="#Privacy">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#newcars">New cars</a></li>
+                        <li><a href="#usedcars">Used cars</a></li>
+                        <li><a href="#finance">Finance & Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li>+94 7713535351</li>
+                        <li>info@DriveXPress.ru</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check if user is "logged in"
+        const loggedUser = localStorage.getItem('loggedUser');
+        if(!loggedUser){
+            alert("You are not logged in! Redirecting to homepage.");
+            window.location.href = "homepage.html";
+        }
+
+        // Display username
+        document.getElementById('userNameDisplay').textContent = `Hello, ${loggedUser}`;
+
+        // Sample booking history data (in real scenario fetch from DB)
+        const userHistory = JSON.parse(localStorage.getItem('bookingHistory')) || [];
+
+        const container = document.getElementById('historyContainer');
+        if(userHistory.length === 0){
+            container.innerHTML = "<p>No bookings found.</p>";
+        } else {
+            userHistory.forEach(booking => {
+                const div = document.createElement('div');
+                div.className = 'history-card';
+                div.innerHTML = `
+                    <h4>Car: ${booking.car_model}</h4>
+                    <p>Dealer: ${booking.dealer_branch}</p>
+                    <p>Date: ${booking.date_booking}</p>
+                    <p>Time: ${booking.time_booking}</p>
+                    <p>Notes: ${booking.notes}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>
