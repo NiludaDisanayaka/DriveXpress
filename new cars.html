@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>New Cars</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#eef3f8;
+}
+
+/* SEARCH SECTION */
+
+.search-section{
+background:#0b4f78;
+padding:40px;
+text-align:center;
+color:white;
+}
+
+.search-section h1{
+margin-bottom:20px;
+}
+
+/* DROPDOWN */
+
+select{
+padding:12px;
+margin:10px;
+border-radius:8px;
+border:none;
+font-size:14px;
+width:220px;
+box-shadow:0 2px 5px rgba(0,0,0,0.2);
+cursor:pointer;
+}
+
+/* GRID */
+
+.car-container{
+width:90%;
+margin:40px auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+}
+
+/* CARD */
+
+.car-card{
+background:white;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 6px 15px rgba(0,0,0,0.15);
+transition:0.35s;
+}
+
+.car-card:hover{
+transform:scale(1.05);
+box-shadow:0 12px 25px rgba(0,0,0,0.25);
+}
+
+.car-card img{
+width:100%;
+height:170px;
+object-fit:cover;
+}
+
+.car-info{
+padding:18px;
+}
+
+.car-info h3{
+margin:0 0 10px 0;
+color:#333;
+}
+
+/* BADGES */
+
+.tag{
+display:inline-block;
+background:#f2e6c9;
+padding:6px 10px;
+border-radius:6px;
+font-size:12px;
+margin:3px;
+}
+
+/* PRICE */
+
+.price{
+color:#e08900;
+font-weight:bold;
+font-size:20px;
+margin-top:12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="search-section">
+
+<h1>Choose Your Perfect New Car</h1>
+
+<select id="brandFilter" onchange="filterCars()">
+<option value="all">All Brands</option>
+<option value="Toyota">Toyota</option>
+<option value="Honda">Honda</option>
+<option value="Suzuki">Suzuki</option>
+<option value="Nissan">Nissan</option>
+<option value="Mazda">Mazda</option>
+<option value="BMW">BMW</option>
+</select>
+
+<select id="typeFilter" onchange="filterCars()">
+<option value="all">All Types</option>
+<option value="Hybrid">Hybrid</option>
+<option value="Petrol">Petrol</option>
+<option value="SUV">SUV</option>
+<option value="Sedan">Sedan</option>
+<option value="Sports">Sports</option>
+</select>
+
+</div>
+
+
+<div class="car-container">
+
+<!-- 1 -->
+
+<div class="car-card" data-brand="Honda" data-type="Sedan">
+<img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6">
+<div class="car-info">
+<h3>Honda Civic 2024</h3>
+<span class="tag">Petrol</span>
+<span class="tag">1.5L Turbo</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 19,500,000</p>
+</div>
+</div>
+
+<!-- 2 -->
+
+<div class="car-card" data-brand="Nissan" data-type="Sports">
+<img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8">
+<div class="car-info">
+<h3>Nissan GTR 2024</h3>
+<span class="tag">Petrol</span>
+<span class="tag">3.8L V6</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 120,000,000</p>
+</div>
+</div>
+
+<!-- 3 -->
+
+<div class="car-card" data-brand="Toyota" data-type="Hybrid">
+<img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a">
+<div class="car-info">
+<h3>Toyota Prius 2024</h3>
+<span class="tag">Hybrid</span>
+<span class="tag">1.8L</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 14,000,000</p>
+</div>
+</div>
+
+<!-- 4 -->
+
+<div class="car-card" data-brand="Toyota" data-type="Hybrid">
+<img src="https://images.unsplash.com/photo-1550355291-bbee04a92027">
+<div class="car-info">
+<h3>Toyota Aqua 2024</h3>
+<span class="tag">Hybrid</span>
+<span class="tag">1.5L</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 10,500,000</p>
+</div>
+</div>
+
+<!-- 5 -->
+
+<div class="car-card" data-brand="Honda" data-type="SUV">
+<img src="https://images.unsplash.com/photo-1626668893632-6f3a4466d22f">
+<div class="car-info">
+<h3>Honda Vezel 2024</h3>
+<span class="tag">Hybrid</span>
+<span class="tag">1.5L</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 22,000,000</p>
+</div>
+</div>
+
+<!-- 6 -->
+
+<div class="car-card" data-brand="Suzuki" data-type="Hybrid">
+<img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341">
+<div class="car-info">
+<h3>Suzuki Wagon R 2024</h3>
+<span class="tag">Hybrid</span>
+<span class="tag">660cc</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 8,200,000</p>
+</div>
+</div>
+
+<!-- 7 -->
+
+<div class="car-card" data-brand="Suzuki" data-type="Petrol">
+<img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888">
+<div class="car-info">
+<h3>Suzuki Swift 2024</h3>
+<span class="tag">Petrol</span>
+<span class="tag">1.2L</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 9,800,000</p>
+</div>
+</div>
+
+<!-- 8 -->
+
+<div class="car-card" data-brand="Toyota" data-type="SUV">
+<img src="https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9">
+<div class="car-info">
+<h3>Toyota Raize 2024</h3>
+<span class="tag">Petrol</span>
+<span class="tag">1.0L Turbo</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 16,000,000</p>
+</div>
+</div>
+
+<!-- 9 -->
+
+<div class="car-card" data-brand="Mazda" data-type="Petrol">
+<img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537">
+<div class="car-info">
+<h3>Mazda 3 2024</h3>
+<span class="tag">Petrol</span>
+<span class="tag">2.0L</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 17,500,000</p>
+</div>
+</div>
+
+<!-- 10 -->
+
+<div class="car-card" data-brand="Nissan" data-type="SUV">
+<img src="https://images.unsplash.com/photo-1502877338535-766e1452684a">
+<div class="car-info">
+<h3>Nissan X-Trail 2024</h3>
+<span class="tag">Hybrid</span>
+<span class="tag">2.0L</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 23,000,000</p>
+</div>
+</div>
+
+<!-- 11 -->
+
+<div class="car-card" data-brand="Toyota" data-type="Sedan">
+<img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70">
+<div class="car-info">
+<h3>Toyota Corolla 2024</h3>
+<span class="tag">Petrol</span>
+<span class="tag">1.8L</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 18,000,000</p>
+</div>
+</div>
+
+<!-- 12 -->
+
+<div class="car-card" data-brand="Honda" data-type="Hybrid">
+<img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6">
+<div class="car-info">
+<h3>Honda Fit 2024</h3>
+<span class="tag">Hybrid</span>
+<span class="tag">1.5L</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 11,200,000</p>
+</div>
+</div>
+
+<!-- 13 -->
+
+
+<div class="car-card" data-brand="BMW" data-type="Sedan">
+<img src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg">
+<div class="car-info">
+<h3>BMW 3 Series 2024</h3>
+<span class="tag">Petrol</span>
+<span class="tag">2.0L Turbo</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 38,000,000</p>
+</div>
+</div>
+<!-- 14 -->
+
+<div class="car-card" data-brand="Toyota" data-type="SUV">
+<img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2">
+<div class="car-info">
+<h3>Toyota Land Cruiser 2024</h3>
+<span class="tag">Petrol</span>
+<span class="tag">3.5L</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 95,000,000</p>
+</div>
+</div>
+
+<!-- 15 -->
+
+<div class="car-card" data-brand="Mazda" data-type="SUV">
+<img src="https://images.unsplash.com/photo-1542362567-b07e54358753">
+<div class="car-info">
+<h3>Mazda CX-5 2024</h3>
+<span class="tag">Petrol</span>
+<span class="tag">2.5L</span>
+<span class="tag">Automatic</span>
+<span class="tag">5 Year Warranty</span>
+<p class="price">Rs 21,000,000</p>
+</div>
+</div>
+
+</div>
+
+<script>
+
+function filterCars(){
+
+let brand=document.getElementById("brandFilter").value;
+let type=document.getElementById("typeFilter").value;
+
+let cars=document.querySelectorAll(".car-card");
+
+cars.forEach(car=>{
+
+let carBrand=car.dataset.brand;
+let carType=car.dataset.type;
+
+let brandMatch=(brand==="all" || brand===carBrand);
+let typeMatch=(type==="all" || type===carType);
+
+if(brandMatch && typeMatch){
+car.style.display="block";
+}
+else{
+car.style.display="none";
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
