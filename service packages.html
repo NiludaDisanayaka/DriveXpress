@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+<title>Service Packages</title>
+
+<style>
+/* ---------- GLOBAL ---------- */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #f8fbff);
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #0d47a1;
+    margin-top: 50px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* ---------- TOGGLE ---------- */
+.toggle-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background: #ccc;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+input:checked + .slider {
+    background: #1e88e5;
+}
+
+input:checked + .slider::before {
+    transform: translateX(30px);
+}
+
+/* ---------- CONTAINER ---------- */
+.packages {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 20px;
+}
+
+/* ---------- PACKAGE CARD ---------- */
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow: 0 10px 30px rgba(13,71,161,0.15);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 45px rgba(13,71,161,0.25);
+}
+
+/* ---------- HEADERS ---------- */
+.card h2 {
+    text-align: center;
+    color: #0d47a1;
+}
+
+.price {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #1565c0;
+    margin: 15px 0;
+}
+
+.time {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* ---------- FEATURE LIST ---------- */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+}
+
+ul li::before {
+    content: "✔";
+    color: #1e88e5;
+    margin-right: 10px;
+}
+
+/* ---------- BUTTON ---------- */
+button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #f59e0b, #dbab58);
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* ---------- POPULAR BADGE ---------- */
+.popular {
+    border: 3px solid #1e88e5;
+}
+
+.badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e88e5;
+    color: white;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* ---------- PREMIUM ---------- */
+.premium {
+    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+}
+</style>
+</head>
+
+<body>
+
+<h1>Choose Your Service Package</h1>
+<p class="subtitle">Designed for every type of driver — simple, smart, premium</p>
+
+<!-- TOGGLE -->
+<div class="toggle-wrapper">
+    <span>Monthly</span>
+    <label class="switch">
+        <input type="checkbox" id="priceToggle">
+        <span class="slider"></span>
+    </label>
+    <span>Yearly <small>(Save 15%)</small></span>
+</div>
+
+<div class="packages">
+
+    <!-- BASIC -->
+    <div class="card">
+        <h2>Basic Package</h2>
+        <div class="price" data-month="7500" data-year="76500">LKR 7,500</div>
+        <div class="time">⏱ 1 – 2 Hours</div>
+
+        <ul>
+            <li>Engine oil replacement</li>
+            <li>Oil filter change</li>
+            <li>General vehicle inspection</li>
+            <li>Basic car wash</li>
+            <li>Fluid level check</li>
+        </ul>
+
+        <button>Select Basic</button>
+    </div>
+
+    <!-- STANDARD -->
+    <div class="card popular">
+        <div class="badge">MOST POPULAR</div>
+        <h2>Standard Package</h2>
+        <div class="price" data-month="12500" data-year="127500">LKR 12,500</div>
+        <div class="time">⏱ 2 – 3 Hours</div>
+
+        <ul>
+            <li>All Basic services</li>
+            <li>Air & cabin filter replacement</li>
+            <li>Brake system inspection</li>
+            <li>Battery health check</li>
+            <li>Wheel alignment check</li>
+        </ul>
+
+        <button>Select Standard</button>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="card premium">
+        <h2>Premium Package</h2>
+        <div class="price" data-month="18500" data-year="188500">LKR 18,500</div>
+        <div class="time">⏱ 4 – 5 Hours</div>
+
+        <ul>
+            <li>All Standard services</li>
+            <li>Full car detailing</li>
+            <li>Engine diagnostics scan</li>
+            <li>AC deep service</li>
+            <li>Pickup & drop service</li>
+            <li>Extended service warranty</li>
+        </ul>
+
+        <button>Select Premium</button>
+    </div>
+
+</div>
+
+<script>
+const toggle = document.getElementById("priceToggle");
+const prices = document.querySelectorAll(".price");
+
+toggle.addEventListener("change", () => {
+    prices.forEach(price => {
+        const value = toggle.checked 
+            ? price.dataset.year 
+            : price.dataset.month;
+
+        price.textContent = "LKR " + Number(value).toLocaleString();
+    });
+});
+</script>
+
+</body>
+</html>
