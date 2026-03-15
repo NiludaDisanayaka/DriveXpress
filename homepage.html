@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="homepage.css">
     <title>DriveXPress</title>
+    <script src="C:\Users\nilud\Desktop\project\backend\vehicles.js"></script>
 </head>
 <script>
 function toggleMenu() {
@@ -19,9 +20,6 @@ window.onclick = function(event) {
         }
     }
 }
-
-<script>
-
 /* OPEN DROPDOWN */
 
 function toggleMenu(){
@@ -53,13 +51,28 @@ document.getElementById("bookingPopup").style.display="flex";
 /* CLOSE ALL POPUPS */
 
 function closePopup(){
-
 document.getElementById("loginPopup").style.display="none";
-
 document.getElementById("registerPopup").style.display="none";
-
 document.getElementById("bookingPopup").style.display="none";
+// Reset form validation
+if (document.getElementById('loginForm')) {
+    document.getElementById('loginForm').reset();
+    clearErrors();
+}
+}
 
+function clearErrors() {
+    const errors = document.querySelectorAll('.error-message');
+    errors.forEach(error => error.textContent = '');
+    document.querySelectorAll('.input-group input').forEach(input => {
+        input.classList.remove('error', 'success');
+        input.parentElement.classList.remove('error', 'success');
+    });
+}
+
+function validateName(name) {
+    const nameRegex = /^[A-Za-z\\s]{2,}$/;
+    return nameRegex.test(name);
 }
 
 </script>
@@ -76,8 +89,8 @@ document.getElementById("bookingPopup").style.display="none";
     <ul class="nav-links">
         <li><a href="#">New Cars</a></li>
         <li><a href="#">Used Cars</a></li>
-        <li><a href="#">Car Reviews</a></li>
-        <li><a href="#">Services</a></li>
+        <li><a href="carreviews.html">Car Reviews</a></li>
+        <li><a href="servicesoverview.html">Services</a></li>
         <li><a href="#">Finance & Insurance</a></li>
     </ul>
 
@@ -107,11 +120,19 @@ document.getElementById("bookingPopup").style.display="none";
 
         <h2>Login</h2>
 
-        <input type="email" placeholder="Enter Email">
-
-        <input type="password" placeholder="Enter Password">
-
-        <button>Login</button>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="email" id="login-email" required placeholder=" ">
+                <label for="login-email">Enter Email</label>
+                <span class="error-message" id="email-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="login-password" required minlength="6" placeholder=" ">
+                <label for="login-password">Enter Password</label>
+                <span class="error-message" id="password-error"></span>
+            </div>
+            <button type="submit" id="login-btn">Login</button>
+        </form>
 
       </div>
 
@@ -126,13 +147,24 @@ document.getElementById("bookingPopup").style.display="none";
 
         <h2>Register</h2>
 
-        <input type="text" placeholder="Full Name">
-
-        <input type="email" placeholder="Email">
-
-        <input type="password" placeholder="Password">
-
-        <button>Create Account</button>
+        <form id="registerForm">
+            <div class="input-group">
+                <input type="text" id="register-name" required placeholder=" " pattern="[A-Za-z\\s]{2,}" title="Name must be at least 2 letters">
+                <label for="register-name">Full Name</label>
+                <span class="error-message" id="name-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="email" id="register-email" required placeholder=" ">
+                <label for="register-email">Email</label>
+                <span class="error-message" id="register-email-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="register-password" required minlength="6" placeholder=" ">
+                <label for="register-password">Password</label>
+                <span class="error-message" id="register-password-error"></span>
+            </div>
+            <button type="submit" id="register-btn">Create Account</button>
+        </form>
 
     </div>
 
@@ -170,7 +202,7 @@ document.getElementById("bookingPopup").style.display="none";
             <p class="featured-subtitle">Discover our handpicked selection of premium vehicles, each chosen for exceptional quality, performance, and value</p>
         </div>
         <div class="featured-grid">
-            <div class="featured-card" onclick="window.location.href='cardetails.html'">
+            <div class="featured-card" onclick="window.location.href='cardetails.html'" id="featured1">
                 <div class="featured-image-wrapper">
                     <img src="Honda Prius.webp" alt="Honda Prius">
                     <div class="featured-overlay">
@@ -660,6 +692,7 @@ document.getElementById("bookingPopup").style.display="none";
     </footer>
 
     <script>
+        // Slideshow code
         document.addEventListener('DOMContentLoaded', function() {
             const slides = document.querySelectorAll('.hero-slide');
             let currentSlide = 0;
@@ -677,12 +710,162 @@ document.getElementById("bookingPopup").style.display="none";
                 showSlide(currentSlide);
             }
 
-            // Start automatic slideshow
             setInterval(nextSlide, 4000);
-
-            // Initialize first slide
             showSlide(0);
         });
+
+        // LOGIN VALIDATION
+        function validateEmail(email) {
+            const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 6;
+        }
+
+        function validateField(input, errorId, validateFn, errorMsg) {
+            const errorEl = document.getElementById(errorId);
+            const group = input.closest('.input-group');
+            
+            if (input.value.trim() === '') {
+                group.classList.remove('success');
+                group.classList.add('error');
+                errorEl.textContent = 'This field is required';
+                return false;
+            } else if (!validateFn(input.value)) {
+                group.classList.remove('success');
+                group.classList.add('error');
+                errorEl.textContent = errorMsg;
+                return false;
+            } else {
+                group.classList.remove('error');
+                group.classList.add('success');
+                errorEl.textContent = '';
+                return true;
+            }
+        }
+
+        function updateButtonState() {
+            const emailValid = validateField(document.getElementById('login-email'), 'email-error', validateEmail, 'Enter correct email');
+            const passwordValid = validateField(document.getElementById('login-password'), 'password-error', validatePassword, 'Password must be at least 6 characters');
+            const btn = document.getElementById('login-btn');
+            btn.disabled = !(emailValid && passwordValid);
+        }
+
+        // Event listeners - LOGIN
+        document.addEventListener('DOMContentLoaded', function() {
+            // Login form
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                const loginEmail = document.getElementById('login-email');
+                const loginPassword = document.getElementById('login-password');
+                
+                loginEmail.addEventListener('blur', () => updateLoginButtonState());
+                loginEmail.addEventListener('input', () => updateLoginButtonState());
+                loginPassword.addEventListener('blur', () => updateLoginButtonState());
+                loginPassword.addEventListener('input', () => updateLoginButtonState());
+                
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const emailValid = validateField(loginEmail, 'email-error', validateEmail, 'Enter correct email');
+                    const passwordValid = validateField(loginPassword, 'password-error', validatePassword, 'Password must be at least 6 characters');
+                    
+                    if (emailValid && passwordValid) {
+                        alert('Login successful! (Demo)');
+                        closePopup();
+                    }
+                });
+            }
+
+            // Register form
+            const registerForm = document.getElementById('registerForm');
+            if (registerForm) {
+                const nameInput = document.getElementById('register-name');
+                const regEmailInput = document.getElementById('register-email');
+                const regPasswordInput = document.getElementById('register-password');
+                const regBtn = document.getElementById('register-btn');
+                
+                function updateRegisterButtonState() {
+                    const nameValid = nameInput.value.trim() === '' ? false : validateName(nameInput.value.trim());
+                    const emailValid = regEmailInput.value.trim() === '' ? false : validateEmail(regEmailInput.value.trim());
+                    const passwordValid = regPasswordInput.value.trim() === '' ? false : validatePassword(regPasswordInput.value.trim());
+                    
+                    regBtn.disabled = !(nameValid && emailValid && passwordValid);
+                    
+                    // Update name visual
+                    const nameGroup = nameInput.closest('.input-group');
+                    const nameError = document.getElementById('name-error');
+                    if (nameInput.value.trim() === '') {
+                        nameGroup.classList.add('error');
+                        nameError.textContent = 'Name is required';
+                    } else if (!validateName(nameInput.value.trim())) {
+                        nameGroup.classList.add('error');
+                        nameError.textContent = 'Name must contain only letters (min 2)';
+                    } else {
+                        nameGroup.classList.remove('error');
+                        nameGroup.classList.add('success');
+                        nameError.textContent = '';
+                    }
+                    
+                    // Update register email visual
+                    const emailGroup = regEmailInput.closest('.input-group');
+                    const emailError = document.getElementById('register-email-error');
+                    if (regEmailInput.value.trim() === '') {
+                        emailGroup.classList.add('error');
+                        emailError.textContent = 'Email is required';
+                    } else if (!validateEmail(regEmailInput.value.trim())) {
+                        emailGroup.classList.add('error');
+                        emailError.textContent = 'Enter correct email';
+                    } else {
+                        emailGroup.classList.remove('error');
+                        emailGroup.classList.add('success');
+                        emailError.textContent = '';
+                    }
+                    
+                    // Update register password visual
+                    const passwordGroup = regPasswordInput.closest('.input-group');
+                    const passwordError = document.getElementById('register-password-error');
+                    if (regPasswordInput.value.trim() === '') {
+                        passwordGroup.classList.add('error');
+                        passwordError.textContent = 'Password is required';
+                    } else if (!validatePassword(regPasswordInput.value.trim())) {
+                        passwordGroup.classList.add('error');
+                        passwordError.textContent = 'Password must be at least 6 characters';
+                    } else {
+                        passwordGroup.classList.remove('error');
+                        passwordGroup.classList.add('success');
+                        passwordError.textContent = '';
+                    }
+                }
+                
+                nameInput.addEventListener('blur', updateRegisterButtonState);
+                nameInput.addEventListener('input', updateRegisterButtonState);
+                regEmailInput.addEventListener('blur', updateRegisterButtonState);
+                regEmailInput.addEventListener('input', updateRegisterButtonState);
+                regPasswordInput.addEventListener('blur', updateRegisterButtonState);
+                regPasswordInput.addEventListener('input', updateRegisterButtonState);
+                
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const nameValid = validateName(nameInput.value.trim());
+                    const emailValid = validateEmail(regEmailInput.value.trim());
+                    const passwordValid = validatePassword(regPasswordInput.value.trim());
+                    
+                    if (nameValid && emailValid && passwordValid) {
+                        alert('Registration successful! (Demo)');
+                        closePopup();
+                    }
+                });
+            }
+        });
+
+        function updateLoginButtonState() {
+            const emailValid = validateField(document.getElementById('login-email'), 'email-error', validateEmail, 'Enter correct email');
+            const passwordValid = validateField(document.getElementById('login-password'), 'password-error', validatePassword, 'Password must be at least 6 characters');
+            const btn = document.getElementById('login-btn');
+            btn.disabled = !(emailValid && passwordValid);
+        }
     </script>
 </body>
 </html>
