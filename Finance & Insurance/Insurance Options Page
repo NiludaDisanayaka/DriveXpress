@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insurance Options</title>
+<title>Finance Options</title>
 
-<!-- Add Font Awesome for check icons -->
+<!-- Add Font for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -37,7 +37,7 @@
         min-width: 300px;
     }
 
-    .image-section {
+    .finance-side-section {
         flex: 2;
         min-width: 300px;
         background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
@@ -48,13 +48,13 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background-image:url('photo-1554224155-6726b3ff858f.avif');
+        background-image: url('photo-1554224155-8d04cb21cd6c.avif');
         background-size: cover;
         background-position: center;
         position: relative;
     }
 
-    .image-section::before {
+    .finance-side-section::before {
         content: '';
         position: absolute;
         top: 0;
@@ -65,32 +65,32 @@
         border-radius: 12px;
     }
 
-    .image-section > * {
+    .finance-side-section > * {
         position: relative;
         z-index: 1;
     }
 
-    .image-section h2 {
-        font-size: 32px;
+    .finance-side-section h2 {
+        font-size: 28px;
         margin-top: 0;
         margin-bottom: 10px;
         color: white;
     }
 
-    .image-section .subtitle {
-        font-size: 18px;
+    .finance-side-section .subtitle {
+        font-size: 16px;
         opacity: 0.95;
         margin-bottom: 30px;
         font-weight: 500;
     }
 
-    .insurance-features {
+    .finance-features {
         list-style: none;
         padding-left: 0;
         margin-bottom: 30px;
     }
 
-    .insurance-features li {
+    .finance-features li {
         padding: 18px 0;
         border-bottom: 1px solid rgba(255,255,255,0.25);
         display: flex;
@@ -98,11 +98,11 @@
         gap: 15px;
     }
 
-    .insurance-features li:last-child {
+    .finance-features li:last-child {
         border-bottom: none;
     }
 
-    .insurance-icon {
+    .finance-icon {
         color: #2980b9;
         font-size: 22px;
         background: white;
@@ -116,21 +116,21 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    .insurance-text strong {
+    .finance-text strong {
         display: block;
         font-size: 20px;
         margin-bottom: 8px;
         color: white;
     }
 
-    .insurance-text p {
+    .finance-text p {
         margin: 0;
         opacity: 0.9;
         font-size: 15px;
         line-height: 1.6;
     }
 
-    .insurance-benefits {
+    .finance-benefits {
         background: rgba(255, 255, 255, 0.15);
         border-radius: 10px;
         padding: 20px;
@@ -155,7 +155,7 @@
         font-size: 18px;
     }
 
-    .insurance-btn {
+    .finance-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -176,7 +176,7 @@
         margin-top: 15px;
     }
 
-    .insurance-btn:hover {
+    .finance-btn:hover {
         transform: translateY(-3px);
         box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         background: #f0f8ff;
@@ -238,7 +238,7 @@
     }
 
     .check-icon {
-        color: #27ae60;
+        color: #3498db;
         font-size: 20px;
         width: 28px;
         text-align: center;
@@ -266,11 +266,10 @@
         box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
     }
 
-   
+    }
 </style>
     
-
-<link rel="stylesheet" href="navigation3.css">
+<link rel="stylesheet" href="navigation%20palat.css">
 <link rel="stylesheet" href="footer.css">
     
 </head>
@@ -303,96 +302,105 @@
 <div class="main-container">
     
     <div class="content-section">
-        <h3>Types of insurance</h3>
+        <h3>Loan plans</h3>
         <div class="box">
             <ul>
-                <li><i class="fas fa-check-circle check-icon"></i><strong>Comprehensive Insurance</strong> - Complete protection for your vehicle and third parties</li>
-                <li><i class="fas fa-check-circle check-icon"></i><strong>Third party Insurance</strong> - Covers damage to other people and property</li>
-                <li><i class="fas fa-check-circle check-icon"></i><strong>Extended Warranty</strong> - Additional protection beyond manufacturer warranty</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Bank Financing</strong> - Competitive rates from partner banks</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Dealer Financing</strong> - In-house financing options</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Leasing options</strong> - Flexible lease terms available</li>
             </ul>
         </div>
 
-        <h3>Features</h3>
+        <h3>Eligibility requirements</h3>
         <div class="box">
             <ul>
-                <li><i class="fas fa-check-circle check-icon"></i><strong>Accident coverage</strong> - Full protection in case of accidents</li>
-                <li><i class="fas fa-check-circle check-icon"></i><strong>Theft protection</strong> - Coverage for vehicle theft or attempted theft</li>
-                <li><i class="fas fa-check-circle check-icon"></i><strong>Roadside assistance</strong> - 24/7 help for breakdowns and emergencies</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Income requirements</strong> - Minimum monthly income criteria</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Documents needed</strong> - ID, proof of income, and address verification</li>
             </ul>
         </div>
+
+        <h3>Advantages</h3>
+        <div class="box">
+            <ul>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Low interest plans</strong> - Starting from 7.9% APR</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Easy approval process</strong> - Quick decision within 24 hours</li>
+            </ul>
+        </div>
+
+        <button class="button" onclick="applyFinance()">View Finance Details</button>
     </div>
 
-    <!-- Right Insurance Benefits Section -->
-    <div class="image-section">
-        <h2>Instant Insurance Quote</h2>
-        <p class="subtitle">Get covered in minutes</p>
+    <!-- Right Finance Benefits Section -->
+    <div class="finance-side-section">
+        <h2>Financing</h2>
+        <p class="subtitle">Prequalify now</p>
         
-        <ul class="insurance-features">
+        <ul class="finance-features">
             <li>
-                <div class="insurance-icon">
-                    <i class="fas fa-shield-alt"></i>
+                <div class="finance-icon">
+                    <i class="fas fa-chart-line"></i>
                 </div>
-                <div class="insurance-text">
-                    <strong>Complete Protection</strong>
-                    <p>Get comprehensive coverage tailored to your specific vehicle and driving needs.</p>
+                <div class="finance-text">
+                    <strong>Real rates, real monthly payment</strong>
+                    <p>See your personalized rate from our network of lenders.</p>
                 </div>
             </li>
             <li>
-                <div class="insurance-icon">
+                <div class="finance-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="finance-text">
+                    <strong>No impact to your credit</strong>
+                    <p>Prequalification with our lenders will not affect your credit score.</p>
+                </div>
+            </li>
+            <li>
+                <div class="finance-icon">
                     <i class="fas fa-bolt"></i>
                 </div>
-                <div class="insurance-text">
-                    <strong>Instant Approval</strong>
-                    <p>Receive your insurance quote within minutes, not days. No lengthy paperwork.</p>
-                </div>
-            </li>
-            <li>
-                <div class="insurance-icon">
-                    <i class="fas fa-percentage"></i>
-                </div>
-                <div class="insurance-text">
-                    <strong>Competitive Rates</strong>
-                    <p>Compare rates from top insurance providers to get the best deal available.</p>
+                <div class="finance-text">
+                    <strong>It only takes a few minutes</strong>
+                    <p>Answer a few basic questions and instantly see your personalized results.</p>
                 </div>
             </li>
         </ul>
         
-        <div class="insurance-benefits">
+        <div class="finance-benefits">
             <div class="benefit-item">
                 <i class="fas fa-check benefit-icon"></i>
-                <span>No hidden fees or charges</span>
+                <span>No application fees</span>
             </div>
             <div class="benefit-item">
                 <i class="fas fa-check benefit-icon"></i>
-                <span>24/7 claims support</span>
+                <span>Flexible repayment terms</span>
             </div>
             <div class="benefit-item">
                 <i class="fas fa-check benefit-icon"></i>
-                <span>Flexible payment options</span>
+                <span>Early repayment options</span>
             </div>
             <div class="benefit-item">
                 <i class="fas fa-check benefit-icon"></i>
-                <span>Transferable to new owners</span>
+                <span>Online account management</span>
             </div>
         </div>
         
-        <a href="#" class="insurance-btn" onclick="getInstantQuote()">
-            <i class="fas fa-file-invoice-dollar"></i> Get Instant Quote
+        <a href="#" class="finance-btn" onclick="getPrequalified()">
+            <i class="fas fa-rocket"></i> Get prequalified
         </a>
         
         <p class="signin-link">
-            Already have insurance? <a href="#">Sign in to manage policy</a>
+            Already prequalified? <a href="#">Sign in to continue</a>
         </p>
     </div>
 </div>
 
 <script>
-function getInsurance(){
-    alert("Insurance quote feature not implemented yet!");
+function applyFinance(){
+    alert("Finance application form not implemented yet!");
 }
 
-function getInstantQuote(){
-    alert("Instant quote feature not implemented yet!");
+function getPrequalified(){
+    alert("Prequalification feature not implemented yet!");
 }
 </script>
     
