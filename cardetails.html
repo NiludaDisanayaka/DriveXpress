@@ -4,108 +4,889 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Details</title>
-    <link rel="stylesheet" href="car details.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --nav-dark: #112a3d;
+            --nav-accent: #cbd5e1;
+            --accent: #f59e0b;
+            --muted: #6b7280;
+            --dark: #09203f;
+            --text-light: rgba(255,255,255,0.95);
+            --footer-bg-1: #112a3d;
+            --footer-bg-2: #0b2030;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* ── HEADER / NAV ── */
+        .header {
+            background-color: #112a3d;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            background: linear-gradient(135deg, #112a3d 0%, #112a3d 100%);
+            padding: 20px 30px;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            max-width: 50px;
+            height: auto;
+        }
+
+        .logo-icon {
+            stroke: #333;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            flex: 1;
+            margin-left: 100px;
+        }
+
+        .nav-links li {
+            margin-right: 80px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.18s ease, transform 0.18s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            color: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .user-icon {
+            position: relative;
+            background-color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a3a52;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .user-icon:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.1);
+        }
+
+        .user-icon-svg {
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        /* ── DROPDOWN ── */
+        .dropdown-menu {
+            position: absolute;
+            top: 45px;
+            right: 0;
+            background: white;
+            width: 160px;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: none;
+            overflow: hidden;
+            z-index: 2000;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: var(--nav-dark);
+            font-size: 14px;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        /* ── POPUPS ── */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            animation: backdropFadeIn 0.3s ease-out;
+        }
+
+        @keyframes backdropFadeIn {
+            from { background: rgba(0,0,0,0); }
+            to   { background: rgba(0,0,0,0.6); }
+        }
+
+        .popup-content {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            width: 380px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: popupSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .popup-content::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b);
+            border-radius: 24px 24px 0 0;
+        }
+
+        @keyframes popupSlideIn {
+            from { opacity: 0; transform: scale(0.8) translateY(-20px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .popup-content h2 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .close {
+            float: right;
+            font-size: 22px;
+            cursor: pointer;
+            color: #999;
+            line-height: 1;
+        }
+
+        .close:hover { color: #333; }
+
+        /* ── POPUP INPUT GROUPS ── */
+        #loginForm { padding: 20px 30px 30px; }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.8);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 16px;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 4px rgba(245,158,11,0.1);
+            background: rgba(255,255,255,0.95);
+            transform: translateY(-2px);
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 20px;
+            top: 16px;
+            color: #6b7280;
+            font-size: 16px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:valid + label {
+            top: -10px;
+            left: 16px;
+            font-size: 12px;
+            color: #f59e0b;
+            background: rgba(255,255,255,0.9);
+            padding: 0 8px;
+            border-radius: 8px;
+        }
+
+        .error-message {
+            display: block;
+            font-size: 12px;
+            color: #ef4444;
+            margin-top: 6px;
+            min-height: 16px;
+            font-weight: 500;
+        }
+
+        #login-btn, #register-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(245,158,11,0.3);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #login-btn:hover:not(:disabled),
+        #register-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(245,158,11,0.4);
+        }
+
+        #login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        #login-btn:hover::before { left: 100%; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25%       { transform: translateX(-4px); }
+            75%       { transform: translateX(4px); }
+        }
+
+        @media (max-width: 480px) {
+            .popup-content { width: 90vw; max-width: 420px; margin: 20px; padding: 20px; }
+            #loginForm { padding: 15px; }
+        }
+
+        /* ── CAR DETAILS PAGE ── */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* Titles */
+        .car-title {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .car-subtitle {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        /* Images */
+        .image-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .image-grid img {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        /* Layout */
+        .content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        /* Stats */
+        .details h2 {
+            margin-bottom: 15px;
+        }
+
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--nav-accent);
+            font-size: 14px;
+        }
+
+        /* Features with ticks */
+        .features {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .features li {
+            padding: 6px 0;
+            font-size: 14px;
+            position: relative;
+            padding-left: 22px;
+        }
+
+        .features li::before {
+            content: "✔";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Price Box */
+        .price-box {
+            border: 1px solid var(--nav-accent);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .price-label {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .price {
+            font-size: 32px;
+            color: var(--accent);
+            font-weight: bold;
+            margin: 8px 0 20px;
+        }
+
+        /* Form */
+        .form-title {
+            margin-bottom: 15px;
+        }
+
+        .availability-form input,
+        .availability-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--nav-accent);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .availability-form input:focus,
+        .availability-form textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-row input {
+            width: 50%;
+        }
+
+        textarea {
+            resize: none;
+            height: 90px;
+        }
+
+        .checkbox {
+            font-size: 13px;
+            display: block;
+            margin: 10px 0;
+            position: relative;
+            padding-left: 25px;
+            cursor: pointer;
+        }
+
+        .checkbox input[type="checkbox"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .checkbox::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--nav-accent);
+            background: white;
+            border-radius: 2px;
+        }
+
+        .checkbox:has(input[type="checkbox"]:checked)::after {
+            content: "✔";
+            position: absolute;
+            left: 2px;
+            top: -2px;
+            color: var(--accent);
+            font-size: 14px;
+        }
+
+        .form-note {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .form-note span {
+            color: var(--accent);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .btn {
+            background-color: #f59e0b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #112a3d;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: linear-gradient(180deg, var(--footer-bg-1), var(--footer-bg-2));
+            color: var(--text-light);
+            padding: 48px 20px 28px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 28px;
+            margin-bottom: 24px;
+            align-items: start;
+        }
+
+        .footer-column h4 {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            color: var(--nav-accent);
+            letter-spacing: 0.2px;
+        }
+
+        .footer-column p {
+            color: rgba(255,255,255,0.85);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li { margin-bottom: 10px; }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: color 0.18s ease, transform 0.18s ease;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .footer-divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin: 24px 0 16px;
+        }
+
+        .copyright {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.95);
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .contact-icon {
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+            display: inline-block;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            fill: none;
+        }
+
+        .contact-item span { display: inline-block; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .nav-links li { margin-right: 30px; }
+            .content { grid-template-columns: 1fr; }
+            .image-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .form-row { flex-direction: column; }
+            .form-row input { width: 100%; }
+        }
+
+        @media (max-width: 560px) {
+            .footer-container { gap: 16px; }
+            .footer-column h4 { font-size: 1rem; }
+        }
+    </style>
+
+    <script>
+        /* ── NAVBAR ── */
+        function toggleMenu() {
+            document.getElementById("userMenu").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('.user-icon')) {
+                var menu = document.getElementById("userMenu");
+                if (menu && menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                }
+            }
+        }
+
+        function openLogin() {
+            closePopup();
+            document.getElementById("loginPopup").style.display = "flex";
+        }
+
+        function openRegister() {
+            closePopup();
+            document.getElementById("registerPopup").style.display = "flex";
+        }
+
+        function openBooking() {
+            closePopup();
+            document.getElementById("bookingPopup").style.display = "flex";
+        }
+
+        function closePopup() {
+            document.getElementById("loginPopup").style.display = "none";
+            document.getElementById("registerPopup").style.display = "none";
+            document.getElementById("bookingPopup").style.display = "none";
+            if (document.getElementById('loginForm')) {
+                document.getElementById('loginForm').reset();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            /* ── POPUP FORM HANDLERS ── */
+            document.getElementById('loginForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('Login submitted!');
+                closePopup();
+            });
+            document.getElementById('registerForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('Registration submitted!');
+                closePopup();
+            });
+
+            /* ── URL PARAMETER DATA BINDING ── */
+            const params = new URLSearchParams(window.location.search);
+
+            const brand = params.get("brand");
+            const model = params.get("model");
+            const year  = params.get("year");
+            const price = params.get("price");
+            const image = params.get("image");
+
+            // Car title: show brand from URL, fall back to static default
+            if (brand) {
+                document.getElementById("car-title").innerText = brand;
+            }
+
+            // Car subtitle: show "year · model" from URL, fall back to static default
+            if (model || year) {
+                const parts = [year, model].filter(Boolean);
+                document.getElementById("car-subtitle").innerText = parts.join(" · ");
+            }
+
+            // Price: show from URL with Rs prefix, fall back to static default
+            if (price) {
+                document.getElementById("car-price").innerText = "Rs " + price;
+            }
+
+            // Primary image: set from URL if provided
+            if (image) {
+                document.getElementById("car-image-main").src = image;
+                document.getElementById("car-image-main").alt = brand || "Car Image";
+            }
+        });
+    </script>
 </head>
 <body>
-<header class="header">
+
+    <!-- ══════════════ HEADER / NAV ══════════════ -->
+    <header class="header">
         <nav class="nav">
             <div class="logo">
                 <a href="HTML/homepage.html">
-                    <img src= "logo.webp.png" class="logo-icon">
+                    <img src="logo.webp.png" alt="DriveXPress Logo" class="logo-icon">
                 </a>
             </div>
+
             <ul class="nav-links">
                 <li><a href="#">New Cars</a></li>
                 <li><a href="#">Used Cars</a></li>
-                <li><a href="#">Car Reviews</a></li>
+                <li><a href="carreviews.html">Car Reviews</a></li>
                 <li><a href="#">Services</a></li>
-                <li><a href="#">Finance & Insurance</a></li>
+                <li><a href="#">Finance &amp; Insurance</a></li>
             </ul>
-            <div class="user-icon">
+
+            <div class="user-icon" onclick="toggleMenu()">
                 <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
                 </svg>
+                <div class="dropdown-menu" id="userMenu">
+                    <a href="#" onclick="openLogin(); return false;">Login</a>
+                    <a href="#" onclick="openRegister(); return false;">Register</a>
+                    <a href="#" onclick="openBooking(); return false;">My Bookings</a>
+                </div>
             </div>
         </nav>
     </header>
-    
-<div class="container">
+    <!-- ══════════════ END HEADER ══════════════ -->
 
-    <!-- Title -->
-    <h1 class="car-title">2023 Audi A4 Sedan</h1>
-    <p class="car-subtitle">S line Premium Plus</p>
 
-    <!-- Images (Max 2) -->
-    <div class="image-grid">
-        <img src="C:\Users\nilud\Desktop\project\Cars pictures\download (1).jpg" alt="Audi Front">
-        <img src="C:\Users\nilud\Desktop\project\Cars pictures\download.jpg" alt="Audi Interior">
-    </div>
+    <!-- ══════════════ POPUPS ══════════════ -->
 
-    <!-- Content -->
-    <div class="content">
-
-        <!-- LEFT SIDE -->
-        <div class="details">
-            <h2>Stats & Features</h2>
-
-            <div class="stat"><span>Exterior Color</span><span>Glacier White Metallic</span></div>
-            <div class="stat"><span>Interior Color</span><span>Black</span></div>
-            <div class="stat"><span>Transmission</span><span>7-Speed Automatic</span></div>
-            <div class="stat"><span>Engine</span><span>2.0L Turbo</span></div>
-            <div class="stat"><span>Drive Type</span><span>All Wheel Drive</span></div>
-
-            <h3>Features</h3>
-            <ul class="features">
-                <li>ABS</li>
-                <li>Turbocharged</li>
-                <li>Sunroof</li>
-                <li>Power Steering</li>
-                <li>LED Headlights</li>
-                <li>Alloy Wheels</li>
-            </ul>
-        </div>
-
-        <!-- RIGHT SIDE -->
-        <div class="price-box">
-
-            <!-- Price -->
-            <p class="price-label">Price</p>
-            <p class="price">$24,800</p>
-
-            <!-- FORM -->
-            <h3 class="form-title">Check Availability</h3>
-
-            <form class="availability-form">
-                <div class="form-row">
-                    <input type="text" placeholder="First Name">
-                    <input type="text" placeholder="Last Name">
+    <!-- LOGIN POPUP -->
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="email" id="login-email" required placeholder=" ">
+                    <label for="login-email">Enter Email</label>
+                    <span class="error-message" id="email-error"></span>
                 </div>
-
-                <input type="email" placeholder="Email Address">
-                <input type="tel" placeholder="Phone Number">
-                <input type="text" placeholder="Zip Code">
-                <textarea placeholder="Comment (optional)"></textarea>
-
-                <label class="checkbox">
-                    <input type="checkbox">
-                    I'm interested in speaking with someone about financing
-                </label>
-
-                <p class="form-note">
-                    By submitting this form, you agree to our
-                    <span>Terms of Use</span> and <span>Privacy Policy</span>.
-                </p>
-
-                <button type="submit" class="btn">Send Request</button>
+                <div class="input-group">
+                    <input type="password" id="login-password" required minlength="6" placeholder=" ">
+                    <label for="login-password">Enter Password</label>
+                    <span class="error-message" id="password-error"></span>
+                </div>
+                <button type="submit" id="login-btn">Login</button>
             </form>
-
         </div>
-
     </div>
 
-</div>
+    <!-- REGISTER POPUP -->
+    <div id="registerPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="input-group">
+                    <input type="text" id="register-name" required placeholder=" " pattern="[A-Za-z\s]{2,}" title="Name must be at least 2 letters">
+                    <label for="register-name">Full Name</label>
+                    <span class="error-message" id="name-error"></span>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="register-email" required placeholder=" ">
+                    <label for="register-email">Email</label>
+                    <span class="error-message" id="register-email-error"></span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="register-password" required minlength="6" placeholder=" ">
+                    <label for="register-password">Password</label>
+                    <span class="error-message" id="register-password-error"></span>
+                </div>
+                <button type="submit" id="register-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
 
- <footer>
+    <!-- MY BOOKINGS POPUP -->
+    <div id="bookingPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>My Bookings</h2>
+            <div style="padding: 10px 0;">
+                <p style="color:#6b7280; margin-top:10px; font-size:15px;">You have no upcoming bookings.</p>
+                <p style="margin-top:20px; font-size:13px; color:#aaa;">Book a service below to get started.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ══════════════ CAR DETAILS ══════════════ -->
+    <div class="container">
+
+        <!-- Title & subtitle: populated by URL params (brand, year, model) with static fallbacks -->
+        <h1 class="car-title" id="car-title">2023 Audi A4 Sedan</h1>
+        <p class="car-subtitle" id="car-subtitle">S line Premium Plus</p>
+
+        <div class="image-grid">
+            <!-- Primary image: src replaced by URL param (image) if provided -->
+            <img id="car-image-main"
+                 src="C:\Users\nilud\Desktop\project\Cars pictures\download (1).jpg"
+                 alt="Car Front">
+        </div>
+
+        <div class="content">
+
+            <!-- LEFT: Stats & Features -->
+            <div class="details">
+                <h2>Stats &amp; Features</h2>
+
+                <div class="stat"><span>Color</span><span>Glacier White Metallic</span></div>
+                <div class="stat"><span>Transmission</span><span>7-Speed Automatic</span></div>
+                <div class="stat"><span>Engine</span><span>2.0L Turbo</span></div>
+                <div class="stat"><span>Drive Type</span><span>All Wheel Drive</span></div>
+                <div class="stat"><span>Mileage</span><span>25,000 km</span></div>
+                <div class="stat"><span>Year</span><span id="car-year">2023</span></div>
+
+                <h3>Features</h3>
+                <ul class="features">
+                    <li>ABS</li>
+                    <li>Turbocharged</li>
+                    <li>Sunroof</li>
+                    <li>Power Steering</li>
+                    <li>LED Headlights</li>
+                    <li>Alloy Wheels</li>
+                </ul>
+            </div>
+
+            <!-- RIGHT: Price + Form -->
+            <div class="price-box">
+                <p class="price-label">Price</p>
+                <!-- Price: populated by URL param (price) with static fallback -->
+                <p class="price" id="car-price">$24,800</p>
+
+                <h3 class="form-title">Check Availability</h3>
+
+                <form class="availability-form">
+                    <div class="form-row">
+                        <input type="text" placeholder="First Name">
+                        <input type="text" placeholder="Last Name">
+                    </div>
+                    <input type="email" placeholder="Email Address">
+                    <input type="tel" placeholder="Phone Number">
+                    <input type="text" placeholder="Zip Code">
+                    <textarea placeholder="Comment (optional)"></textarea>
+
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        I'm interested in speaking with someone about financing
+                    </label>
+
+                    <p class="form-note">
+                        By submitting this form, you agree to our
+                        <span>Terms of Use</span> and <span>Privacy Policy</span>.
+                    </p>
+
+                    <button type="submit" class="btn">Send Request</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ══════════════ FOOTER ══════════════ -->
+    <footer>
         <div class="container">
             <div class="footer-container">
                 <div class="footer-column">
@@ -119,7 +900,6 @@
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#terms">Terms</a></li>
                         <li><a href="#Privacy">Privacy</a></li>
-
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -127,16 +907,15 @@
                     <ul class="footer-links">
                         <li><a href="#newcars">New cars</a></li>
                         <li><a href="#usedcars">Used cars</a></li>
-                        <li><a href="#finance">Finance & Insurance</a></li>
+                        <li><a href="#finance">Finance &amp; Insurance</a></li>
                     </ul>
                 </div>
-            
                 <div class="footer-column">
                     <h4>Contact Info</h4>
                     <ul class="footer-links">
                         <li class="contact-item">
                             <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="currentColor"/>
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="currentColor"/>
                             </svg>
                             <span>+94 771353535</span>
                         </li>
@@ -151,19 +930,17 @@
                             <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
                             </svg>
-                            <span>Kalidasa road,Matara</span>
+                            <span>Kalidasa road, Matara</span>
                         </li>
                     </ul>
                 </div>
             </div>
             <hr class="footer-divider" />
             <div class="copyright">
-                    <p>&copy; 2025 DriveXPress. All rights reserved.</p>
+                <p>&copy; 2025 DriveXPress. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
 </body>
 </html>
-
-
