@@ -1,0 +1,987 @@
+<!doctype html>
+<html>
+<head>
+  <title>Car Reviews</title>
+  <style>
+
+    /* ===== RESET ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== VARIABLES ===== */
+    :root {
+      --bg: #f3f5f7;
+      --card: #ffffff;
+      --card-accent: #b98f8f;
+      --card-accent-2: rgba(185,143,143,0.08);
+      --radius: 12px;
+      --maxw: 1100px;
+      --gap: 20px;
+      --text: #222;
+      --muted-text: #9aa3ab;
+      --nav-dark: #112a3d;
+      --nav-accent: #cbd5e1;
+      --accent: #f59e0b;
+      --muted: #6b7280;
+      --footer-bg-1: #112a3d;
+      --footer-bg-2: #0b2030;
+      --text-light: rgba(255,255,255,0.95);
+    }
+
+    /* ===== BASE ===== */
+    html, body {
+      height: 100%;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .header {
+      background-color: var(--nav-dark);
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .logo {
+      background: var(--nav-dark);
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      max-width: 50px;
+      height: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      flex: 1;
+      margin-left: 100px;
+    }
+
+    .nav-links li {
+      margin-right: 80px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: color 0.18s ease, transform 0.18s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.selected {
+      color: #f59e0b;
+      transform: translateY(-2px);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.selected::after {
+      width: 100%;
+    }
+
+    .user-icon {
+      background-color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1a3a52;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .user-icon:hover {
+      background-color: #f0f0f0;
+      transform: scale(1.1);
+    }
+
+    .user-icon-svg {
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    /* ===== DROPDOWN ===== */
+    .dropdown-menu {
+      position: absolute;
+      top: 45px;
+      right: 0;
+      background: white;
+      width: 160px;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: none;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: var(--nav-dark);
+      font-size: 14px;
+    }
+
+    .dropdown-menu a:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    .dropdown-menu.show { display: block; }
+
+    /* ===== POPUP BACKDROP ===== */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      animation: backdropFadeIn 0.3s ease-out;
+    }
+
+    @keyframes backdropFadeIn {
+      from { background: rgba(0,0,0,0); }
+      to   { background: rgba(0,0,0,0.6); }
+    }
+
+    /* ===== POPUP BOX ===== */
+    .popup-content {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      padding: 30px;
+      width: 380px;
+      border-radius: 24px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      animation: popupSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .popup-content::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b);
+      border-radius: 24px 24px 0 0;
+    }
+
+    @keyframes popupSlideIn {
+      from { opacity: 0; transform: scale(0.8) translateY(-20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .popup-content h2 {
+      margin-bottom: 10px;
+      color: var(--nav-dark);
+    }
+
+    .close {
+      float: right;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--muted);
+      line-height: 1;
+    }
+
+    .close:hover { color: #111; }
+
+    #loginForm, #registerForm {
+      padding: 16px 10px 6px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+      text-align: left;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.8);
+      border: 2px solid rgba(200,200,200,0.5);
+      border-radius: 16px;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-sizing: border-box;
+    }
+
+    .input-group input:focus {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 4px rgba(245,158,11,0.1);
+      background: white;
+      transform: translateY(-2px);
+    }
+
+    .input-group label {
+      position: absolute;
+      left: 20px;
+      top: 16px;
+      color: #6b7280;
+      font-size: 16px;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      left: 16px;
+      font-size: 12px;
+      color: #f59e0b;
+      background: white;
+      padding: 0 8px;
+      border-radius: 8px;
+    }
+
+    .error-message {
+      display: block;
+      font-size: 12px;
+      color: #ef4444;
+      margin-top: 6px;
+      min-height: 16px;
+      font-weight: 500;
+    }
+
+    .input-group.error input {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 4px rgba(239,68,68,0.1);
+      animation: shake 0.5s ease-in-out;
+    }
+
+    .input-group.success input {
+      border-color: #10b981;
+      box-shadow: 0 0 0 4px rgba(16,185,129,0.1);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25%       { transform: translateX(-4px); }
+      75%       { transform: translateX(4px); }
+    }
+
+    #login-btn, #register-btn {
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 25px rgba(245,158,11,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #login-btn:hover:not(:disabled),
+    #register-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(245,158,11,0.4);
+    }
+
+    #login-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* ===== PAGE LAYOUT ===== */
+    .page {
+      max-width: var(--maxw);
+      margin: 36px auto;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.05);
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+      padding: 28px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      padding: 40px 28px;
+      border-radius: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), #fbbf24);
+    }
+
+      .welcome-design {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 16px 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+      border: 1px solid rgba(255,255,255,0.6);
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .welcome-design h2 {
+      font-size: 1.75rem;
+      background: linear-gradient(135deg, var(--nav-dark), #1e40af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+
+    .welcome-design p {
+      font-size: 1rem;
+      color: var(--muted-text);
+      margin-bottom: 16px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .stats-grid {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 16px 12px;
+      background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(251,191,36,0.1));
+      border-radius: 12px;
+      min-width: 100px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(245,158,11,0.2);
+    }
+
+    .stat .icon {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--nav-dark);
+      display: block;
+    }
+
+    .stat small {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .cta-btn {
+      background: linear-gradient(135deg, var(--accent), #fbbf24);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(245,158,11,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(245,158,11,0.4);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== HERO / SEARCH ===== */
+    .hero {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      padding: 60px 28px;
+      border-radius: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      letter-spacing: 0.2px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .hero p {
+      margin: 0 0 22px;
+      color: var(--muted-text);
+      font-size: 14px;
+    }
+
+    .search-card {
+      width: clamp(320px, 78%, 760px);
+      margin: 0 auto;
+      background: var(--card-accent);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .select {
+      min-width: 140px;
+      flex: 1 1 140px;
+    }
+
+    label {
+      font-size: 12px;
+      color: #3f2f2f;
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      background: white;
+    }
+
+    .search-button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 14px;
+      border: none;
+      cursor: pointer;
+      min-width: 88px;
+      justify-content: center;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    /* ===== SECTION HEADING ===== */
+    .section-head {
+      margin: 28px 8px 14px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* ===== CARDS GRID ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--gap);
+      padding: 8px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(15,20,25,0.04);
+      display: flex;
+      flex-direction: column;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 30px rgba(15,20,25,0.08);
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .meta  { font-size: 12px; color: var(--muted-text); }
+
+    .title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .excerpt {
+      font-size: 13px;
+      color: #555;
+      margin-top: 6px;
+      flex: 1;
+    }
+
+    /* ===== UTILITIES ===== */
+    .row  { display: flex; gap: 12px; align-items: center; }
+    .chip {
+      font-size: 12px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: var(--card-accent-2);
+      color: #4a2d2d;
+      font-weight: 600;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { margin-left: 20px; }
+      .nav-links li { margin-right: 20px; }
+    }
+
+    @media (max-width: 520px) {
+      .search-row { gap: 8px; }
+      .search-button { min-width: 72px; padding: 8px 10px; }
+      .card img { height: 130px; }
+      .popup-content { width: 90vw; margin: 20px; padding: 20px; }
+    }
+
+  </style>
+  <!-- footer.css — embedded -->
+  <style>
+    footer {
+      background: linear-gradient(180deg, var(--footer-bg-1), var(--footer-bg-2));
+      color: var(--text-light);
+      padding: 48px 20px 28px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 28px;
+      margin-bottom: 24px;
+      align-items: start;
+    }
+
+    .footer-column h4 {
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+      color: var(--nav-accent);
+      letter-spacing: 0.2px;
+    }
+
+    .footer-column p {
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      transition: color 0.18s ease, transform 0.18s ease;
+      display: inline-block;
+      font-weight: 500;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 24px 0 16px;
+    }
+
+    .copyright {
+      text-align: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.95);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .contact-icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      display: inline-block;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      fill: none;
+    }
+
+    .contact-item span { display: inline-block; }
+
+    @media (max-width: 560px) {
+      .footer-container { gap: 16px; }
+      .footer-column h4 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">
+        <a href="HTML/homepage.html">
+          <img src="logo.webp.png" alt="DriveXPress Logo" class="logo-icon">
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">New Cars</a></li>
+        <li><a href="#">Used Cars</a></li>
+        <li><a href="carreviews.html" class="selected">Car Reviews</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Finance &amp; Insurance</a></li>
+      </ul>
+      <div class="user-icon" onclick="toggleMenu()">
+        <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+        </svg>
+        <div class="dropdown-menu" id="userMenu">
+          <a href="#" onclick="openLogin()">Login</a>
+          <a href="#" onclick="openRegister()">Register</a>
+          <a href="#" onclick="openBooking()">My Bookings</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- LOGIN POPUP -->
+  <div id="loginPopup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <div class="input-group">
+          <input type="email" id="login-email" required placeholder=" ">
+          <label for="login-email">Enter Email</label>
+          <span class="error-message" id="email-error"></span>
+        </div>
+        <div class="input-group">
+          <input type="password" id="login-password" required minlength="6" placeholder=" ">
+          <label for="login-password">Enter Password</label>
+          <span class="error-message" id="password-error"></span>
+        </div>
+        <button type="submit" id="login-btn">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- REGISTER POPUP -->
+  <div id="registerPopup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <h2>Register</h2>
+      <form id="registerForm">
+        <div class="input-group">
+          <input type="text" id="register-name" required placeholder=" " pattern="[A-Za-z\s]{2,}" title="Name must be at least 2 letters">
+          <label for="register-name">Full Name</label>
+          <span class="error-message" id="name-error"></span>
+        </div>
+        <div class="input-group">
+          <input type="email" id="register-email" required placeholder=" ">
+          <label for="register-email">Email</label>
+          <span class="error-message" id="register-email-error"></span>
+        </div>
+        <div class="input-group">
+          <input type="password" id="register-password" required minlength="6" placeholder=" ">
+          <label for="register-password">Password</label>
+          <span class="error-message" id="register-password-error"></span>
+        </div>
+        <button type="submit" id="register-btn">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- BOOKINGS POPUP -->
+  <div id="bookingPopup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <h2>My Bookings</h2>
+      <p style="color:#6b7280; font-size:14px; padding:20px 0;">No bookings found.</p>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="page" role="main" aria-labelledby="pageTitle">
+
+    <section class="hero" aria-label="Search car reviews">
+      <h1 id="pageTitle">Car news and reviews</h1>
+<p>Find the latest reviews, safety tech, and guides — filter by make and model.</p>
+
+<div class="welcome-design">
+        <h2>Discover Expert Insights</h2>
+        <p>5,000+ honest reviews from experts.</p>
+        <button class="cta-btn" onclick="document.getElementById('cardsContainer').scrollIntoView({behavior: 'smooth'});">Browse Reviews</button>
+      </div>
+    </section>
+
+    <h2 class="section-head">Car guides &amp; news</h2>
+
+    <section class="grid" id="cardsContainer" aria-live="polite">
+
+      <article class="card" data-make="bmw">
+        <img src="photo-1511919884226-fd3cad34687c.avif" alt="White BMW parked under lights">
+        <div class="card-body">
+          <div class="meta">Car reviews • Jan 2025</div>
+          <h3 class="title">2025 Lexus Showdown: Top 5 Family Cars Reviewed</h3>
+          <p class="excerpt">An in-depth look at reliability, comfort and safety features across the newest family-friendly sedans.</p>
+        </div>
+      </article>
+
+      <article class="card" data-make="tesla">
+        <img src="photo-1503736334956-4c8f8e92946d.avif" alt="Car interior dashboard closeup">
+        <div class="card-body">
+          <div class="meta">Tech • Feb 2025</div>
+          <h3 class="title">Electric Revolution: Latest EVs Changing the Market</h3>
+          <p class="excerpt">From charging speed to battery management — what buyers should expect from the next-gen EVs.</p>
+        </div>
+      </article>
+
+      <article class="card" data-make="audi">
+        <img src="photo-1503376780353-7e6692767b70.avif" alt="Closeup of car infotainment screen">
+        <div class="card-body">
+          <div class="meta">Safety • Mar 2025</div>
+          <h3 class="title">Smart Technology: Advanced Safety Features Explained</h3>
+          <p class="excerpt">A buyer's guide to lane assist, adaptive cruise and driver monitoring systems—what works, what doesn't.</p>
+        </div>
+      </article>
+
+      <article class="card" data-make="toyota">
+        <img src="photo-1549924231-f129b911e442.avif" alt="City street with car driving">
+        <div class="card-body">
+          <div class="meta">Buying guides • Apr 2025</div>
+          <h3 class="title">Ten Tiny Repairs: A Guide to Maintenance Costs</h3>
+          <p class="excerpt">Practical tips on the small repairs that add up — and how to minimize ownership costs over time.</p>
+        </div>
+      </article>
+
+      <article class="card" data-make="bmw">
+        <img src="photo-1493238792000-8113da705763.avif" alt="Black luxury car profile">
+        <div class="card-body">
+          <div class="meta">Comparison • May 2025</div>
+          <h3 class="title">2025 vs 2024 Sedan Matchup: What's Right for You?</h3>
+          <p class="excerpt">We compare trims, tech and total cost of ownership to help you choose the right model year.</p>
+        </div>
+      </article>
+
+      <article class="card" data-make="audi">
+        <img src="leather-vs-cloth-in-cars-5eb3d407a13ef.avif" alt="Car interior leather vs cloth">
+        <div class="card-body">
+          <div class="meta">Reviews • Jun 2025</div>
+          <h3 class="title">How Interior Materials Affect Comfort and Longevity</h3>
+          <p class="excerpt">Leather vs cloth vs synthetic — which interior will serve long-term owners best?</p>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-column">
+          <h4>DriveXPress</h4>
+          <p>Your trusted partner for quality used cars in DriveXPress.</p>
+        </div>
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#terms">Terms</a></li>
+            <li><a href="#Privacy">Privacy</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="#newcars">New cars</a></li>
+            <li><a href="#usedcars">Used cars</a></li>
+            <li><a href="#finance">Finance &amp; Insurance</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Contact Info</h4>
+          <ul class="footer-links">
+            <li class="contact-item">
+              <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="currentColor"/>
+              </svg>
+              <span>+94 7713535351</span>
+            </li>
+            <li class="contact-item">
+              <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+              <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d34333b321d192f342b38050d2f382e2e732f28">[email&#160;protected]</a></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="copyright">
+        <p>&copy; 2025 DriveXPress. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    function toggleMenu() {
+      document.getElementById("userMenu").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.closest('.user-icon')) {
+        var menu = document.getElementById("userMenu");
+        if (menu && menu.classList.contains('show')) {
+          menu.classList.remove('show');
+        }
+      }
+    };
+
+    function openLogin()    { document.getElementById("loginPopup").style.display    = "flex"; }
+    function openRegister() { document.getElementById("registerPopup").style.display = "flex"; }
+    function openBooking()  { document.getElementById("bookingPopup").style.display  = "flex"; }
+
+    function closePopup() {
+      document.getElementById("loginPopup").style.display    = "none";
+      document.getElementById("registerPopup").style.display = "none";
+      document.getElementById("bookingPopup").style.display  = "none";
+      if (document.getElementById('loginForm')) {
+        document.getElementById('loginForm').reset();
+        clearErrors();
+      }
+    }
+
+    function clearErrors() {
+      document.querySelectorAll('.error-message').forEach(e => e.textContent = '');
+      document.querySelectorAll('.input-group input').forEach(input => {
+        input.classList.remove('error', 'success');
+        input.parentElement.classList.remove('error', 'success');
+      });
+    }
+
+    function validateName(name) {
+      return /^[A-Za-z\s]{2,}$/.test(name);
+    }
+
+
