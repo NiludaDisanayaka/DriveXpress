@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Cars</title>
+<link rel="stylesheet" href="NEW.css">
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="HTML/homepage.html">
+                <img src="logo.webp.png" alt="DriveXPress Logo" class="logo-icon">
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#">New Cars</a></li>
+            <li><a href="#">Used Cars</a></li>
+            <li><a href="carreviews.html">Car Reviews</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Finance &amp; Insurance</a></li>
+        </ul>
+
+        <div class="user-icon" onclick="toggleMenu()">
+            <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+            </svg>
+            <div class="dropdown-menu" id="userMenu">
+                <a href="#" onclick="openLogin(); return false;">Login</a>
+                <a href="#" onclick="openRegister(); return false;">Register</a>
+                <a href="#" onclick="openBooking(); return false;">My Bookings</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- ══════════════ POPUPS ══════════════ -->
+
+<div id="loginPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="email" id="login-email" required placeholder=" ">
+                <label for="login-email">Enter Email</label>
+                <span class="error-message" id="email-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="login-password" required minlength="6" placeholder=" ">
+                <label for="login-password">Enter Password</label>
+                <span class="error-message" id="password-error"></span>
+            </div>
+            <button type="submit" id="login-btn">Login</button>
+        </form>
+    </div>
+</div>
+
+<div id="registerPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <input type="text" id="register-name" required placeholder=" " pattern="[A-Za-z\s]{2,}" title="Name must be at least 2 letters">
+                <label for="register-name">Full Name</label>
+                <span class="error-message" id="name-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="email" id="register-email" required placeholder=" ">
+                <label for="register-email">Email</label>
+                <span class="error-message" id="register-email-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="register-password" required minlength="6" placeholder=" ">
+                <label for="register-password">Password</label>
+                <span class="error-message" id="register-password-error"></span>
+            </div>
+            <button type="submit" id="register-btn">Create Account</button>
+        </form>
+    </div>
+</div>
+
+<div id="bookingPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>My Bookings</h2>
+        <div style="padding: 10px 0;">
+            <p style="color:#6b7280; margin-top:10px; font-size:15px;">You have no upcoming bookings.</p>
+            <p style="margin-top:20px; font-size:13px; color:#aaa;">Book a service below to get started.</p>
+        </div>
+    </div>
+</div>
+
+<div class="search-section">
+<h1>Choose Your Perfect New Car</h1>
+
+<input type="text" id="search" placeholder="Search cars...">
+<select id="brandFilter"></select>
+<select id="typeFilter"></select>
+</div>
+
+<div class="car-container" id="carContainer"></div>
+
+<script>
+function toggleMenu() {
+    document.getElementById("userMenu").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.closest('.user-icon')) {
+        var menu = document.getElementById("userMenu");
+        if (menu && menu.classList.contains('show')) {
+            menu.classList.remove('show');
+        }
+    }
+}
+
+function openLogin() {
+    closePopup();
+    document.getElementById("loginPopup").style.display = "flex";
+}
+
+function openRegister() {
+    closePopup();
+    document.getElementById("registerPopup").style.display = "flex";
+}
+
+function openBooking() {
+    closePopup();
+    document.getElementById("bookingPopup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("loginPopup").style.display = "none";
+    document.getElementById("registerPopup").style.display = "none";
+    document.getElementById("bookingPopup").style.display = "none";
+    if (document.getElementById('loginForm')) {
+        document.getElementById('loginForm').reset();
+    }
+    if (document.getElementById('registerForm')) {
+        document.getElementById('registerForm').reset();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementById('loginForm')) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Login submitted!');
+            closePopup();
+        });
+    }
+    if (document.getElementById('registerForm')) {
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Registration submitted!');
+            closePopup();
+        });
+    }
+});
+
+let carsData=[];
+
+fetch("cars.json")
+.then(res=>res.json())
+.then(data=>{
+carsData=data;
+displayCars(data);
+populateFilters(data);
+});
+
+function displayCars(cars){
+let container=document.getElementById("carContainer");
+container.innerHTML="";
+
+cars.forEach((car,index)=>{
+container.innerHTML+=`
+<div class="car-card">
+<img src="${car.image}">
+<div class="car-info">
+<h3>${car.name}</h3>
+
+<span class="tag">${car.fuel}</span>
+<span class="tag">${car.engine}</span>
+
+<p class="price">${car.price}</p>
+
+<button onclick="viewDetails(${index})">View Details</button>
+
+</div>
+</div>`;
+});
+}
+
+function viewDetails(index){
+const car = carsData[index];
+if (!car) return;
+
+const params = new URLSearchParams({
+name: car.name,
+brand: car.brand,
+type: car.type,
+engine: car.engine,
+price: car.price,
+image: car.image,
+color: car.color,
+transmission: car.transmission,
+driveType: car.driveType,
+mileage: car.mileage,
+year: car.year,
+features: car.features.join(",")
+});
+
+window.location.href = `cardetails.html?${params.toString()}`;
+}
+
+function populateFilters(data){
+let brands=[...new Set(data.map(c=>c.brand))];
+let types=[...new Set(data.map(c=>c.type))];
+
+brandFilter.innerHTML=`<option value="all">All Brands</option>`;
+typeFilter.innerHTML=`<option value="all">All Types</option>`;
+
+brands.forEach(b=>brandFilter.innerHTML+=`<option>${b}</option>`);
+types.forEach(t=>typeFilter.innerHTML+=`<option>${t}</option>`);
+}
+
+search.addEventListener("input",filterCars);
+brandFilter.addEventListener("change",filterCars);
+typeFilter.addEventListener("change",filterCars);
+
+function filterCars(){
+let s=search.value.toLowerCase();
+let b=brandFilter.value;
+let t=typeFilter.value;
+
+let filtered=carsData.filter(car =>
+car.name.toLowerCase().includes(s) &&
+(b==="all" || car.brand===b) &&
+(t==="all" || car.type===t)
+);
+
+displayCars(filtered);
+}
+</script>
+
+<footer>
+    <div class="container">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>DriveXPress</h4>
+                <p>Your trusted partner for quality new cars.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#terms">Terms</a></li>
+                    <li><a href="#privacy">Privacy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#newcars">New cars</a></li>
+                    <li><a href="#usedcars">Used cars</a></li>
+                    <li><a href="#finance">Finance &amp; Insurance</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact Info</h4>
+                <ul class="footer-links">
+                    <li>+94 771353535</li>
+                    <li>info@DriveXPress.ru</li>
+                    <li>Kalidasa road, Matara</li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider" />
+        <div class="copyright">
+            <p>&copy; 2025 DriveXPress. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
