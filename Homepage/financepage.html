@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Financing</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* ===== RESET & ROOT ===== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --nav-dark: #112a3d;
+        --nav-accent: #cbd5e1;
+        --accent: #f59e0b;
+        --muted: #6b7280;
+        --dark: #09203f;
+        --footer-bg-1: #112a3d;
+        --footer-bg-2: #0b2030;
+        --text-light: rgba(255,255,255,0.95);
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f1f1f1;
+        line-height: 1.6;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .header {
+        background-color: #112a3d;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .logo {
+        background: linear-gradient(135deg, #112a3d 0%, #112a3d 100%);
+        padding: 20px 30px;
+        font-weight: bold;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo img {
+        max-width: 50px;
+        height: auto;
+    }
+
+    .logo-icon {
+        stroke: #333;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        flex: 1;
+        margin-left: 100px;
+    }
+
+    .nav-links li {
+        margin-right: 80px;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        transition: color 0.18s ease, transform 0.18s ease;
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #f59e0b, #fbbf24);
+        transition: width 0.3s ease;
+        border-radius: 2px;
+    }
+
+    .nav-links a:hover {
+        color: #f59e0b;
+        transform: translateY(-2px);
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    /* Active nav link */
+    .nav-links a.active {
+        color: #f59e0b;
+    }
+
+    .nav-links a.active::after {
+        width: 100%;
+    }
+
+    .user-icon {
+        background-color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1a3a52;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 1001;
+        position: relative;
+    }
+
+    .user-icon:hover {
+        background-color: #f0f0f0;
+        transform: scale(1.1);
+    }
+
+    .user-icon-svg {
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+    }
+
+    /* Dropdown */
+    .dropdown-menu {
+        position: absolute;
+        top: 45px;
+        right: 0;
+        background: white;
+        width: 160px;
+        border-radius: 6px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        display: none;
+        overflow: hidden;
+        z-index: 1000;
+    }
+
+    .dropdown-menu a {
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: var(--nav-dark);
+        font-size: 14px;
+    }
+
+    .dropdown-menu a:hover {
+        background: var(--accent);
+        color: white;
+    }
+
+    .dropdown-menu.show {
+        display: block;
+    }
+
+    /* ===== POPUPS ===== */
+    .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        animation: backdropFadeIn 0.3s ease-out;
+    }
+
+    @keyframes backdropFadeIn {
+        from { background: rgba(0,0,0,0); }
+        to { background: rgba(0,0,0,0.6); }
+    }
+
+    .popup-content {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1);
+        animation: popupSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        width: 380px;
+        padding: 30px 30px 10px;
+        text-align: center;
+    }
+
+    .popup-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b);
+        border-radius: 24px 24px 0 0;
+    }
+
+    @keyframes popupSlideIn {
+        from { opacity: 0; transform: scale(0.8) translateY(-20px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .popup-content h2 {
+        color: #112a3d;
+        margin-bottom: 10px;
+        font-size: 22px;
+    }
+
+    .close {
+        float: right;
+        font-size: 22px;
+        cursor: pointer;
+        color: #6b7280;
+        line-height: 1;
+        margin-top: -5px;
+    }
+
+    .close:hover {
+        color: #112a3d;
+    }
+
+    #loginForm, #registerForm {
+        padding: 10px 0 20px;
+    }
+
+    .input-group {
+        position: relative;
+        margin-bottom: 25px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 16px 20px;
+        background: rgba(255,255,255,0.8);
+        border: 2px solid rgba(200,200,200,0.5);
+        border-radius: 16px;
+        font-size: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        outline: none;
+    }
+
+    .input-group input:focus {
+        border-color: #f59e0b;
+        box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
+        background: rgba(255,255,255,0.95);
+        transform: translateY(-2px);
+    }
+
+    .input-group label {
+        position: absolute;
+        left: 20px;
+        top: 16px;
+        color: #6b7280;
+        font-size: 16px;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:valid + label {
+        top: -10px;
+        left: 16px;
+        font-size: 12px;
+        color: #f59e0b;
+        background: rgba(255,255,255,0.9);
+        padding: 0 8px;
+        border-radius: 8px;
+    }
+
+    .error-message {
+        display: block;
+        font-size: 12px;
+        color: #ef4444;
+        margin-top: 6px;
+        min-height: 16px;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .input-group.error input {
+        border-color: #ef4444;
+        animation: shake 0.5s ease-in-out;
+        box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+    }
+
+    .input-group.success input {
+        border-color: #10b981;
+        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-4px); }
+        75% { transform: translateX(4px); }
+    }
+
+    #login-btn, #register-btn {
+        background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #login-btn:hover, #register-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4);
+    }
+
+    #login-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    #login-btn:hover::before {
+        left: 100%;
+    }
+
+    /* Booking popup */
+    #bookingPopup .popup-content {
+        padding: 30px;
+    }
+
+    #bookingPopup p {
+        color: #6b7280;
+        margin: 15px 0 25px;
+        font-size: 15px;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        width: 90%;
+        margin: 30px auto;
+        max-width: 1200px;
+    }
+
+    .content-section {
+        flex: 3;
+        min-width: 300px;
+    }
+
+    .finance-side-section {
+        flex: 2;
+        min-width: 300px;
+        background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+        border-radius: 12px;
+        padding: 30px;
+        color: white;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+    }
+
+    .finance-side-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(41, 128, 185, 0.85);
+        border-radius: 12px;
+    }
+
+    .finance-side-section > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .finance-side-section h2 {
+        font-size: 28px;
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: white;
+    }
+
+    .finance-side-section .subtitle {
+        font-size: 16px;
+        opacity: 0.95;
+        margin-bottom: 30px;
+        font-weight: 500;
+    }
+
+    .finance-features {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 30px;
+    }
+
+    .finance-features li {
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.25);
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .finance-features li:last-child {
+        border-bottom: none;
+    }
+
+    .finance-icon {
+        color: #2980b9;
+        font-size: 22px;
+        background: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .finance-text strong {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 8px;
+        color: white;
+    }
+
+    .finance-text p {
+        margin: 0;
+        opacity: 0.9;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .finance-benefits {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        padding: 20px;
+        margin: 25px 0;
+        backdrop-filter: blur(5px);
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+        padding: 8px 0;
+    }
+
+    .benefit-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .benefit-icon {
+        color: #2ecc71;
+        font-size: 18px;
+    }
+
+    .finance-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: white;
+        color: #2980b9;
+        padding: 18px 35px;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        width: 100%;
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .finance-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        background: #f0f8ff;
+        color: #1a5276;
+    }
+
+    .signin-link {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 16px;
+    }
+
+    .signin-link a {
+        color: #aed6f1;
+        text-decoration: none;
+        font-weight: bold;
+        border-bottom: 1px solid #aed6f1;
+        padding-bottom: 2px;
+    }
+
+    .signin-link a:hover {
+        color: white;
+        border-bottom-color: white;
+    }
+
+    h3 {
+        margin-top: 30px;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 8px;
+        font-size: 24px;
+    }
+
+    .box {
+        background: #fff;
+        padding: 20px 25px;
+        margin: 15px 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-left: 5px solid #3498db;
+    }
+
+    .box ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .box li {
+        padding: 15px 0;
+        border-bottom: 1px dashed #e0e0e0;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 17px;
+    }
+
+    .box li:last-child {
+        border-bottom: none;
+    }
+
+    .check-icon {
+        color: #3498db;
+        font-size: 20px;
+        width: 28px;
+        text-align: center;
+    }
+
+    .button {
+        display: block;
+        margin: 50px auto;
+        background: #3498db;
+        color: white;
+        padding: 16px 35px;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 6px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+        max-width: 320px;
+    }
+
+    .button:hover {
+        background: #2980b9;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+        background: linear-gradient(180deg, var(--footer-bg-1), var(--footer-bg-2));
+        color: var(--text-light);
+        padding: 48px 20px 28px;
+    }
+
+    .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 28px;
+        margin-bottom: 24px;
+        align-items: start;
+    }
+
+    .footer-column h4 {
+        font-size: 1.05rem;
+        margin-bottom: 14px;
+        color: var(--nav-accent);
+        letter-spacing: 0.2px;
+    }
+
+    .footer-column p {
+        color: rgba(255,255,255,0.85);
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-links li {
+        margin-bottom: 10px;
+    }
+
+    .footer-links a {
+        color: rgba(255,255,255,0.9);
+        text-decoration: none;
+        transition: color 0.18s ease, transform 0.18s ease;
+        display: inline-block;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .footer-links a:hover {
+        color: var(--accent);
+        transform: translateX(4px);
+    }
+
+    .footer-divider {
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        margin: 24px 0 16px;
+    }
+
+    .copyright {
+        text-align: center;
+        color: rgba(255,255,255,0.7);
+        font-size: 14px;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255,255,255,0.95);
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .contact-icon {
+        width: 18px;
+        height: 18px;
+        flex: 0 0 18px;
+        display: inline-block;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        fill: none;
+    }
+
+    .contact-item span { display: inline-block; }
+
+    @media (max-width: 560px) {
+        .footer-container { gap: 16px; }
+        .footer-column h4 { font-size: 1rem; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+        }
+
+        .main-container {
+            flex-direction: column;
+        }
+
+        .popup-content {
+            width: 90vw;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- ===== NAVIGATION (Combined from navigation palat) ===== -->
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="homepage.html">
+                <img src="logo.webp.png" alt="DriveXPress Logo" class="logo-icon">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="financeoption.html" class="active">Finance Options</a></li>
+            <li><a href="insurancepage.html">Insurance Options</a></li>
+            <li><a href="Finance Apply.html">Apply</a></li>
+            <li><a href="EMI.html">EMI Calculator</a></li>
+        </ul>
+        <div class="user-icon" onclick="toggleMenu()">
+            <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+            </svg>
+            <!-- Dropdown -->
+            <div class="dropdown-menu" id="userMenu">
+                <a href="#" onclick="openLogin()">Login</a>
+                <a href="#" onclick="openRegister()">Register</a>
+                <a href="#" onclick="openBooking()">My Bookings</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- ===== LOGIN POPUP ===== -->
+<div id="loginPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="email" id="login-email" required placeholder=" ">
+                <label for="login-email">Enter Email</label>
+                <span class="error-message" id="email-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="login-password" required minlength="6" placeholder=" ">
+                <label for="login-password">Enter Password</label>
+                <span class="error-message" id="password-error"></span>
+            </div>
+            <button type="submit" id="login-btn">Login</button>
+        </form>
+    </div>
+</div>
+
+<!-- ===== REGISTER POPUP ===== -->
+<div id="registerPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <input type="text" id="register-name" required placeholder=" " pattern="[A-Za-z\s]{2,}" title="Name must be at least 2 letters">
+                <label for="register-name">Full Name</label>
+                <span class="error-message" id="name-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="email" id="register-email" required placeholder=" ">
+                <label for="register-email">Email</label>
+                <span class="error-message" id="register-email-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="register-password" required minlength="6" placeholder=" ">
+                <label for="register-password">Password</label>
+                <span class="error-message" id="register-password-error"></span>
+            </div>
+            <button type="submit" id="register-btn">Create Account</button>
+        </form>
+    </div>
+</div>
+
+<!-- ===== BOOKINGS POPUP ===== -->
+<div id="bookingPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>My Bookings</h2>
+        <p>Sign in to view your bookings.</p>
+        <button id="login-btn" onclick="closePopup(); openLogin();">Sign In</button>
+    </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-container">
+
+    <div class="content-section">
+        <h3>Loan plans</h3>
+        <div class="box">
+            <ul>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Bank Financing</strong> - Competitive rates from partner banks</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Dealer Financing</strong> - In-house financing options</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Leasing options</strong> - Flexible lease terms available</li>
+            </ul>
+        </div>
+
+        <h3>Eligibility requirements</h3>
+        <div class="box">
+            <ul>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Income requirements</strong> - Minimum monthly income criteria</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Documents needed</strong> - ID, proof of income, and address verification</li>
+            </ul>
+        </div>
+
+        <h3>Advantages</h3>
+        <div class="box">
+            <ul>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Low interest plans</strong> - Starting from 7.9% APR</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Easy approval process</strong> - Quick decision within 24 hours</li>
+            </ul>
+        </div>
+
+        <button class="button" onclick="window.location.href='financedetails.html'">View Finance Details</button>
+    </div>
+
+    <!-- Right Finance Benefits Section -->
+    <div class="finance-side-section">
+        <h2>Financing</h2>
+        <p class="subtitle">Prequalify now</p>
+
+        <ul class="finance-features">
+            <li>
+                <div class="finance-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="finance-text">
+                    <strong>Real rates, real monthly payment</strong>
+                    <p>See your personalized rate from our network of lenders.</p>
+                </div>
+            </li>
+            <li>
+                <div class="finance-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="finance-text">
+                    <strong>No impact to your credit</strong>
+                    <p>Prequalification with our lenders will not affect your credit score.</p>
+                </div>
+            </li>
+            <li>
+                <div class="finance-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="finance-text">
+                    <strong>It only takes a few minutes</strong>
+                    <p>Answer a few basic questions and instantly see your personalized results.</p>
+                </div>
+            </li>
+        </ul>
+
+        <div class="finance-benefits">
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>No application fees</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>Flexible repayment terms</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>Early repayment options</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>Online account management</span>
+            </div>
+        </div>
+
+        <a href="#" class="finance-btn" onclick="getPrequalified(); return false;">
+            <i class="fas fa-rocket"></i> Get prequalified
+        </a>
+
+        <p class="signin-link">
+            Already prequalified? <a href="#" onclick="openLogin(); return false;">Sign in to continue</a>
+        </p>
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>DriveXPress</h4>
+                <p>Your trusted partner for quality used cars in DriveXPress.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="AboutUspage.html">About Us</a></li>
+                    <li><a href="terms.html">Terms</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="newcars.html">New cars</a></li>
+                    <li><a href="usedcar.html">Used cars</a></li>
+                    <li><a href="financepage.html">Finance & Insurance</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact Info</h4>
+                <ul class="footer-links">
+                    <li class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="currentColor"/>
+                        </svg>
+                        <span>+94 7713535351</span>
+                    </li>
+                    <li class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                        </svg>
+                        <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82ebece4edc2c6f0ebf4e7dad2f0e7f1f1acf0f7">[email&#160;protected]</a></span>
+                    </li>
+                    <li class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                        </svg>
+                        <span>Kalidasa road, Matara</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider" />
+        <div class="copyright">
+            <p>&copy; 2025 DriveXPress. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    /* ===== DROPDOWN ===== */
+    function toggleMenu() {
+        document.getElementById("userMenu").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+        if (!event.target.closest('.user-icon')) {
+            var menu = document.getElementById("userMenu");
+            if (menu && menu.classList.contains('show')) {
+                menu.classList.remove('show');
+            }
+        }
+    }
+
+    /* ===== POPUPS ===== */
+    function openLogin() {
+        closeAllPopups();
+        document.getElementById("loginPopup").style.display = "flex";
+    }
+
+    function openRegister() {
+        closeAllPopups();
+        document.getElementById("registerPopup").style.display = "flex";
+    }
+
+    function openBooking() {
+        closeAllPopups();
+        document.getElementById("bookingPopup").style.display = "flex";
+    }
+
+    function closeAllPopups() {
+        document.getElementById("loginPopup").style.display = "none";
+        document.getElementById("registerPopup").style.display = "none";
+        document.getElementById("bookingPopup").style.display = "none";
+    }
+
+    function closePopup() {
+        closeAllPopups();
+        if (document.getElementById('loginForm')) {
+            document.getElementById('loginForm').reset();
+            clearErrors();
+        }
+        if (document.getElementById('registerForm')) {
+            document.getElementById('registerForm').reset();
+        }
+    }
+
+    function clearErrors() {
+        const errors = document.querySelectorAll('.error-message');
+        errors.forEach(error => error.textContent = '');
+        document.querySelectorAll('.input-group input').forEach(input => {
+            input.classList.remove('error', 'success');
+            input.parentElement.classList.remove('error', 'success');
+        });
+    }
+
+    /* Close popup on backdrop click */
+    document.querySelectorAll('.popup').forEach(popup => {
+        popup.addEventListener('click', function(e) {
+            if (e.target === this) closePopup();
+        });
+    });
+
+    /* ===== FINANCE ACTIONS ===== */
+    function applyFinance() {
+        alert("Finance application form not implemented yet!");
+    }
+
+    function getPrequalified() {
+        alert("Prequalification feature not implemented yet!");
+    }
+</script>
+
+</body>
+</html>
