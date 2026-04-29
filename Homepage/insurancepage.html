@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Insurance Options</title>
+
+<!-- Add Font Awesome for check icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="navigation palat.css">
+<style>
+    body{
+        margin:0;
+        font-family: Arial, Helvetica, sans-serif;
+        background:#f1f1f1;
+    }
+
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        width: 90%;
+        margin: 30px auto;
+        max-width: 1200px;
+    }
+
+    .content-section {
+        flex: 3;
+        min-width: 300px;
+    }
+
+    .image-section {
+        flex: 2;
+        min-width: 300px;
+        background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+        border-radius: 12px;
+        padding: 30px;
+        color: white;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-image:url('photo-1554224155-6726b3ff858f.avif');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .image-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(41, 128, 185, 0.85);
+        border-radius: 12px;
+    }
+
+    .image-section > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .image-section h2 {
+        font-size: 32px;
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: white;
+    }
+
+    .image-section .subtitle {
+        font-size: 18px;
+        opacity: 0.95;
+        margin-bottom: 30px;
+        font-weight: 500;
+    }
+
+    .insurance-features {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 30px;
+    }
+
+    .insurance-features li {
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.25);
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .insurance-features li:last-child {
+        border-bottom: none;
+    }
+
+    .insurance-icon {
+        color: #2980b9;
+        font-size: 22px;
+        background: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .insurance-text strong {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 8px;
+        color: white;
+    }
+
+    .insurance-text p {
+        margin: 0;
+        opacity: 0.9;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .insurance-benefits {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        padding: 20px;
+        margin: 25px 0;
+        backdrop-filter: blur(5px);
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+        padding: 8px 0;
+    }
+
+    .benefit-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .benefit-icon {
+        color: #2ecc71;
+        font-size: 18px;
+    }
+
+    .insurance-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: white;
+        color: #2980b9;
+        padding: 18px 35px;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        width: 100%;
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .insurance-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        background: #f0f8ff;
+        color: #1a5276;
+    }
+
+    .signin-link {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 16px;
+    }
+
+    .signin-link a {
+        color: #aed6f1;
+        text-decoration: none;
+        font-weight: bold;
+        border-bottom: 1px solid #aed6f1;
+        padding-bottom: 2px;
+    }
+
+    .signin-link a:hover {
+        color: white;
+        border-bottom-color: white;
+    }
+
+    h3{
+        margin-top:30px;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 8px;
+        font-size: 24px;
+    }
+
+    .box{
+        background:#fff;
+        padding:20px 25px;
+        margin:15px 0;
+        border-radius:8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-left: 5px solid #3498db;
+    }
+
+    .box ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .box li {
+        padding: 15px 0;
+        border-bottom: 1px dashed #e0e0e0;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 17px;
+    }
+
+    .box li:last-child {
+        border-bottom: none;
+    }
+
+    .check-icon {
+        color: #27ae60;
+        font-size: 20px;
+        width: 28px;
+        text-align: center;
+    }
+
+    .button{
+        display:block;
+        margin:50px auto;
+        background:#3498db;
+        color: white;
+        padding:16px 35px;
+        border:none;
+        cursor:pointer;
+        font-size:18px;
+        border-radius:6px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+        max-width: 320px;
+    }
+
+    .button:hover{
+        background:#2980b9;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
+    }
+
+    /* ACTIVE LINK (selected page) */
+       .nav-links a.active {
+          color: #f59e0b; /* Accent color for active link */
+        }
+
+           /* Underline effect */
+        .nav-links a.active::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -5px;
+          width: 100%;
+          height: 3px;
+          background-color: var(--accent);
+       }
+
+
+   
+</style>
+    
+
+<link rel="stylesheet" href="navigation palat.css">
+<link rel="stylesheet" href="footer.css">
+    
+</head>
+
+<body>
+    
+<header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="homepage.html">
+                    <img src="logo.webp.png" alt="DriveXPress Logo" class="logo-icon">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="financepage.html">Finance Options</a></li>
+                <li><a href="insurancepage.html" class="active">Insurance Options</a></li>
+                <li><a href="Finance Apply.html">Apply</a></li>
+                <li><a href="EMI.html">EMI Calculator</a></li>
+            </ul>
+            <div class="user-icon">
+                <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+                </svg>
+            </div>
+        </nav>
+    </header>
+
+<div class="profile"></div>
+
+<div class="main-container">
+    
+    <div class="content-section">
+        <h3>Types of insurance</h3>
+        <div class="box">
+            <ul>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Comprehensive Insurance</strong> - Complete protection for your vehicle and third parties</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Third party Insurance</strong> - Covers damage to other people and property</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Extended Warranty</strong> - Additional protection beyond manufacturer warranty</li>
+            </ul>
+        </div>
+
+        <h3>Features</h3>
+        <div class="box">
+            <ul>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Accident coverage</strong> - Full protection in case of accidents</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Theft protection</strong> - Coverage for vehicle theft or attempted theft</li>
+                <li><i class="fas fa-check-circle check-icon"></i><strong>Roadside assistance</strong> - 24/7 help for breakdowns and emergencies</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Right Insurance Benefits Section -->
+    <div class="image-section">
+        <h2>Instant Insurance Quote</h2>
+        <p class="subtitle">Get covered in minutes</p>
+        
+        <ul class="insurance-features">
+            <li>
+                <div class="insurance-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="insurance-text">
+                    <strong>Complete Protection</strong>
+                    <p>Get comprehensive coverage tailored to your specific vehicle and driving needs.</p>
+                </div>
+            </li>
+            <li>
+                <div class="insurance-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="insurance-text">
+                    <strong>Instant Approval</strong>
+                    <p>Receive your insurance quote within minutes, not days. No lengthy paperwork.</p>
+                </div>
+            </li>
+            <li>
+                <div class="insurance-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="insurance-text">
+                    <strong>Competitive Rates</strong>
+                    <p>Compare rates from top insurance providers to get the best deal available.</p>
+                </div>
+            </li>
+        </ul>
+        
+        <div class="insurance-benefits">
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>No hidden fees or charges</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>24/7 claims support</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>Flexible payment options</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check benefit-icon"></i>
+                <span>Transferable to new owners</span>
+            </div>
+        </div>
+        
+        <a href="#" class="insurance-btn" onclick="getInstantQuote()">
+            <i class="fas fa-file-invoice-dollar"></i> Get Instant Quote
+        </a>
+        
+        <p class="signin-link">
+            Already have insurance? <a href="#">Sign in to manage policy</a>
+        </p>
+    </div>
+</div>
+
+<script>
+function getInsurance(){
+    alert("Insurance quote feature not implemented yet!");
+}
+
+function getInstantQuote(){
+    alert("Instant quote feature not implemented yet!");
+}
+</script>
+    
+<footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h4>DriveXPress</h4>
+                    <p>Your trusted partner for quality used cars in DriveXPress.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html">Home</a></li>
+                        <li><a href="AboutUspage.html">About Us</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="newcars.html">New cars</a></li>
+                        <li><a href="usedcar.html">Used cars</a></li>
+                        <li><a href="financepage.html">Finance & Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="currentColor"/>
+                            </svg>
+                            <span>+94 7713535351</span>
+                        </li>
+                        <li class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg>
+                            <span>info@DriveXPress.ru</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="footer-divider" />
+            <div class="copyright">
+                    <p>&copy; 2025 DriveXPress. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DriveXPress - Login</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f4f4;
+}
+
+.login-container{
+width:350px;
+margin:100px auto;
+background:white;
+padding:30px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h2{
+text-align:center;
+color:#112a3d;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+width:100%;
+padding:10px;
+background:#f59e0b;
+border:none;
+color:white;
+font-size:16px;
+border-radius:5px;
+cursor:pointer;
+}
+
+
+
+button:hover{
+background:#d97706;
+}
+
+p{
+text-align:center;
+}
+
+a{
+color:#112a3d;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+<h2>Login</h2>
+
+<!-- USER ICON (click to open login form) -->
+<div class="user-icon" onclick="openLogin()">
+    👤
+</div>
+
+
+<!-- LOGIN MODAL (hidden by default) -->
+<div id="loginModal" class="modal">
+
+    <!-- LOGIN FORM BOX -->
+    <div class="modal-content">
+
+        <!-- CLOSE BUTTON -->
+        <span class="close-btn" onclick="closeLogin()">×</span>
+
+        <h2>Sign in or Create Account</h2>
+
+        <!-- Email input -->
+        <input type="email" placeholder="Enter your email">
+
+        <!-- Password input -->
+        <input type="password" placeholder="Enter your password">
+
+        <!-- Login button -->
+        <button>Login</button>
+
+        <p>Don't have an account? <a href="#">Register</a></p>
+
+    </div>
+</div>
+
+<form>
+
+<input type="email" placeholder="Email">
+
+<input type="password" placeholder="Password">
+
+<button type="submit">Login</button>
+
+</form>
+
+<p>Don't have an account? <a href="register.html">Register</a></p>
+
+</div>
+
+</body>
+</html>
