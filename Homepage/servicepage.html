@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveXPress - Service Booking</title>
+    <link rel="stylesheet" href="service-booking.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Logo above navigation -->
+    <div class="logo-container">
+        <div class="logo-box">
+            <svg class="logo-icon" viewBox="0 0 24 24" width="40" height="40">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM8 17.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5zM19 12h-2V8h-2v4h-2V8h-2v4H8V8H6v4H4V8H2v8h20v-4z"/>
+            </svg>
+            <div class="logo-text">
+                <h1>DriveXPress</h1>
+                <p>Your trusted partner for quality used cars</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <ul class="nav-links">
+                    <li><a href="homepage.html">New cars</a></li>
+                    <li><a href="#">Used cars</a></li>
+                    <li><a href="#">Car reviews</a></li>
+                    <li><a href="#" class="active">Services</a></li>
+                    <li><a href="#">Finance & Insurance</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <div class="user-info">
+                    <div class="user-icon">
+                        <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+                        </svg>
+                    </div>
+                    <span class="user-status">Signed in</span>
+                    <div class="chat-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <span><a href="homepage.html">Home</a></span>
+            <span class="separator">></span>
+            <span><a href="#">Services</a></span>
+            <span class="separator">></span>
+            <span class="current">Service Booking</span>
+        </div>
+
+        <!-- Page Title -->
+        <div class="page-title">
+            <h1>DriveXPress - Service Booking</h1>
+            <p>Book your vehicle service appointment with our experts</p>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-bars"></i> Services Overview</h3>
+                </div>
+                <ul class="sidebar-menu">
+                    <li><a href="#"><i class="fas fa-car"></i> Test Drive Booking</a></li>
+                    <li class="active"><a href="#"><i class="fas fa-calendar-check"></i> Service Booking</a></li>
+                    <li><a href="#"><i class="fas fa-tools"></i> Maintenance & Repair</a></li>
+                    <li><a href="#"><i class="fas fa-history"></i> Service History</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Service FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-phone-alt"></i> Contact Service</a></li>
+                </ul>
+
+                <div class="sidebar-info">
+                    <div class="info-card">
+                        <h4><i class="fas fa-clock"></i> Working Hours</h4>
+                        <p><strong>Mon - Fri:</strong> 8:00 AM - 6:00 PM</p>
+                        <p><strong>Saturday:</strong> 9:00 AM - 4:00 PM</p>
+                        <p><strong>Sunday:</strong> Closed</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-phone"></i> Emergency Contact</h4>
+                        <p><strong>24/7 Roadside:</strong> 071-234-5678</p>
+                        <p><strong>Service Center:</strong> 011-345-6789</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Form Area -->
+            <section class="booking-section">
+                <div class="booking-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-calendar-plus"></i> Book Your Service</h2>
+                        <p>Fill out the form below to schedule your vehicle service</p>
+                    </div>
+
+                    <form class="booking-form" id="serviceForm">
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> Personal Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="fullName">Full Name <span class="required">*</span></label>
+                                    <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nic">NIC Number <span class="required">*</span></label>
+                                    <input type="text" id="nic" name="nic" required placeholder="Enter your NIC">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address <span class="required">*</span></label>
+                                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number <span class="required">*</span></label>
+                                    <input type="tel" id="phone" name="phone" required placeholder="+94 77 123 4567">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vehicle Information -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-car"></i> Vehicle Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="vehicleType">Vehicle Type <span class="required">*</span></label>
+                                    <select id="vehicleType" name="vehicleType" required>
+                                        <option value="">Select Type</option>
+                                        <option value="car">Car</option>
+                                        <option value="suv">SUV</option>
+                                        <option value="van">Van</option>
+                                        <option value="truck">Truck</option>
+                                        <option value="motorcycle">Motorcycle</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="brand">Brand <span class="required">*</span></label>
+                                    <select id="brand" name="brand" required>
+                                        <option value="">Select Brand</option>
+                                        <option value="honda">Honda</option>
+                                        <option value="toyota">Toyota</option>
+                                        <option value="nissan">Nissan</option>
+                                        <option value="mitsubishi">Mitsubishi</option>
+                                        <option value="hyundai">Hyundai</option>
+                                        <option value="bmw">BMW</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="model">Model <span class="required">*</span></label>
+                                    <input type="text" id="model" name="model" required placeholder="e.g., Civic, Corolla">
+                                </div>
+                                <div class="form-group">
+                                    <label for="year">Year <span class="required">*</span></label>
+                                    <input type="number" id="year" name="year" min="1990" max="2024" required placeholder="2020">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="vehicleNo">Vehicle Number <span class="required">*</span></label>
+                                    <input type="text" id="vehicleNo" name="vehicleNo" required placeholder="ABC-1234">
+                                </div>
+                                <div class="form-group">
+                                    <label for="mileage">Current Mileage</label>
+                                    <input type="number" id="mileage" name="mileage" placeholder="e.g., 50000">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Details -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-cogs"></i> Service Details</h3>
+                            <div class="service-types">
+                                <h4>Select Service Type(s):</h4>
+                                <div class="service-options">
+                                    <label class="service-checkbox">
+                                        <input type="checkbox" name="service" value="oil">
+                                        <span class="checkmark"></span>
+                                        <span class="service-text">Oil Change & Filter</span>
+                                        <span class="service-price">Rs. 8,000 - 12,000</span>
+                                    </label>
+                                    <label class="service-checkbox">
+                                        <input type="checkbox" name="service" value="brake">
+                                        <span class="checkmark"></span>
+                                        <span class="service-text">Brake Service</span>
+                                        <span class="service-price">Rs. 20,000 - 35,000</span>
+                                    </label>
+                                    <label class="service-checkbox">
+                                        <input type="checkbox" name="service" value="engine">
+                                        <span class="checkmark"></span>
+                                        <span class="service-text">Engine Tune-up</span>
+                                        <span class="service-price">Rs. 12,000 - 18,000</span>
+                                    </label>
+                                    <label class="service-checkbox">
+                                        <input type="checkbox" name="service" value="ac">
+                                        <span class="checkmark"></span>
+                                        <span class="service-text">AC Service</span>
+                                        <span class="service-price">Rs. 15,000 - 25,000</span>
+                                    </label>
+                                    <label class="service-checkbox">
+                                        <input type="checkbox" name="service" value="tire">
+                                        <span class="checkmark"></span>
+                                        <span class="service-text">Tire Rotation</span>
+                                        <span class="service-price">Rs. 3,000 - 8,000</span>
+                                    </label>
+                                    <label class="service-checkbox">
+                                        <input type="checkbox" name="service" value="diagnostic">
+                                        <span class="checkmark"></span>
+                                        <span class="service-text">Diagnostic Check</span>
+                                        <span class="service-price">Rs. 5,000 - 10,000</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="preferredDate">Preferred Date <span class="required">*</span></label>
+                                    <input type="date" id="preferredDate" name="preferredDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="preferredTime">Preferred Time <span class="required">*</span></label>
+                                    <select id="preferredTime" name="preferredTime" required>
+                                        <option value="">Select Time Slot</option>
+                                        <option value="09:00">09:00 AM</option>
+                                        <option value="10:00">10:00 AM</option>
+                                        <option value="11:00">11:00 AM</option>
+                                        <option value="13:00">01:00 PM</option>
+                                        <option value="14:00">02:00 PM</option>
+                                        <option value="15:00">03:00 PM</option>
+                                        <option value="16:00">04:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="issues">Describe Vehicle Issues (Optional)</label>
+                                <textarea id="issues" name="issues" rows="3" placeholder="Describe any problems or specific requests..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Submit Section -->
+                        <div class="form-actions">
+                            <div class="action-buttons">
+                                <button type="submit" class="btn-submit">
+                                    <i class="fas fa-paper-plane"></i> Submit Booking
+                                </button>
+                                <button type="reset" class="btn-reset">
+                                    <i class="fas fa-redo"></i> Clear Form
+                                </button>
+                                <button type="button" class="btn-estimate">
+                                    <i class="fas fa-calculator"></i> Get Estimate
+                                </button>
+                            </div>
+                            <div class="form-note">
+                                <p><i class="fas fa-info-circle"></i> We will contact you within 24 hours to confirm your appointment.</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Booking Summary -->
+                <div class="summary-card">
+                    <h3><i class="fas fa-receipt"></i> Booking Summary</h3>
+                    <div class="summary-content">
+                        <div class="summary-item">
+                            <span class="summary-label">Selected Services:</span>
+                            <span class="summary-value" id="selectedServices">None</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Estimated Cost:</span>
+                            <span class="summary-value" id="estimatedCost">Rs. 0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Service Time:</span>
+                            <span class="summary-value">2-4 hours</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Next Available:</span>
+                            <span class="summary-value">Tomorrow</span>
+                        </div>
+                    </div>
+                    <div class="summary-total">
+                        <span class="total-label">Total Estimated:</span>
+                        <span class="total-value" id="totalEstimate">Rs. 0</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>DriveXPress</h4>
+                <p>Your trusted partner for quality used cars in DriveXPress.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#terms">Terms</a></li>
+                    <li><a href="#privacy">Privacy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#newcars">New cars</a></li>
+                    <li><a href="#usedcars">Used cars</a></li>
+                    <li><a href="#finance">Finance & Insurance</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact Info</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+94 7713838361</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@DriveXPress.ru</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>123 Car Street, Colombo, Sri Lanka</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="copyright">
+                <p>&copy; 2025 DriveXPress. All rights reserved.</p>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="service-booking.js"></script>
+</body>
+</html>
