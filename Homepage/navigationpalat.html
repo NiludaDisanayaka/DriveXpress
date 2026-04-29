@@ -1,0 +1,164 @@
+
+<html>
+<head>
+     <link rel="stylesheet" href="navigation palat.css">
+     <script>
+function toggleMenu() {
+    document.getElementById("userMenu").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.closest('.user-icon')) {
+        var menu = document.getElementById("userMenu");
+        if (menu.classList.contains('show')) {
+            menu.classList.remove('show');
+        }
+    }
+}
+/* OPEN DROPDOWN */
+
+function toggleMenu(){
+document.getElementById("userMenu").classList.toggle("show");
+}
+
+
+/* LOGIN POPUP */
+
+function openLogin(){
+document.getElementById("loginPopup").style.display="flex";
+}
+
+
+/* REGISTER POPUP */
+
+function openRegister(){
+document.getElementById("registerPopup").style.display="flex";
+}
+
+
+/* BOOKINGS POPUP */
+
+function openBooking(){
+document.getElementById("bookingPopup").style.display="flex";
+}
+
+
+/* CLOSE ALL POPUPS */
+
+function closePopup(){
+document.getElementById("loginPopup").style.display="none";
+document.getElementById("registerPopup").style.display="none";
+document.getElementById("bookingPopup").style.display="none";
+// Reset form validation
+if (document.getElementById('loginForm')) {
+    document.getElementById('loginForm').reset();
+    clearErrors();
+}
+}
+
+function clearErrors() {
+    const errors = document.querySelectorAll('.error-message');
+    errors.forEach(error => error.textContent = '');
+    document.querySelectorAll('.input-group input').forEach(input => {
+        input.classList.remove('error', 'success');
+        input.parentElement.classList.remove('error', 'success');
+    });
+}
+
+function validateName(name) {
+    const nameRegex = /^[A-Za-z\\s]{2,}$/;
+    return nameRegex.test(name);
+}
+
+</script>
+</head>    
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="HTML/homepage.html">
+                    <img src="logo.webp.png" alt="DriveXPress Logo" class="logo-icon">
+                </a>
+            </div>
+            <ul class="nav-links">
+                 <li><a href="#">New Cars</a></li>
+                 <li><a href="#">Used Cars</a></li>
+                 <li><a href="carreviews.html">Car Reviews</a></li>
+                  <li><a href="#">Services</a></li>
+               <li><a href="#">Finance & Insurance</a></li>
+            </ul>
+            <div class="user-icon" onclick="toggleMenu()">
+        <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+        </svg>
+
+        <!-- DROPDOWN -->
+        <div class="dropdown-menu" id="userMenu">
+            <a href="#" onclick="openLogin()">Login</a>
+            <a href="#" onclick="openRegister()">Register</a>
+            <a href="#" onclick="openBooking()">My Bookings</a>
+        </div>
+
+    </div>
+</nav>
+
+   <!-- LOGIN POPUP -->
+   <div id="loginPopup" class="popup">
+
+    <div class="popup-content">
+
+        <span class="close" onclick="closePopup()">&times;</span>
+
+        <h2>Login</h2>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="email" id="login-email" required placeholder=" ">
+                <label for="login-email">Enter Email</label>
+                <span class="error-message" id="email-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="login-password" required minlength="6" placeholder=" ">
+                <label for="login-password">Enter Password</label>
+                <span class="error-message" id="password-error"></span>
+            </div>
+            <button type="submit" id="login-btn">Login</button>
+        </form>
+
+      </div>
+
+    </div>
+
+    <!-- REGISTER POPUP -->
+<div id="registerPopup" class="popup">
+
+    <div class="popup-content">
+
+        <span class="close" onclick="closePopup()">&times;</span>
+
+        <h2>Register</h2>
+
+        <form id="registerForm">
+            <div class="input-group">
+                <input type="text" id="register-name" required placeholder=" ">
+                <label for="register-name">Full Name</label>
+                <span class="error-message" id="name-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="email" id="register-email" required placeholder=" ">
+                <label for="register-email">Email</label>
+                <span class="error-message" id="register-email-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="register-password" required minlength="6" placeholder=" ">
+                <label for="register-password">Password</label>
+                <span class="error-message" id="register-password-error"></span>
+            </div>
+            <button type="submit" id="register-btn">Create Account</button>
+        </form>
+
+    </div>
+
+</div>
+</body>
+</html>    
