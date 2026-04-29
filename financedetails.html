@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>View Finance Details</title>
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="navigation palat.css">
+  
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f6f8fb 0%, #eef2f7 100%);
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 30px rgba(15, 42, 68, 0.08);
+      border: 1px solid #e9f1ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(15, 42, 68, 0.12);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 16px;
+    }
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #0f2a44 0%, #1a3a5a 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      box-shadow: 0 4px 12px rgba(15, 42, 68, 0.15);
+    }
+    .card-content h2 {
+      margin: 0;
+      color: #0f2a44;
+      font-size: 1.8rem;
+    }
+    .card-content p {
+      margin: 16px 0 0 0;
+      color: #555;
+      line-height: 1.7;
+    }
+    ul {
+      padding-left: 0;
+      list-style-type: none;
+    }
+    li {
+      margin-bottom: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f4f9;
+    }
+    li:last-child {
+      border-bottom: none;
+    }
+    .check-icon {
+      color: #27ae60;
+      font-size: 18px;
+      margin-top: 3px;
+      flex-shrink: 0;
+      background: #e9f7ef;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .grid-item {
+      background: #f9fbfe;
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid #e9f1ff;
+      transition: all 0.3s ease;
+    }
+    .grid-item:hover {
+      background: #ffffff;
+      border-color: #c5d5f0;
+      box-shadow: 0 8px 20px rgba(15, 42, 68, 0.08);
+    }
+    .grid-item h3 {
+      color: #0f2a44;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .grid-icon {
+      color: #0f2a44;
+      font-size: 20px;
+    }
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #0f2a44 0%, #1a3a5a 100%);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+    .image-section {
+      margin: 32px 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+    .image-section img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .image-section:hover img {
+      transform: scale(1.03);
+    }
+    .note {
+      background: linear-gradient(135deg, #fff8e6 0%, #fff5d9 100%);
+      border-left: 4px solid #f0b429;
+      padding: 20px 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-top: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .note-icon {
+      color: #f0b429;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .btn {
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0f2a44 0%, #1a3a5a 100%);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #1a3a5a 0%, #23456b 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(15, 42, 68, 0.2);
+    }
+    .btn-secondary {
+      background: #fff;
+      color: #0f2a44;
+      border: 2px solid #e9f1ff;
+    }
+    .btn-secondary:hover {
+      background: #f0f4f9;
+      border-color: #c5d5f0;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(15, 42, 68, 0.1);
+    }
+    
+  </style>
+    
+   
+    
+</head>
+<body>
+
+<div class="container">
+
+  
+  <div class="image-section">
+    <img src="photo-1554224155-6726b3ff858f.avif" 
+         alt="Modern car finance concept">
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <div class="card-content">
+        <h2>Finance Overview</h2>
+        <p>Our comprehensive vehicle finance solutions connect you with Sri Lanka's leading banks and financial institutions, offering tailored options for both new and pre-owned vehicles.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <i class="fas fa-hand-holding-usd"></i>
+      </div>
+      <div class="card-content">
+        <h2>Available Finance Options</h2>
+        <p>Choose from our diverse range of financing plans designed to suit different financial profiles and requirements.</p>
+      </div>
+    </div>
+    
+    <div class="grid">
+      <div class="grid-item">
+        <h3><i class="fas fa-university grid-icon"></i> Bank Vehicle Loans</h3>
+        <ul>
+          <li><i class="fas fa-check-circle check-icon"></i>Suitable for new and used vehicles</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Fixed or reducing balance interest options</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Repayment periods up to several years</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Competitive interest rates based on profile</li>
+        </ul>
+      </div>
+      <div class="grid-item">
+        <h3><i class="fas fa-car grid-icon"></i> Leasing Facilities</h3>
+        <ul>
+          <li><i class="fas fa-check-circle check-icon"></i>Vehicle ownership after final payment</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Flexible monthly rental plans</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Lower initial cash requirement</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Ideal for salaried and self-employed customers</li>
+        </ul>
+      </div>
+      <div class="grid-item">
+        <h3><i class="fas fa-handshake grid-icon"></i> Dealer-Assisted Finance</h3>
+        <ul>
+          <li><i class="fas fa-check-circle check-icon"></i>Quick processing through partner institutions</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Guidance on documentation and approvals</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Convenient one-stop financing support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+ 
+  <div class="image-section">
+    <img src="photo-1554224155-8d04cb21cd6c.avif" 
+         alt="Financial planning and analysis">
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <i class="fas fa-clipboard-check"></i>
+      </div>
+      <div class="card-content">
+        <h2>Eligibility Requirements</h2>
+        <p>We've streamlined our eligibility criteria to make vehicle financing accessible to a wide range of customers.</p>
+      </div>
+    </div>
+    
+    <div class="grid">
+      <div>
+        <h3>Basic Requirements</h3>
+        <ul>
+          <li><i class="fas fa-check-circle check-icon"></i>Sri Lankan citizen with valid identification</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Age typically between 18 and retirement age</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Stable income from employment or business</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Acceptable credit history and repayment capacity</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Required Documents</h3>
+        <ul>
+          <li><i class="fas fa-check-circle check-icon"></i>National Identity Card or Passport</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Proof of income (salary slips or bank statements)</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Vehicle quotation or proforma invoice</li>
+          <li><i class="fas fa-check-circle check-icon"></i>Proof of address and employment details</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <i class="fas fa-percentage"></i>
+      </div>
+      <div class="card-content">
+        <h2>Financial Terms & Conditions</h2>
+        <p>Transparent financial terms designed to help you make informed decisions.</p>
+      </div>
+    </div>
+    
+    <ul>
+      <li><i class="fas fa-check-circle check-icon"></i>Down payment required as per lender and regulations</li>
+      <li><i class="fas fa-check-circle check-icon"></i>Finance amount depends on vehicle value and profile</li>
+      <li><i class="fas fa-check-circle check-icon"></i>Interest rates vary based on market conditions</li>
+      <li><i class="fas fa-check-circle check-icon"></i>Additional charges may apply (documentation, valuation)</li>
+    </ul>
+    
+    <div class="note">
+      <i class="fas fa-info-circle note-icon"></i>
+      <div>
+        <strong>Important Notice:</strong> Final interest rates, loan amounts, and charges will be confirmed during the application process after thorough assessment.
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="image-section">
+    <img src="photo-1558618666-fcd25c85cd64.avif" 
+         alt="Car keys and finance documents">
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <i class="fas fa-award"></i>
+      </div>
+      <div class="card-content">
+        <h2>Advantages of Vehicle Financing</h2>
+        <p>Experience the benefits of our customer-centric financing solutions.</p>
+      </div>
+    </div>
+    
+    <ul>
+      <li><i class="fas fa-check-circle check-icon"></i>Purchase a vehicle without full upfront payment</li>
+      <li><i class="fas fa-check-circle check-icon"></i>Manageable monthly installments</li>
+      <li><i class="fas fa-check-circle check-icon"></i>Flexible repayment periods</li>
+      <li><i class="fas fa-check-circle check-icon"></i>Access to partner banks and finance companies</li>
+      <li><i class="fas fa-check-circle check-icon"></i>Expert guidance throughout the process</li>
+      <li><i class="fas fa-check-circle check-icon"></i>Quick approval and disbursement</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <div class="card-content">
+        <h2>Ready to Get Started?</h2>
+        <p>Take the next step towards owning your dream vehicle with our simple and transparent financing process.</p>
+      </div>
+    </div>
+    
+    <div class="cta">
+      <a href="EMI.html" class="btn btn-secondary"><i class="fas fa-calculator"></i> Calculate EMI</a>
+      <a href="C" class="btn btn-secondary"><i class="fas fa-phone-alt"></i> Contact Advisor</a>
+    </div>
+    
+    <div class="note" style="margin-top: 24px; background: #e9f7ef; border-left-color: #27ae60;">
+      <i class="fas fa-clock note-icon" style="color: #27ae60;"></i>
+      <div>
+        <strong>Quick Processing:</strong> Most applications receive initial approval within 24-48 hours. Complete documentation ensures faster processing.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

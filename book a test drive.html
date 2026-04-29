@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Details</title>
+    <title>Book a Test Drive</title>
     <style>
         * {
             margin: 0;
@@ -17,15 +15,13 @@
             --accent: #f59e0b;
             --muted: #6b7280;
             --dark: #09203f;
-            --text-light: rgba(255,255,255,0.95);
             --footer-bg-1: #112a3d;
             --footer-bg-2: #0b2030;
+            --text-light: rgba(255,255,255,0.95);
         }
 
         body {
             font-family: Arial, sans-serif;
-            background-color: white;
-            color: var(--dark);
             line-height: 1.6;
         }
 
@@ -137,6 +133,24 @@
             fill: none;
         }
 
+        /* ACTIVE LINK (selected page) */
+       .nav-links a.active {
+          color: #f59e0b; /* Accent color for active link */
+        }
+
+           /* Underline effect */
+        .nav-links a.active::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -5px;
+          width: 100%;
+          height: 3px;
+          background-color: var(--accent);
+       }
+
+
+
         /* ── DROPDOWN ── */
         .dropdown-menu {
             position: absolute;
@@ -172,8 +186,10 @@
         .popup {
             display: none;
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0,0,0,0.6);
             justify-content: center;
             align-items: center;
@@ -229,8 +245,10 @@
 
         .close:hover { color: #333; }
 
-        /* ── POPUP INPUT GROUPS ── */
-        #loginForm { padding: 20px 30px 30px; }
+        /* ── INPUT GROUPS (popup forms) ── */
+        #loginForm {
+            padding: 20px 30px 30px;
+        }
 
         .input-group {
             position: relative;
@@ -277,6 +295,7 @@
             background: rgba(255,255,255,0.9);
             padding: 0 8px;
             border-radius: 8px;
+            backdrop-filter: blur(10px);
         }
 
         .error-message {
@@ -286,6 +305,24 @@
             margin-top: 6px;
             min-height: 16px;
             font-weight: 500;
+        }
+
+        .input-group.error input {
+            border-color: #ef4444;
+            animation: shake 0.5s ease-in-out;
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 0 0 4px rgba(239,68,68,0.1);
+        }
+
+        .input-group.success input {
+            border-color: #10b981;
+            box-shadow: 0 0 0 4px rgba(16,185,129,0.1);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25%       { transform: translateX(-4px); }
+            75%       { transform: translateX(4px); }
         }
 
         #login-btn, #register-btn {
@@ -298,7 +335,7 @@
             font-weight: 700;
             cursor: pointer;
             width: 100%;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 10px 25px rgba(245,158,11,0.3);
             position: relative;
             overflow: hidden;
@@ -323,208 +360,113 @@
 
         #login-btn:hover::before { left: 100%; }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25%       { transform: translateX(-4px); }
-            75%       { transform: translateX(4px); }
-        }
-
         @media (max-width: 480px) {
             .popup-content { width: 90vw; max-width: 420px; margin: 20px; padding: 20px; }
             #loginForm { padding: 15px; }
         }
 
-        /* ── CAR DETAILS PAGE ── */
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 20px;
+        /* ── FORM CONTAINER ── */
+        .form-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
-        /* Titles */
-        .car-title {
-            font-size: 28px;
-            margin-bottom: 5px;
+        .form-container h2 {
+            font-size: 1.8rem;
+            color: #112a3d;
+            margin-bottom: 10px;
         }
 
-        .car-subtitle {
-            color: var(--muted);
-            margin-bottom: 20px;
-        }
-
-        /* Images */
-        .image-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 15px;
+        .form-container hr {
+            border: none;
+            border-top: 2px solid #e5e7eb;
             margin-bottom: 30px;
         }
 
-        .image-grid img {
-            width: 100%;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        /* Layout */
-        .content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        /* Stats */
-        .details h2 {
-            margin-bottom: 15px;
-        }
-
-        .stat {
+        .form-container .row {
             display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--nav-accent);
-            font-size: 14px;
+            gap: 20px;
         }
 
-        /* Features with ticks */
-        .features {
-            list-style: none;
-            margin-top: 10px;
+        .form-container .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            flex: 1;
+            position: static;
         }
 
-        .features li {
-            padding: 6px 0;
-            font-size: 14px;
-            position: relative;
-            padding-left: 22px;
-        }
-
-        .features li::before {
-            content: "✔";
-            color: var(--accent);
-            position: absolute;
-            left: 0;
-        }
-
-        /* Price Box */
-        .price-box {
-            border: 1px solid var(--nav-accent);
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .price-label {
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        .price {
-            font-size: 32px;
-            color: var(--accent);
-            font-weight: bold;
-            margin: 8px 0 20px;
-        }
-
-        /* Form */
-        .form-title {
-            margin-bottom: 15px;
-        }
-
-        .availability-form input,
-        .availability-form textarea {
+        .form-container .input-group.full {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid var(--nav-accent);
-            border-radius: 6px;
+        }
+
+        .form-container .input-group label {
+            position: static;
             font-size: 14px;
-            font-family: inherit;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+            pointer-events: auto;
+            transform: none;
+            top: auto; left: auto;
+        }
+
+        .form-container .input-group input,
+        .form-container .input-group select {
+            padding: 10px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #f9fafb;
             outline: none;
             transition: border-color 0.2s;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
-        .availability-form input:focus,
-        .availability-form textarea:focus {
-            border-color: var(--accent);
+        .form-container .input-group input:focus,
+        .form-container .input-group select:focus {
+            border-color: #f59e0b;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(245,158,11,0.1) !important;
+            transform: none !important;
         }
 
-        .form-row {
-            display: flex;
-            gap: 10px;
-        }
-
-        .form-row input {
-            width: 50%;
-        }
-
-        textarea {
-            resize: none;
-            height: 90px;
-        }
-
-        .checkbox {
-            font-size: 13px;
-            display: block;
-            margin: 10px 0;
-            position: relative;
-            padding-left: 25px;
-            cursor: pointer;
-        }
-
-        .checkbox input[type="checkbox"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-        }
-
-        .checkbox::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 16px;
-            height: 16px;
-            border: 1px solid var(--nav-accent);
-            background: white;
-            border-radius: 2px;
-        }
-
-        .checkbox:has(input[type="checkbox"]:checked)::after {
-            content: "✔";
-            position: absolute;
-            left: 2px;
-            top: -2px;
-            color: var(--accent);
+        /* override floating label inside form-container */
+        .form-container .input-group input:focus + label,
+        .form-container .input-group input:valid + label {
+            position: static;
+            top: auto; left: auto;
             font-size: 14px;
+            color: #374151;
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            transform: none;
         }
 
-        .form-note {
-            font-size: 12px;
-            color: var(--muted);
-            margin-bottom: 12px;
-        }
-
-        .form-note span {
-            color: var(--accent);
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        .btn {
-            background-color: #f59e0b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
+        .submit-btn {
+            display: block;
             width: 100%;
+            padding: 14px;
+            background: #112a3d;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            margin-top: 10px;
             transition: background 0.3s;
         }
 
-        .btn:hover {
-            background-color: #112a3d;
+        .submit-btn:hover {
+            background: #f59e0b;
         }
 
         /* ── FOOTER ── */
@@ -532,7 +474,12 @@
             background: linear-gradient(180deg, var(--footer-bg-1), var(--footer-bg-2));
             color: var(--text-light);
             padding: 48px 20px 28px;
-            margin-top: 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
         }
 
         .footer-container {
@@ -562,7 +509,9 @@
             margin: 0;
         }
 
-        .footer-links li { margin-bottom: 10px; }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
 
         .footer-links a {
             color: rgba(255,255,255,0.9);
@@ -610,27 +559,23 @@
 
         .contact-item span { display: inline-block; }
 
-        /* ── RESPONSIVE ── */
-        @media (max-width: 900px) {
-            .nav-links li { margin-right: 30px; }
-            .content { grid-template-columns: 1fr; }
-            .image-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 600px) {
-            .nav-links { display: none; }
-            .form-row { flex-direction: column; }
-            .form-row input { width: 100%; }
-        }
-
         @media (max-width: 560px) {
             .footer-container { gap: 16px; }
             .footer-column h4 { font-size: 1rem; }
         }
+
+        @media (max-width: 768px) {
+            .form-container .row { flex-direction: column; gap: 0; }
+            .nav-links li { margin-right: 30px; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .form-container { margin: 20px; padding: 20px; }
+        }
     </style>
 
     <script>
-        /* ── NAVBAR ── */
         function toggleMenu() {
             document.getElementById("userMenu").classList.toggle("show");
         }
@@ -669,8 +614,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-
-            /* ── POPUP FORM HANDLERS ── */
+            // Existing popup handlers
             document.getElementById('loginForm').addEventListener('submit', function (e) {
                 e.preventDefault();
                 alert('Login submitted!');
@@ -682,59 +626,146 @@
                 closePopup();
             });
 
-            /* ── URL PARAMETER DATA BINDING ── */
-            const params = new URLSearchParams(window.location.search);
+            // Test Drive Form Validation
+            const form = document.getElementById('testDriveForm');
+            const fields = {
+                name: document.getElementById('name'),
+                phone: document.getElementById('phone'),
+                email: document.getElementById('email'),
+                carModel: document.getElementById('carModel'),
+                dealer: document.getElementById('dealer'),
+                date: document.getElementById('date'),
+                time: document.getElementById('time'),
+                notes: document.getElementById('notes')
+            };
 
-            const name = params.get("name");
-            const brand = params.get("brand");
-            const model = params.get("type");
-            const year  = params.get("year");
-            const price = params.get("price");
-            const image = params.get("image");
-            const color = params.get("color");
-            const transmission = params.get("transmission");
-            const driveType = params.get("driveType");
-            const mileage = params.get("mileage");
-            const features = params.get("features");
-
-            if (name) {
-                document.getElementById("car-title").innerText = name;
-            } else if (brand) {
-                document.getElementById("car-title").innerText = brand;
+            function showError(fieldId, message) {
+                const field = document.getElementById(fieldId);
+                const errorSpan = document.getElementById(fieldId + '-error');
+                const group = field.closest('.input-group');
+                if (errorSpan) errorSpan.textContent = message;
+                if (group) {
+                    group.classList.add('error');
+                    group.classList.remove('success');
+                }
             }
 
-            if (year || model) {
-                const parts = [year, model].filter(Boolean);
-                document.getElementById("car-subtitle").innerText = parts.join(" · ");
+            function showSuccess(fieldId) {
+                const field = document.getElementById(fieldId);
+                const errorSpan = document.getElementById(fieldId + '-error');
+                const group = field.closest('.input-group');
+                if (errorSpan) errorSpan.textContent = '';
+                if (group) {
+                    group.classList.remove('error');
+                    group.classList.add('success');
+                }
             }
 
-            if (price) {
-                document.getElementById("car-price").innerText = price;
+            function clearError(fieldId) {
+                const field = document.getElementById(fieldId);
+                const group = field.closest('.input-group');
+                if (group) {
+                    group.classList.remove('error', 'success');
+                }
+                const errorSpan = document.getElementById(fieldId + '-error');
+                if (errorSpan) errorSpan.textContent = '';
             }
 
-            if (image) {
-                document.getElementById("car-image-main").src = image;
-                document.getElementById("car-image-main").alt = brand || name || "Car Image";
+            function validateField(fieldId, value = null) {
+                const field = document.getElementById(fieldId);
+                if (!value) value = field.value.trim();
+                const group = field.closest('.input-group');
+                clearError(fieldId);
+
+                let isValid = true;
+                let errorMsg = '';
+
+                switch (fieldId) {
+                    case 'name':
+                        if (!value) {
+                            errorMsg = 'Name is required';
+                        } else if (value.length < 2) {
+                            errorMsg = 'Name must be at least 2 characters';
+                        } else if (!/^[A-Za-z\s]+$/.test(value)) {
+                            errorMsg = 'Name can only contain letters and spaces';
+                        }
+                        break;
+                    case 'phone':
+                        if (!value) {
+                            errorMsg = 'Phone number is required';
+                        } else if (!/^(?:\+94|0)[0-9]{9,10}$/.test(value)) {
+                            errorMsg = 'Invalid phone format (+94 or 0 followed by 9-10 digits)';
+                        }
+                        break;
+                    case 'email':
+                        if (!value) {
+                            errorMsg = 'Email is required';
+                        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                            errorMsg = 'Invalid email format';
+                        }
+                        break;
+                    case 'carModel':
+                    case 'dealer':
+                        if (!value) {
+                            errorMsg = fieldId === 'carModel' ? 'Please select a car model' : 'Please select a dealer branch';
+                        }
+                        break;
+                    case 'date':
+                        if (!value) {
+                            errorMsg = 'Date is required';
+                        } else {
+                            const selectedDate = new Date(value);
+                            const today = new Date();
+                            today.setHours(0, 0, 0, 0);
+                            if (selectedDate <= today) {
+                                errorMsg = 'Date must be in the future';
+                            }
+                        }
+                        break;
+                    case 'time':
+                        if (!value) {
+                            errorMsg = 'Time is required';
+                        }
+                        break;
+                    case 'notes':
+                        return true; // optional
+                }
+
+                if (errorMsg) {
+                    showError(fieldId, errorMsg);
+                    isValid = false;
+                } else {
+                    showSuccess(fieldId);
+                }
+                return isValid;
             }
 
-            if (color) document.getElementById("car-color").innerText = color;
-            if (transmission) document.getElementById("car-transmission").innerText = transmission;
-            if (driveType) document.getElementById("car-driveType").innerText = driveType;
-            if (mileage) document.getElementById("car-mileage").innerText = mileage;
-            if (year) document.getElementById("car-year").innerText = year;
+            // Real-time validation
+            Object.keys(fields).forEach(fieldId => {
+                const field = fields[fieldId];
+                if (field) {
+                    field.addEventListener('input', () => validateField(fieldId));
+                    field.addEventListener('blur', () => validateField(fieldId));
+                }
+            });
 
-            if (features) {
-                const list = document.getElementById("car-features");
-                list.innerHTML = "";
-                features.split(",").forEach(item => {
-                    if (item.trim()) {
-                        const li = document.createElement("li");
-                        li.innerText = item.trim();
-                        list.appendChild(li);
-                    }
-                });
-            }
-        });
+            // Form submit handler
+            form.addEventListener('submit', function (e) {
+    let isValid = true;
+
+    Object.keys(fields).forEach(fieldId => {
+        if (!validateField(fieldId)) {
+            isValid = false;
+        }
+    });
+
+    if (!isValid) {
+        e.preventDefault();
+        alert('Please fix the errors above.');
+    }
+});
+
+
     </script>
 </head>
 <body>
@@ -749,11 +780,9 @@
             </div>
 
             <ul class="nav-links">
-                <li><a href="newcars.html">New Cars</a></li>
-                <li><a href="usedcar.html">Used Cars</a></li>
-                <li><a href="carreviews.html">Car Reviews</a></li>
-                <li><a href="book a test drive.html">Services</a></li>
-                <li><a href="financepage.html">Finance &amp; Insurance</a></li>
+                <li><a href="book a test drive.html" class="active">Test Drive Booking</a></li>
+                <li><a href="service-booking.html">Service Booking</a></li>
+                <li><a href="MR.html">Maintenance & Repair</a></li>
             </ul>
 
             <div class="user-icon" onclick="toggleMenu()">
@@ -833,77 +862,84 @@
     </div>
 
 
-    <!-- ══════════════ CAR DETAILS ══════════════ -->
-    <div class="container">
+    <!-- ══════════════ FORM ══════════════ -->
+    <div class="form-container">
+        <h2>Book a Test Drive</h2>
+        <hr>
 
-        <!-- Title & subtitle: populated by URL params (brand, year, model) with static fallbacks -->
-        <h1 class="car-title" id="car-title">2024 Honda Prius</h1>
-        <p class="car-subtitle" id="car-subtitle">S line Premium Plus</p>
+<form id="testDriveForm" action="book_test_drive.php" method="POST" novalidate>
 
-        <div class="image-grid">
-            <!-- Primary image: src replaced by URL param (image) if provided -->
-            <img id="car-image-main"
-                 src="Honda Prius.webp"
-                 alt="Honda Prius">
-        </div>
+            <div class="row">
+                <div class="input-group">
+                    <label>Your name</label>
+                    <input type="text" id="name" name="name" required pattern="[A-Za-z\\s]+" minlength="2" title="Name must contain only letters and spaces, minimum 2 characters" placeholder="Enter your name">
 
-        <div class="content">
+                </div>
+                <div class="input-group">
+                    <label>Phone number</label>
+                    <input type="tel" id="phone" name="phone" required pattern="^(?:\\+94|0)[0-9]{9,10}$" title="Phone: +94 followed by 9-10 digits or 0 followed by 9-10 digits" placeholder="Enter phone number">
+                    <span class="error-message" id="phone-error"></span>
 
-            <!-- LEFT: Stats & Features -->
-            <div class="details">
-                <h2>Stats &amp; Features</h2>
-
-                <div class="stat"><span>Color</span><span id="car-color">Glacier White Metallic</span></div>
-                <div class="stat"><span>Transmission</span><span id="car-transmission">7-Speed Automatic</span></div>
-                <div class="stat"><span>Engine</span><span id="car-engine">2.0L Turbo</span></div>
-                <div class="stat"><span>Drive Type</span><span id="car-driveType">All Wheel Drive</span></div>
-                <div class="stat"><span>Mileage</span><span id="car-mileage">25,000 km</span></div>
-                <div class="stat"><span>Year</span><span id="car-year">2023</span></div>
-
-                <h3>Features</h3>
-                <ul class="features" id="car-features">
-                    <li>ABS</li>
-                    <li>Turbocharged</li>
-                    <li>Sunroof</li>
-                    <li>Power Steering</li>
-                    <li>LED Headlights</li>
-                    <li>Alloy Wheels</li>
-                </ul>
+                </div>
             </div>
 
-            <!-- RIGHT: Price + Form -->
-            <div class="price-box">
-                <p class="price-label">Price</p>
-                <!-- Price: populated by URL param (price) with static fallback -->
-                <p class="price" id="car-price">$24,800</p>
+            <div class="input-group full">
+                <label>Email</label>
+                <input type="email" id="email" name="email" required title="Enter a valid email address" placeholder="Enter your email">
+                <span class="error-message" id="email-error"></span>
 
-                <h3 class="form-title">Check Availability</h3>
-
-                <form class="availability-form">
-                    <div class="form-row">
-                        <input type="text" placeholder="First Name">
-                        <input type="text" placeholder="Last Name">
-                    </div>
-                    <input type="email" placeholder="Email Address">
-                    <input type="tel" placeholder="Phone Number">
-                    <input type="text" placeholder="Zip Code">
-                    <textarea placeholder="Comment (optional)"></textarea>
-
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        I'm interested in speaking with someone about financing
-                    </label>
-
-                    <p class="form-note">
-                        By submitting this form, you agree to our
-                        <span>Terms of Use</span> and <span>Privacy Policy</span>.
-                    </p>
-
-                    <button type="submit" class="btn" onclick="alert('Successfully Send Request')">Send Request</button>
-                </form>
             </div>
 
-        </div>
+            <div class="input-group full">
+                <label>Select Car Model</label>
+                <select id="carModel" name="carModel" required>
+                    <option value="">Select Car Model</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Electric">Electric</option>
+                </select>
+                <span class="error-message" id="carModel-error"></span>
+
+            </div>
+
+            <div class="input-group full">
+                <label>Select Dealer Branch</label>
+                <select id="dealer" name="dealer" required>
+                    <option value="">Select Dealer Branch</option>
+                    <option value="Colombo">Colombo</option>
+                    <option value="Kandy">Kandy</option>
+                    <option value="Galle">Galle</option>
+                    <option value="Jaffna">Jaffna</option>
+                </select>
+                <span class="error-message" id="dealer-error"></span>
+
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label>Choose Date</label>
+                    <input type="date" id="date" name="date" required>
+                    <span class="error-message" id="date-error"></span>
+
+                </div>
+                <div class="input-group">
+                    <label>Choose Time</label>
+                    <input type="time" id="time" name="time" required>
+                    <span class="error-message" id="time-error"></span>
+
+                </div>
+            </div>
+
+            <div class="input-group full">
+                <label>Notes Section</label>
+                <input type="text" id="notes" name="notes" placeholder="Add any notes here">
+                <span class="error-message" id="notes-error"></span>
+
+            </div>
+
+            <button class="submit-btn" type="submit">BOOK TEST DRIVE</button>
+        </form>
     </div>
 
 
@@ -918,18 +954,18 @@
                 <div class="footer-column">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="homepage.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="terms.html">Terms</a></li>
-                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#terms">Terms</a></li>
+                        <li><a href="#Privacy">Privacy</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h4>Services</h4>
                     <ul class="footer-links">
-                        <li><a href="newcars.html">New cars</a></li>
-                        <li><a href="usedcar.html">Used cars</a></li>
-                        <li><a href="financepage.html">Finance &amp; Insurance</a></li>
+                        <li><a href="#newcars">New cars</a></li>
+                        <li><a href="#usedcars">Used cars</a></li>
+                        <li><a href="#finance">Finance &amp; Insurance</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -939,7 +975,7 @@
                             <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="currentColor"/>
                             </svg>
-                            <span>+94 771353535</span>
+                            <span>+94 7713535351</span>
                         </li>
                         <li class="contact-item">
                             <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -947,12 +983,6 @@
                                 <path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                             </svg>
                             <span>info@DriveXPress.ru</span>
-                        </li>
-                        <li class="contact-item">
-                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
-                            </svg>
-                            <span>Kalidasa road, Matara</span>
                         </li>
                     </ul>
                 </div>
