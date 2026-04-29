@@ -1,0 +1,794 @@
+<?php
+session_start();
+include "db.php";
+
+// Session check
+if(!isset($_SESSION['user_email'])){
+    header("Location: homepage.html");
+    exit();
+}
+
+$email = $_SESSION['user_email'];
+
+// User details
+$user = $conn->query("SELECT * FROM registration WHERE email='$email'")->fetch_assoc();
+
+// Booking details
+$bookings = $conn->query("SELECT * FROM test_drive_bookings WHERE email='$email'");
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Account - CarXpress</title>
+<style>
+/* ----- Original user.account.php styles ----- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+/* Main container */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Welcome info */
+h2 {
+    color: #004080;
+    margin-bottom: 5px;
+}
+.user-info {
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+th {
+    background-color: #004080;
+    color: white;
+    text-transform: uppercase;
+}
+tr:hover {
+    background-color: #f0f8ff;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin: 20px;
+    }
+    th, td {
+        font-size: 14px;
+    }
+}
+
+/* ----- Navigation Bar Styles (from navigation palat.css) ----- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --nav-dark: #112a3d;
+    --nav-accent: #cbd5e1;
+    --accent: #f59e0b;
+    --muted: #6b7280;
+    --dark: #09203f;
+    --footer-bg-1: #112a3d;
+    --footer-bg-2: #0b2030;
+    --text-light: rgba(255,255,255,0.95);
+}
+
+.header {
+    background-color: #112a3d;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    background: linear-gradient(135deg, #112a3d 0%, #112a3d 100%);
+    padding: 20px 30px;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    max-width: 50px;
+    height: auto;
+}
+
+.logo-icon {
+    stroke: #333;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    flex: 1;
+    margin-left: 100px;
+}
+
+.nav-links li {
+    margin-right: 80px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.18s ease, transform 0.18s ease;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.nav-links a:hover {
+    color: #f59e0b;
+    transform: translateY(-2px);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.user-icon {
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a3a52;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.user-icon:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+}
+
+.user-icon-svg {
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+/* dropdown box */
+.dropdown-menu {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    background: white;
+    width: 160px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: none;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--nav-dark);
+    font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+    background: var(--accent);
+    color: white;
+}
+
+/* POPUP BACKGROUND */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* POPUP BOX */
+.popup-content {
+    background: white;
+    padding: 30px;
+    width: 380px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* INPUT */
+.popup-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* BUTTON */
+.popup-content button {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* CLOSE BUTTON */
+.close {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* BEAUTIFUL LOGIN FORM STYLES */
+.popup-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1);
+    animation: popupSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.popup-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b);
+    border-radius: 24px 24px 0 0;
+}
+
+@keyframes popupSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+#loginForm, #registerForm {
+    padding: 20px 30px 30px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 16px 20px 16px 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    font-size: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+}
+
+.input-group label {
+    position: absolute;
+    left: 20px;
+    top: 16px;
+    color: #6b7280;
+    font-size: 16px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+    top: -10px;
+    left: 16px;
+    font-size: 12px;
+    color: #f59e0b;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0 8px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.error-message {
+    display: block;
+    font-size: 12px;
+    color: #ef4444;
+    margin-top: 6px;
+    min-height: 16px;
+    font-weight: 500;
+}
+
+.input-group.error input {
+    border-color: #ef4444;
+    animation: shake 0.5s ease-in-out;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+.input-group.success input {
+    border-color: #10b981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+#login-btn, #register-btn {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#register-btn {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+}
+
+#register-btn::before {
+    font-size: 20px;
+    animation: sparkle 2s infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.2) rotate(180deg); opacity: 0.7; }
+}
+
+#register-btn:hover:not(:disabled)::before {
+    animation-duration: 1s;
+}
+
+#login-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4);
+}
+
+#login-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+#login-btn:hover::before {
+    left: 100%;
+}
+
+.popup {
+    animation: backdropFadeIn 0.3s ease-out;
+}
+
+@keyframes backdropFadeIn {
+    from { background: rgba(0,0,0,0); }
+    to { background: rgba(0,0,0,0.6); }
+}
+
+/* show menu */
+.dropdown-menu.show {
+    display: block;
+}
+
+/* ----- Footer Styles (from footer.css) ----- */
+footer {
+    background: linear-gradient(180deg, var(--footer-bg-1), var(--footer-bg-2));
+    color: var(--text-light);
+    padding: 48px 20px 28px;
+}
+
+footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 28px;
+    margin-bottom: 24px;
+    align-items: start;
+}
+
+.footer-column h4 {
+    font-size: 1.05rem;
+    margin-bottom: 14px;
+    color: var(--nav-accent);
+    letter-spacing: 0.2px;
+}
+
+.footer-column p {
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    transition: color 0.18s ease, transform 0.18s ease;
+    display: inline-block;
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+    transform: translateX(4px);
+}
+
+.footer-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin: 24px 0 16px;
+}
+
+.copyright {
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+}
+
+@media (max-width: 560px) {
+    .footer-container { gap: 16px; }
+    .social-links a { width: 34px; height: 34px; }
+    .footer-column h4 { font-size: 1rem; }
+}
+
+/* Contact icon styles */
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.95);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.contact-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    display: inline-block;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    fill: none;
+}
+
+.contact-item span { display: inline-block; }
+
+</style>
+</head>
+<body>
+
+<!-- Navigation Bar (from navigation HTML) -->
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="homepage.html">
+                <img src="logo.webp.png" alt="DriveXPress Logo" class="logo-icon">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">New Cars</a></li>
+            <li><a href="#">Used Cars</a></li>
+            <li><a href="carreviews.html">Car Reviews</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Finance & Insurance</a></li>
+        </ul>
+        <div class="user-icon" onclick="toggleMenu()">
+            <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+            </svg>
+            <!-- DROPDOWN -->
+            <div class="dropdown-menu" id="userMenu">
+                <a href="#" onclick="openLogin()">Login</a>
+                <a href="#" onclick="openRegister()">Register</a>
+                <a href="#" onclick="openBooking()">My Bookings</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- LOGIN POPUP -->
+<div id="loginPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="email" id="login-email" required placeholder=" ">
+                <label for="login-email">Enter Email</label>
+                <span class="error-message" id="email-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="login-password" required minlength="6" placeholder=" ">
+                <label for="login-password">Enter Password</label>
+                <span class="error-message" id="password-error"></span>
+            </div>
+            <button type="submit" id="login-btn">Login</button>
+        </form>
+    </div>
+</div>
+
+<!-- REGISTER POPUP -->
+<div id="registerPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <input type="text" id="register-name" required placeholder=" " pattern="[A-Za-z\\s]{2,}" title="Name must be at least 2 letters">
+                <label for="register-name">Full Name</label>
+                <span class="error-message" id="name-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="email" id="register-email" required placeholder=" ">
+                <label for="register-email">Email</label>
+                <span class="error-message" id="register-email-error"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="register-password" required minlength="6" placeholder=" ">
+                <label for="register-password">Password</label>
+                <span class="error-message" id="register-password-error"></span>
+            </div>
+            <button type="submit" id="register-btn">Create Account</button>
+        </form>
+    </div>
+</div>
+
+<!-- Main content (from original user.account.php) -->
+<div class="container">
+    <h2>Welcome, <?php echo htmlspecialchars($user['name']); ?></h2>
+    <p class="user-info">Email: <?php echo htmlspecialchars($user['email']); ?></p>
+
+    <h3>Your Test Drive Bookings</h3>
+
+    <?php if($bookings->num_rows > 0){ ?>
+    <table>
+        <tr>
+            <th>Car Model</th>
+            <th>Dealer</th>
+            <th>Booking Date</th>
+            <th>Booking Time</th>
+            <th>Notes</th>
+        </tr>
+        <?php while($row = $bookings->fetch_assoc()){ ?>
+        <tr>
+            <td><?php echo htmlspecialchars($row['car_model']); ?></td>
+            <td><?php echo htmlspecialchars($row['dealer']); ?></td>
+            <td><?php echo htmlspecialchars($row['booking_date']); ?></td>
+            <td><?php echo htmlspecialchars($row['booking_time']); ?></td>
+            <td><?php echo htmlspecialchars($row['notes']); ?></td>
+        </tr>
+        <?php } ?>
+    </table>
+    <?php } else { ?>
+        <p>You have no test drive bookings yet.</p>
+    <?php } ?>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>DriveXPress</h4>
+                <p>Your trusted partner for quality used cars in DriveXPress.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#terms">Terms</a></li>
+                    <li><a href="#Privacy">Privacy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#newcars">New cars</a></li>
+                    <li><a href="#usedcars">Used cars</a></li>
+                    <li><a href="#finance">Finance & Insurance</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact Info</h4>
+                <ul class="footer-links">
+                    <li class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="currentColor"/>
+                        </svg>
+                        <span>+94 7713535351</span>
+                    </li>
+                    <li class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                        </svg>
+                        <span>info@DriveXPress.ru</span>
+                    </li>
+                    <li class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                        </svg>
+                        <span>Kalidasa road,Matara</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider" />
+        <div class="copyright">
+            <p>&copy; 2025 DriveXPress. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript for navigation and popups -->
+<script>
+function toggleMenu() {
+    document.getElementById("userMenu").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.closest('.user-icon')) {
+        var menu = document.getElementById("userMenu");
+        if (menu.classList.contains('show')) {
+            menu.classList.remove('show');
+        }
+    }
+}
+
+function openLogin(){
+    document.getElementById("loginPopup").style.display="flex";
+}
+
+function openRegister(){
+    document.getElementById("registerPopup").style.display="flex";
+}
+
+function openBooking(){
+    document.getElementById("bookingPopup").style.display="flex";
+}
+
+function closePopup(){
+    document.getElementById("loginPopup").style.display="none";
+    document.getElementById("registerPopup").style.display="none";
+    document.getElementById("bookingPopup").style.display="none";
+    // Reset form validation
+    if (document.getElementById('loginForm')) {
+        document.getElementById('loginForm').reset();
+        clearErrors();
+    }
+}
+
+function clearErrors() {
+    const errors = document.querySelectorAll('.error-message');
+    errors.forEach(error => error.textContent = '');
+    document.querySelectorAll('.input-group input').forEach(input => {
+        input.classList.remove('error', 'success');
+        input.parentElement.classList.remove('error', 'success');
+    });
+}
+
+function validateName(name) {
+    const nameRegex = /^[A-Za-z\\s]{2,}$/;
+    return nameRegex.test(name);
+}
+</script>
+
+</body>
+</html>
