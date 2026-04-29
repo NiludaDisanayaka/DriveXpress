@@ -81,11 +81,11 @@ function validateName(name) {
                 </a>
             </div>
             <ul class="nav-links">
-                 <li><a href="#">New Cars</a></li>
-                 <li><a href="#">Used Cars</a></li>
-                 <li><a href="carreviews.html">Car Reviews</a></li>
-                  <li><a href="#">Services</a></li>
-               <li><a href="#">Finance & Insurance</a></li>
+                 <li><a href="#">Services Overview</a></li>
+                 <li><a href="#">Test Drive Booking</a></li>
+                 <li><a href="carreviews.html">Service Booking</a></li>
+                  <li><a href="#">Maintenance & Repair</a></li>
+               <li><a href="#">Service History</a></li>
             </ul>
             <div class="user-icon" onclick="toggleMenu()">
         <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
@@ -140,7 +140,7 @@ function validateName(name) {
 
         <form id="registerForm">
             <div class="input-group">
-                <input type="text" id="register-name" required placeholder=" ">
+                <input type="text" id="register-name" required placeholder=" " pattern="[A-Za-z\\s]{2,}" title="Name must be at least 2 letters">
                 <label for="register-name">Full Name</label>
                 <span class="error-message" id="name-error"></span>
             </div>

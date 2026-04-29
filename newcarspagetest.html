@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homepage.css">
+    <title>DriveXPress</title>
+    <script src="C:\Users\nilud\Desktop\project\backend\vehicles.js"></script>
+</head>
+<script>
+function toggleMenu() {
+    document.getElementById("userMenu").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.closest('.user-icon')) {
+        var menu = document.getElementById("userMenu");
+        if (menu.classList.contains('show')) {
+            menu.classList.remove('show');
+        }
+    }
+}
+
+function openLogin(){
+    document.getElementById("loginPopup").style.display="flex";
+}
+
+function openRegister(){
+    document.getElementById("registerPopup").style.display="flex";
+}
+
+function closePopup(){
+    document.getElementById("loginPopup").style.display="none";
+    document.getElementById("registerPopup").style.display="none";
+    if (document.getElementById('loginForm')) {
+        document.getElementById('loginForm').reset();
+        clearErrors();
+    }
+}
+
+function clearErrors() {
+    const errors = document.querySelectorAll('.error-message');
+    errors.forEach(error => error.textContent = '');
+    document.querySelectorAll('.input-group input').forEach(input => {
+        input.classList.remove('error', 'success');
+        input.parentElement.classList.remove('error', 'success');
+    });
+}
+
+function validateName(name) {
+    const nameRegex = /^[A-Za-z\s]{2,}$/;
+    return nameRegex.test(name);
+}
+</script>
+
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="homepage.html">
+                    <img src="logo.png" alt="DriveXPress Logo" class="logo-icon">
+                </a>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="newcars.html" class="active">New Cars</a></li>
+                <li><a href="usedcar.html">Used Cars</a></li>
+                <li><a href="carreviews.html">Car Reviews</a></li>
+                <li><a href="book a test drive.html">Services</a></li>
+                <li><a href="financepage.html">Finance & Insurance</a></li>
+            </ul>
+
+            <!-- USER ICON -->
+            <div class="user-icon" onclick="toggleMenu()">
+                <svg class="user-icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+                </svg>
+
+                <!-- DROPDOWN -->
+                <div class="dropdown-menu" id="userMenu">
+                    <a href="#" onclick="openLogin()">Login</a>
+                    <a href="#" onclick="openRegister()">Register</a>
+                    <a href="book a test drive.html">My Bookings</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- LOGIN POPUP -->
+        <div id="loginPopup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <h2>Login</h2>
+                <form id="loginForm" action="login.php" method="POST">
+                    <div class="input-group">
+                        <input type="email" name="email" id="login-email" required placeholder=" ">
+                        <label for="login-email">Enter Email</label>
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="password" required minlength="6" placeholder=" ">
+                        <label for="login-password">Enter Password</label>
+                        <span class="error-message" id="password-error"></span>
+                    </div>
+                    <button type="submit" id="login-btn">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- REGISTER POPUP -->
+        <div id="registerPopup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <h2>Register</h2>
+                <form action="register.php" method="POST" id="registerForm">
+                    <div class="input-group">
+                        <input type="text" name="name" id="register-name" required placeholder=" ">
+                        <label>Full Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" name="email" id="register-email" required placeholder=" ">
+                        <label>Email</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="password" id="register-password" required placeholder=" ">
+                        <label>Password</label>
+                    </div>
+                    <button type="submit" id="register-btn">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <section class="featured-section">
+        <div class="featured-header">
+            <h2>Featured Vehicles</h2>
+            <p class="featured-subtitle">Discover our handpicked selection of premium vehicles, each chosen for exceptional quality, performance, and value</p>
+        </div>
+        <div class="featured-grid">
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Honda&model=Honda&year=2024&price=12000000&image=Honda1new.jpeg'" id="featured1">
+                <div class="featured-image-wrapper">
+                    <img src="Honda1new.jpeg" alt="Honda Prius">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Honda Civic</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2024 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>15K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>Automatic</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 12,000,000</p>
+                            <span class="emi-info">EMI from Rs 180,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Mitsubishi&model=Mitsubishi&year=2025&price=10520500&image=Mitsubishi1new.jpeg'">
+                <div class="featured-image-wrapper">
+                    <img src="Mitsubishi1new.jpeg" alt="Mitsubishi Outlander">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Mitsubishi Outlander</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2025 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>8K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>AWD</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 10,520,500</p>
+                            <span class="emi-info">EMI from Rs 158,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Mitsubishi&model=Corolla&year=2026&price=17520500&image=Mitsubishi2new.jpeg'">
+                <div class="featured-image-wrapper">
+                    <img src="Mitsubishi2new.jpeg" alt="Toyota Corolla">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Mitsubishi Sedan </h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2026 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>22K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>Automatic</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 17,520,500</p>
+                            <span class="emi-info">EMI from Rs 263,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Mitsubishi&model=Outlander&year=2025&price=10520500&image=Mitsubishi Outlander.webp'">
+                <div class="featured-image-wrapper">
+                    <img src="Mitsubishi Outlander.webp" alt="Mitsubishi Outlander">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Mitsubishi Outlander</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2025 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>8K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>AWD</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 10,520,500</p>
+                            <span class="emi-info">EMI from Rs 158,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Nissan&model=Pathfinder&year=2025&price=20520500&image=Nissan1new.jpeg'">
+                <div class="featured-image-wrapper">
+                    <img src="Nissan1new.jpeg" alt="Nissan Pathfinder">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Nissan sunny</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2025 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>42K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>AWD</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 20,520,500</p>
+                            <span class="emi-info">EMI from Rs 308,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Nissan&model=Leaf&year=2025&price=80520500&image=Nissan2new.jpeg'">
+                <div class="featured-image-wrapper">
+                    <img src="Nissan2new.jpeg" alt="Nissan leaf">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Nissan leaf</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2025 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>4K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>AWD</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 80,520,500</p>
+                            <span class="emi-info">EMI from Rs 1,208,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Outlander&model=3008&year=2025&price=100520500&image=Outlander1new.jpeg'">
+                <div class="featured-image-wrapper">
+                    <img src="Outlander1new.jpeg" alt="Peugeot 3008">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Mitsubishi Outlander</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2025 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>8K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>AWD</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 100,520,500</p>
+                            <span class="emi-info">EMI from Rs 1,508,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=BYD&model=Tang&year=2025&price=80520500&image=BYD Tang.jpg'">
+                <div class="featured-image-wrapper">
+                    <img src="BYD Tang.jpg" alt="BYD Tang">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>BYD Tang</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2025 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>4K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>AWD</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 80,520,500</p>
+                            <span class="emi-info">EMI from Rs 1,208,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+           <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Suzuki&model=Outlander&year=2025&price=12520500&image=Suzuki1new.jpeg'">
+                <div class="featured-image-wrapper">
+                    <img src="Suzuki1new.jpeg" alt="Suzuki Outlander">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Suzuki SUV</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2025 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>8K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>AWD</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 12,520,500</p>
+                            <span class="emi-info">EMI from Rs 158,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Suzuki&model=Outlander&year=2025&price=12920500&image=Suzuki2new.jpeg'">
+                <div class="featured-image-wrapper">
+                    <img src="Suzuki2new.jpeg" alt="Suzuki Outlander">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Suzuki Sedan</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2025 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>8K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>AWD</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 12,920,500</p>
+                            <span class="emi-info">EMI from Rs 158,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Suzuki&model=Outlander&year=2025&price=13620500&image=Suzuki3new.jpeg'">
+                <div class="featured-image-wrapper">
+                    <img src="Suzuki3new.jpeg" alt="Suzuki">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Suzuki Compact</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2025 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>8K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>AWD</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 13,620,500</p>
+                            <span class="emi-info">EMI from Rs 158,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card" onclick="window.location.href='cardetails.html?brand=Toyota&model=Outlander&year=2025&price=577520500&image=Toyota1new.jpeg'">
+                <div class="featured-image-wrapper">
+                    <img src="Toyota1new.jpeg" alt="Toyota">
+                    <div class="featured-overlay">
+                        <div class="featured-quick-info"></div>
+                    </div>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-title-section">
+                        <h3>Toyota V8</h3>
+                    </div>
+                    <div class="featured-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span><span>2025 Model</span></div>
+                        <div class="spec-item"><span class="spec-icon">🏁</span><span>8K miles</span></div>
+                        <div class="spec-item"><span class="spec-icon">⚙️</span><span>AWD</span></div>
+                    </div>
+                    <div class="featured-price-section">
+                        <div class="price-info">
+                            <p class="price">Rs 577,520,500</p>
+                            <span class="emi-info">EMI from Rs 158,000/month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h4>DriveXPress</h4>
+                    <p>Your trusted partner for quality used cars in DriveXPress.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="AboutUspage.html">About Us</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="new cars.html">New cars</a></li>
+                        <li><a href="usedcar.html">Used cars</a></li>
+                        <li><a href="financepage.html">Finance & Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="currentColor"/>
+                            </svg>
+                            <span>+94 771353535</span>
+                        </li>
+                        <li class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg>
+                            <span>info@DriveXPress.ru</span>
+                        </li>
+                        <li class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                            </svg>
+                            <span>Kalidasa road, Matara</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="footer-divider" />
+            <div class="copyright">
+                <p>&copy; 2025 DriveXPress. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 6;
+        }
+
+        function validateField(input, errorId, validateFn, errorMsg) {
+            const errorEl = document.getElementById(errorId);
+            const group = input.closest('.input-group');
+
+            if (input.value.trim() === '') {
+                group.classList.remove('success');
+                group.classList.add('error');
+                errorEl.textContent = 'This field is required';
+                return false;
+            } else if (!validateFn(input.value)) {
+                group.classList.remove('success');
+                group.classList.add('error');
+                errorEl.textContent = errorMsg;
+                return false;
+            } else {
+                group.classList.remove('error');
+                group.classList.add('success');
+                errorEl.textContent = '';
+                return true;
+            }
+        }
+
+        function updateLoginButtonState() {
+            const emailValid = validateField(document.getElementById('login-email'), 'email-error', validateEmail, 'Enter correct email');
+            const passwordValid = validateField(document.getElementById('login-password'), 'password-error', validatePassword, 'Password must be at least 6 characters');
+            const btn = document.getElementById('login-btn');
+            btn.disabled = !(emailValid && passwordValid);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                const loginEmail = document.getElementById('login-email');
+                const loginPassword = document.getElementById('login-password');
+
+                loginEmail.addEventListener('blur', updateLoginButtonState);
+                loginEmail.addEventListener('input', updateLoginButtonState);
+                loginPassword.addEventListener('blur', updateLoginButtonState);
+                loginPassword.addEventListener('input', updateLoginButtonState);
+
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const emailValid = validateField(loginEmail, 'email-error', validateEmail, 'Enter correct email');
+                    const passwordValid = validateField(loginPassword, 'password-error', validatePassword, 'Password must be at least 6 characters');
+                    if (emailValid && passwordValid) {
+                        alert('Login successful! (Demo)');
+                        closePopup();
+                    }
+                });
+            }
+
+            const registerForm = document.getElementById('registerForm');
+            if (registerForm) {
+                const nameInput = document.getElementById('register-name');
+                const regEmailInput = document.getElementById('register-email');
+                const regPasswordInput = document.getElementById('register-password');
+                const regBtn = document.getElementById('register-btn');
+
+                function updateRegisterButtonState() {
+                    const nameValid = nameInput.value.trim() !== '' && validateName(nameInput.value.trim());
+                    const emailValid = regEmailInput.value.trim() !== '' && validateEmail(regEmailInput.value.trim());
+                    const passwordValid = regPasswordInput.value.trim() !== '' && validatePassword(regPasswordInput.value.trim());
+                    regBtn.disabled = !(nameValid && emailValid && passwordValid);
+                }
+
+                nameInput.addEventListener('blur', updateRegisterButtonState);
+                nameInput.addEventListener('input', updateRegisterButtonState);
+                regEmailInput.addEventListener('blur', updateRegisterButtonState);
+                regEmailInput.addEventListener('input', updateRegisterButtonState);
+                regPasswordInput.addEventListener('blur', updateRegisterButtonState);
+                regPasswordInput.addEventListener('input', updateRegisterButtonState);
+
+                registerForm.addEventListener('submit', function(e) {
+                    const nameValid = validateName(nameInput.value.trim());
+                    const emailValid = validateEmail(regEmailInput.value.trim());
+                    const passwordValid = validatePassword(regPasswordInput.value.trim());
+                    if (!(nameValid && emailValid && passwordValid)) {
+                        e.preventDefault();
+                    } else {
+                        alert('Registration successful! (Demo)');
+                        closePopup();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
