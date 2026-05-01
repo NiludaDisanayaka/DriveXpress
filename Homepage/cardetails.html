@@ -691,6 +691,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
             /* ── AVAILABILITY FORM VALIDATION ── */
+            
             const availabilityForm = document.getElementById('availabilityForm');
             if (availabilityForm) {
                 // Validation patterns
@@ -756,32 +757,73 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 // Form submission handler
-                availabilityForm.addEventListener('submit', function(e) {
-                   
-                    
-                    let isValid = true;
-                    fields.forEach(function(fieldId) {
-                        if (!validateField(fieldId, patterns[fieldId])) {
-                            isValid = false;
-                        }
-                    });
+               document.addEventListener('DOMContentLoaded', function () {
 
-                    if (isValid) {
-                        // All validations passed - show success
-                        alert('Your request has been sent. We will contact you soon.');
-                        availabilityForm.reset();
-                        // Remove valid styling
-                        fields.forEach(function(fieldId) {
-                            document.getElementById(fieldId).classList.remove('valid');
-                        });
-                    } else {
-                        // Focus on first invalid field
-                        const firstError = document.querySelector('.input-error');
-                        if (firstError) {
-                            firstError.focus();
-                        }
-                    }
-                });
+    const form = document.getElementById('availabilityForm');
+
+    const patterns = {
+        firstName: /^[A-Za-z\s]{2,}$/,
+        lastName: /^[A-Za-z\s]{2,}$/,
+        emailAddress: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        phoneNumber: /^[\+0-9\s\-]{7,15}$/,
+        zipCode: /^[0-9]{5}$/
+    };
+
+    const errorMessages = {
+        firstName: 'Enter valid first name',
+        lastName: 'Enter valid last name',
+        emailAddress: 'Enter valid email',
+        phoneNumber: 'Enter valid phone number',
+        zipCode: 'Enter valid zip code'
+    };
+
+    function validateField(id) {
+        const field = document.getElementById(id);
+        const error = document.getElementById(id + '-error');
+        const value = field.value.trim();
+
+        if (value === '') {
+            field.classList.add('input-error');
+            error.textContent = 'This field is required';
+            return false;
+        }
+
+        if (!patterns[id].test(value)) {
+            field.classList.add('input-error');
+            error.textContent = errorMessages[id];
+            return false;
+        }
+
+        field.classList.remove('input-error');
+        error.textContent = '';
+        return true;
+    }
+
+    const fields = ['firstName', 'lastName', 'emailAddress', 'phoneNumber', 'zipCode'];
+
+    fields.forEach(id => {
+        const input = document.getElementById(id);
+        input.addEventListener('blur', () => validateField(id));
+    });
+
+    form.addEventListener('submit', function(e) {
+
+        let valid = true;
+
+        fields.forEach(id => {
+            if (!validateField(id)) {
+                valid = false;
+            }
+        });
+
+        if (!valid) {
+            e.preventDefault(); // ❗ STOP submit if errors
+        }
+
+        // ✅ If valid → form goes to PHP and saves in DB
+    });
+
+});
             }
 
             /* ── POPUP FORM HANDLERS ── */
@@ -998,6 +1040,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
                         <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
                     </div>
+                    <input type="hidden" name="carName" id="carName">
+                    <input type="hidden" name="carPrice" id="carPrice">
+                    <input type="hidden" name="carYear" id="carYear">
                     <div class="field-error" id="firstName-error"></div>
                     <div class="field-error" id="lastName-error"></div>
                     <input type="email" id="emailAddress" name="emailAddress" placeholder="Email Address" required>
