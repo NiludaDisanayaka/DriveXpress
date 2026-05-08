@@ -758,7 +758,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Form submission handler
                document.addEventListener('DOMContentLoaded', function () {
+           // Get values from page
+           document.getElementById('carName').value =
+           document.getElementById('car-title').innerText;
 
+           document.getElementById('carPrice').value =
+           document.getElementById('car-price').innerText;
+
+           document.getElementById('carYear').value =
+           document.getElementById('car-year').innerText;
     const form = document.getElementById('availabilityForm');
 
     const patterns = {
@@ -873,11 +881,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById("car-image-main").alt = brand || name || "Car Image";
             }
 
-            if (color) document.getElementById("car-color").innerText = color;
-            if (transmission) document.getElementById("car-transmission").innerText = transmission;
-            if (driveType) document.getElementById("car-driveType").innerText = driveType;
-            if (mileage) document.getElementById("car-mileage").innerText = mileage;
-            if (year) document.getElementById("car-year").innerText = year;
+            // SET HIDDEN INPUT VALUES
+document.getElementById('carName').value =
+document.getElementById('car-title').innerText;
+
+document.getElementById('carPrice').value =
+document.getElementById('car-price').innerText;
+
+document.getElementById('carYear').value =
+document.getElementById('car-year').innerText;
 
             if (features) {
                 const list = document.getElementById("car-features");
