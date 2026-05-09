@@ -100,6 +100,21 @@
         .nav-links a:hover::after {
            width: 100%;
        }
+       /* ACTIVE LINK (selected page) */
+       .nav-links a.active {
+          color: #f59e0b; /* Accent color for active link */
+        }
+
+           /* Underline effect */
+        .nav-links a.active::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -5px;
+          width: 100%;
+          height: 3px;
+          background-color: var(--accent);
+       }
 
 
         .user-icon {
@@ -527,11 +542,48 @@ width: 90vw;
         }
 
         .featured-header {
+            position: relative;
+            overflow: hidden;
+            padding: 40px 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(245,158,11,0.1) 0%, rgba(251,191,36,0.05) 100%);
+            box-shadow: 0 20px 60px rgba(245,158,11,0.15);
             text-align: center;
             margin-bottom: 60px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 8px 25px rgba(239,68,68,0.4); }
+            50% { box-shadow: 0 0 30px rgba(239,68,68,0.7); }
+        }
+
+        .featured-header h2 {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            font-size: 48px;
+            background: linear-gradient(135deg, #1f2937, #374151);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .featured-header .featured-subtitle {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 600px;
+            margin: 20px auto 0;
+            font-size: 20px;
         }
 
         .featured-section h2 {
@@ -1104,8 +1156,112 @@ width: 90vw;
             .footer-column h4 { font-size: 1rem; }
         }
 
+        /* ================== CUSTOMER REVIEWS SECTION ================== */
+.customer-reviews {
+            padding: 70px 20px;
+            background: linear-gradient(135deg, #e3e3d9 0%, #e3e3d9 100%);
+            font-family: Arial, sans-serif;
+        }
+
+        .customer-reviews .reviews-header {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            text-align: center;
+        }
+
+        .customer-reviews .reviews-header h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .customer-reviews .review-rating {
+            font-size: 22px;
+            color: #f59e0b;
+            font-weight: 800;
+        }
+
+        .customer-reviews .reviews-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            padding: 0 10px;
+        }
+
+        .customer-reviews .review-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(229, 231, 235, 0.9);
+            border-radius: 18px;
+            padding: 22px 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .customer-reviews .review-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: radial-gradient(circle at 20% 10%, rgba(245, 158, 11, 0.22) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.18) 0%, transparent 45%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .customer-reviews .review-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 70px rgba(245, 158, 11, 0.12);
+        }
+
+        .customer-reviews .review-card:hover::before {
+            opacity: 1;
+        }
+
+        .customer-reviews .review-text {
+            font-size: 15px;
+            color: #374151;
+            line-height: 1.7;
+            margin: 0 0 14px 0;
+            font-weight: 600;
+        }
+
+        .customer-reviews .review-author {
+            margin: 0;
+            font-size: 14px;
+            color: #1f2937;
+            font-weight: 800;
+        }
+
+        .customer-reviews .review-author::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            margin-right: 10px;
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 768px) {
+            .customer-reviews .reviews-header h2 {
+                font-size: 30px;
+            }
+
+            .customer-reviews .reviews-grid {
+                padding: 0;
+            }
+        }
+
         /* Contact icon styles */
         .contact-item {
+
             display: flex;
             align-items: center;
             gap: 10px;
