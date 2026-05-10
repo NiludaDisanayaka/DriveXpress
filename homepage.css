@@ -1185,7 +1185,6 @@ width: 90vw;
 
         .why-choose-header h2 {
             font-size: 42px;
-            font-weight: 800;
             color: #1f2937;
             margin: 0 0 12px;
             letter-spacing: -0.6px;
@@ -1256,7 +1255,6 @@ width: 90vw;
         .why-choose-card p {
             margin: 0;
             font-size: 16px;
-            font-weight: 800;
             color: #111827;
             line-height: 1.4;
         }
@@ -1868,6 +1866,152 @@ width: 90vw;
             color: #92400e;
             transform: translateX(5px);
         }
+
+        /* ================== INSPECTION IMAGES SECTION ================== */
+        .inspection-section {
+            padding: 70px 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inspection-section::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background-image:
+                radial-gradient(circle at 15% 20%, rgba(245, 158, 11, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 85% 10%, rgba(59, 130, 246, 0.14) 0%, transparent 40%),
+                radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.12) 0%, transparent 45%);
+            pointer-events: none;
+        }
+
+        .inspection-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .inspection-header {
+            text-align: center;
+            margin-bottom: 42px;
+        }
+
+        .inspection-header h2 {
+            font-size: 42px;
+            color: #1f2937;
+            margin: 0 0 12px;
+            letter-spacing: -0.6px;
+        }
+
+        .inspection-header h2::after {
+            content: '';
+            display: block;
+            width: 110px;
+            height: 4px;
+            margin: 14px auto 0;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+        }
+
+        .inspection-subtitle {
+            font-size: 17px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .inspection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+
+        .inspection-card {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(229, 231, 235, 0.9);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+            text-align: center;
+            cursor: default;
+        }
+
+        .inspection-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 28px 80px rgba(245, 158, 11, 0.14);
+            border-color: rgba(245, 158, 11, 0.35);
+        }
+
+        .inspection-image-wrapper {
+            position: relative;
+            height: 210px;
+            overflow: hidden;
+            background: #f3f4f6;
+        }
+
+        .inspection-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.02);
+            transition: transform 0.6s ease;
+            filter: saturate(1.05) contrast(1.02);
+        }
+
+        .inspection-card:hover .inspection-image-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .inspection-image-glow {
+            position: absolute;
+            inset: -60px;
+            background: radial-gradient(circle at 30% 30%, rgba(245, 158, 11, 0.25) 0%, transparent 45%),
+                        radial-gradient(circle at 70% 10%, rgba(251, 191, 36, 0.18) 0%, transparent 40%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .inspection-card:hover .inspection-image-glow {
+            opacity: 1;
+        }
+
+        .inspection-title {
+            color: #111827;
+            margin: 22px 18px 26px;
+            letter-spacing: -0.3px;
+        }
+
+        .inspection-card:hover .inspection-title {
+            color: #f59e0b;
+        }   
+
+        @media (max-width: 768px) {
+            .inspection-section {
+                padding: 55px 15px;
+            }
+
+            .inspection-header h2 {
+                font-size: 30px;
+            }
+
+            .inspection-subtitle {
+                font-size: 16px;
+            }
+
+            .inspection-image-wrapper {
+                height: 190px;
+            }
+
+            .inspection-title {
+                font-size: 18px;
+            }
+        }
+
 
         .finance-insurance-cta {
             margin-top: auto;
