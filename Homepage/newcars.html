@@ -129,8 +129,82 @@ function validateName(name) {
             </div>
         </div>
     </header>
+    <section class="hero-section">
+        <div class="hero-slideshow">
+            <div class="hero-slide active">
+                <img src="herosection2.jpg" alt="Hero Image 1">
+            </div>
+            <div class="hero-slide">
+                <img src="herosection1.jpg" alt="Hero Image 2">
+            </div>
+            <div class="hero-slide">
+                <img src="herosection15.jpg" alt="Hero Image 3">
+            </div>
+            <div class="hero-slide">
+                <img src="herosection7.jpg" alt="Hero Image 4">
+            </div>
+        </div>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Find Your New Vehicle Today</h1>
+                <p class="hero-sub">Quality cars · Trusted service · Great prices</p>
+                <a class="btn-cta" href="newcars.html#featured-vehicles">Explore Inventory</a>
+            </div>
+        </div>
+    </section>
 
-    <section class="featured-section">
+    <!-- PREMIUM HIGHLIGHTED CAR (under Hero) -->
+    <section class="hero-premium-car" aria-label="Premium highlighted car">
+        <div class="hero-premium-inner">
+            <div class="hero-premium-badge">Premium Highlight</div>
+            <h2 class="hero-premium-title">HeroTech X Series</h2>
+            <div class="hero-premium-subtitle">Electric · Hybrid · AI Technology · Autonomous Features</div>
+            <div class="hero-premium-card" onclick="window.location.href='cardetails.html?brand=Nissan&model=Magnite&year=2024&price=12000000&image=nissan magnite.webp'" id="featured1" aria-label="View nissan magnite">
+                <div class="hero-premium-image">
+                    <img src="nissan magnite.webp" alt="Nissan Magnite" />
+                    <div class="hero-premium-image-glow" aria-hidden="true"></div>
+                </div>
+
+                <div class="hero-premium-info">
+                    <div class="hero-premium-specs">
+                        <div class="hero-premium-spec"><span class="hero-premium-spec-icon">⚡</span>Electric</div>
+                        <div class="hero-premium-spec"><span class="hero-premium-spec-icon">🟢</span>Hybrid</div>
+                        <div class="hero-premium-spec"><span class="hero-premium-spec-icon">🤖</span>AI Technology</div>
+                        <div class="hero-premium-spec"><span class="hero-premium-spec-icon">🛰️</span>Autonomous Features</div>
+                    </div>
+
+                    <div class="hero-premium-cta-row">
+                        <span class="hero-premium-price">From Rs 12,000,000  <s>15,000,000</s></span>
+                        <span class="hero-premium-cta">View Details →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-premium-card" onclick="window.location.href='cardetails.html?brand=Toyota&model=Raize&year=2024&price=15000000&image=Toyota Raize.avif'" id="featured2" aria-label="View Toyota Raize">
+                <div class="hero-premium-image">
+                    <img src="toyota raize.avif" alt="Toyota Raize" />
+                    <div class="hero-premium-image-glow" aria-hidden="true"></div>
+                </div>
+
+
+                <div class="hero-premium-info">
+                    <div class="hero-premium-specs">
+                        <div class="hero-premium-spec"><span class="hero-premium-spec-icon">⚡</span>Electric</div>
+                        <div class="hero-premium-spec"><span class="hero-premium-spec-icon">🤖</span>Autopilot</div>
+                        <div class="hero-premium-spec"><span class="hero-premium-spec-icon">🧠</span>Smart Assist</div>
+                        <div class="hero-premium-spec"><span class="hero-premium-spec-icon">🛰️</span>Connected</div>
+                    </div>
+
+                    <div class="hero-premium-cta-row">
+                        <span class="hero-premium-price">From Rs 15,000,000    <s>18,000,000</s></span>
+                        <span class="hero-premium-cta">View Details →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-section" id="featured-vehicles">
         <div class="featured-header">
             <h2>Featured Vehicles</h2>
             <p class="featured-subtitle">Discover our handpicked selection of premium vehicles, each chosen for exceptional quality, performance, and value</p>
@@ -428,6 +502,61 @@ function validateName(name) {
         </div>
     </section>
 
+    <!-- SMALL STATISTICS SECTION -->
+    <section class="small-stats-section" aria-label="Company statistics">
+        <div class="container">
+            <div class="small-stats-heading">Why Choose Us?</div>
+            <div class="small-stats-grid">
+
+                <div class="small-stat">
+                    <div class="small-stat-icon" aria-hidden="true">🚗</div>
+                    <div class="small-stat-value">500+ Cars Sold</div>
+                    <div class="small-stat-label">Trusted deals</div>
+                    <div class="small-stat-sub">Handpicked inventory</div>
+                </div>
+                <div class="small-stat">
+                    <div class="small-stat-icon" aria-hidden="true">😊</div>
+                    <div class="small-stat-value">98% Customer Satisfaction</div>
+                    <div class="small-stat-label">Verified reviews</div>
+                    <div class="small-stat-sub">Real customer feedback</div>
+                </div>
+                <div class="small-stat">
+                    <div class="small-stat-icon" aria-hidden="true">🏆</div>
+                    <div class="small-stat-value">10+ Years Experience</div>
+                    <div class="small-stat-label">Industry expertise</div>
+                    <div class="small-stat-sub">Better buying decisions</div>
+                </div>
+                <div class="small-stat">
+                    <div class="small-stat-icon" aria-hidden="true">🕒</div>
+                    <div class="small-stat-value">24/7 Support</div>
+                    <div class="small-stat-label">We’re here for you</div>
+                    <div class="small-stat-sub">Fast assistance anytime</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND LOGOS SLIDER (above footer) -->
+    <section class="brand-logos-section" aria-label="Brand logos">
+        <div class="container">
+            <div class="brand-logos-heading">Popular Brands</div>
+
+            <div class="brand-logos-marquee" role="presentation">
+                <div class="brand-logos-track">
+                    <span class="brand-logo"><img src="BMW.png" alt="BMW logo" /></span>
+                    <span class="brand-logo"><img src="nissan.png" alt="Nissan logo" /></span>
+                    <span class="brand-logo"><img src="Suzuki.png" alt="Suzuki logo" /></span>
+                    <span class="brand-logo"><img src="BYD.png" alt="BYD logo" /></span>
+                    <span class="brand-logo"><img src="Mitsubishi.png" alt="Mitsubishi logo" /></span>
+                    <span class="brand-logo"><img src="benz.png" alt="Mercedes-Benz logo" /></span>
+                    <span class="brand-logo"><img src="Toyota.png" alt="Toyota logo" /></span>
+                    <span class="brand-logo"><img src="Peugeot.png" alt="Peugeot logo" /></span>
+                     <span class="brand-logo"><img src="Honda.png" alt="Honda logo" /></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-container">
@@ -485,10 +614,35 @@ function validateName(name) {
     </footer>
 
     <script>
+        // HERO SLIDESHOW AUTO ROTATION
+        // Cycles .hero-slide elements by toggling the .active class.
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = Array.from(document.querySelectorAll('.hero-slide'));
+            if (!slides.length) return;
+
+            let currentIndex = slides.findIndex(s => s.classList.contains('active'));
+            if (currentIndex < 0) currentIndex = 0;
+
+            // Ensure only one active slide at start
+            slides.forEach((s, i) => {
+                if (i === currentIndex) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+
+            const intervalMs = 3000;
+            setInterval(() => {
+                const nextIndex = (currentIndex + 1) % slides.length;
+                slides[currentIndex].classList.remove('active');
+                slides[nextIndex].classList.add('active');
+                currentIndex = nextIndex;
+            }, intervalMs);
+        });
+
         function validateEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
+
 
         function validatePassword(password) {
             return password.length >= 6;
