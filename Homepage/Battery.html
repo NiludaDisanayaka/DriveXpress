@@ -95,6 +95,19 @@
     font-weight: 600;
     color: #1f3b6a;
   }
+  
+  input[type="date"],
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #c9d9ff;
+    outline: none;
+    font-size: 16px;
+  }
 
   .checkbox-group {
     display: flex;
@@ -164,7 +177,7 @@
 
 <h3>Request Battery & AC Check</h3>
 
-<form>
+<form id="BatteryForm">
 
 <div class="checkbox-group">
 <label><input type="checkbox"> Battery drains quickly</label>
@@ -173,12 +186,26 @@
 <label><input type="checkbox"> Strange noise from AC</label>
 <label><input type="checkbox"> Battery warning light</label>
 </div>
+<input type="text" placeholder="Owner Full Name" required>
+<input type="email" placeholder="Owner Email" required>
+<input type="tel" placeholder="Phone Number" required>
 
-<button onclick="alert('Successfully Added')">Book Battery & AC Service</button>
+<button type="submit" class="book-btn">Book Battery & AC Service</button>
 
 </form>
 
 </div>
+<script>
+document.getElementById("BatteryForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    alert("Your request was successful!");
+
+    window.location.href = "MR.html";
+
+});
+</script>
 
 </body>
 </html>

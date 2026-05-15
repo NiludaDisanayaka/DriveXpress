@@ -96,6 +96,19 @@
     color: #1f3b6a;
   }
 
+   input[type="date"],
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #c9d9ff;
+    outline: none;
+    font-size: 16px;
+  }
+
   .checkbox-group {
     display: flex;
     flex-direction: column;
@@ -164,7 +177,7 @@
 
 <h3>Request Wheel & Tyre Service</h3>
 
-<form>
+<form id="WheelForm">
 
 <div class="checkbox-group">
 <label><input type="checkbox"> Tyre pressure check</label>
@@ -173,12 +186,26 @@
 <label><input type="checkbox"> Tyre replacement</label>
 <label><input type="checkbox"> Puncture repair</label>
 </div>
+<input type="text" placeholder="Owner Full Name" required>
+<input type="email" placeholder="Owner Email" required>
+<input type="tel" placeholder="Phone Number" required>
 
-<button>Book Wheel & Tyre Service</button>
+<button type="submit" class="book-btn">Book Wheel & Tyre Service</button>
 
 </form>
 
 </div>
+<script>
+document.getElementById("WheelForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    alert("Your request was successful!");
+
+    window.location.href = "MR.html";
+
+});
+</script>
 
 </body>
 </html>

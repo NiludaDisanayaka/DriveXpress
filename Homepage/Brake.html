@@ -87,7 +87,10 @@
     margin-top: 25px;
   }
 
-  input[type="date"] {
+  input[type="date"],
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
     width: 100%;
     padding: 14px;
     margin-top: 10px;
@@ -172,16 +175,29 @@
   </div>
 
   <h3>Check Your Brakes</h3>
-  <form>
+    <form id="BrakeForm">
     <div class="checkbox-group">
       <label><input type="checkbox"> Grinding noise</label>
       <label><input type="checkbox"> Brake vibration</label>
       <label><input type="checkbox"> Soft brake pedal</label>
     </div>
-
+    <input type="text" placeholder="Owner Full Name" required>
+    <input type="email" placeholder="Owner Email" required>
+    <input type="tel" placeholder="Phone Number" required>
     <input type="date">
-    <button>Check Brakes</button>
+    <button type="submit" class="book-btn">Book Service</button>
   </form>
 </div>
+<script>
+document.getElementById("BrakeForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    alert("Your request was successful!");
+
+    window.location.href = "MR.html";
+
+});
+</script>
 </body>
 </html>

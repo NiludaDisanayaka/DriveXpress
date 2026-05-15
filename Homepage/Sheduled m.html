@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
 
 <title>Scheduled Maintenance</title>
@@ -7,17 +7,18 @@
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-<!-- Font Awesome for icons -->
+<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-  body {
+
+body {
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(135deg, #f0f4ff 0%, #eaf0f7 60%, #f8fbff 100%);
     margin: 0;
-  }
+}
 
-  .container {
+.container {
     max-width: 900px;
     margin: 40px auto;
     background: #fff;
@@ -26,10 +27,10 @@
     box-shadow: 0 15px 35px rgba(0,0,0,0.12);
     position: relative;
     overflow: hidden;
-  }
+}
 
-  /* Decorative Background */
-  .container::before {
+/* Decorative Background */
+.container::before {
     content: "";
     position: absolute;
     width: 400px;
@@ -39,25 +40,25 @@
     right: -120px;
     opacity: 0.8;
     transform: rotate(20deg);
-  }
+}
 
-  h1 {
+h1 {
     color: #0a2a52;
     margin-bottom: 5px;
-  }
+}
 
-  p {
+p {
     color: #4a5a75;
     font-size: 16px;
-  }
+}
 
-  .services {
+.services {
     display: flex;
     gap: 15px;
     margin-top: 20px;
-  }
+}
 
-  .service-card {
+.service-card {
     flex: 1;
     background: #f5f8ff;
     padding: 18px;
@@ -65,29 +66,31 @@
     border: 1px solid #e0e7ff;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+}
 
-  .service-card:hover {
+.service-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  }
+}
 
-  .service-card i {
+.service-card i {
     font-size: 22px;
     color: #003366;
     margin-bottom: 8px;
-  }
+}
 
-  h3 {
+h3 {
     color: #1f3b6a;
     margin-top: 30px;
-  }
+}
 
-  form {
+form {
     margin-top: 25px;
-  }
+}
 
-  input, select, button {
+input,
+select,
+button {
     width: 100%;
     padding: 14px;
     margin-top: 10px;
@@ -95,14 +98,16 @@
     border: 1px solid #c9d9ff;
     outline: none;
     font-size: 16px;
-  }
+    box-sizing: border-box;
+}
 
-  input:focus, select:focus {
+input:focus,
+select:focus {
     border-color: #003366;
     box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.15);
-  }
+}
 
-  button {
+button {
     background: #003366;
     color: white;
     border: none;
@@ -110,52 +115,89 @@
     font-weight: 700;
     margin-top: 15px;
     transition: background 0.3s ease;
-  }
+}
 
-  button:hover {
+button:hover {
     background: #001f3a;
-  }
+}
 
-  /* Responsive */
-  @media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 768px) {
+
     .services {
-      flex-direction: column;
+        flex-direction: column;
     }
-  }
+
+}
+
 </style>
 </head>
 
 <body>
+
 <div class="container">
-  <h1>Scheduled Maintenance</h1>
-  <p>Keep your vehicle in top condition with regular maintenance. Book your service today and drive worry-free.</p>
 
-  <h3>Services Included</h3>
+    <h1>Scheduled Maintenance</h1>
 
-  <div class="services">
-    <div class="service-card">
-      <i class="fa-solid fa-oil-can"></i>
-      <p><b>Oil & Filter Change</b></p>
+    <p>
+        Keep your vehicle in top condition with regular maintenance.
+        Book your service today and drive worry-free.
+    </p>
+
+    <h3>Services Included</h3>
+
+    <div class="services">
+
+        <div class="service-card">
+            <i class="fa-solid fa-oil-can"></i>
+            <p><b>Oil & Filter Change</b></p>
+        </div>
+
+        <div class="service-card">
+            <i class="fa-solid fa-droplet"></i>
+            <p><b>Fluid Checks</b></p>
+        </div>
+
+        <div class="service-card">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <p><b>General Inspection</b></p>
+        </div>
+
     </div>
 
-    <div class="service-card">
-      <i class="fa-solid fa-droplet"></i>
-      <p><b>Fluid Checks</b></p>
-    </div>
+    <h3>Book Maintenance</h3>
 
-    <div class="service-card">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <p><b>General Inspection</b></p>
-    </div>
-  </div>
+    <form id="serviceForm">
+        <input type="text" placeholder="Owner Full Name" required>
+        <input type="email" placeholder="Owner Email" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <input type="text" placeholder="Vehicle Model" required>
 
-  <h3>Book Maintenance</h3>
-  <form>
-    <input type="text" placeholder="Vehicle Model" required>
-    <input type="number" placeholder="Current Mileage (km)">
-    <input type="date">
-    <button>Book Service</button>
-  </form>
+        <input type="number" placeholder="Current Mileage (km)" required>
+
+        <input type="date" required>
+
+        <button type="submit" class="book-btn">
+            Book Service
+        </button>
+
+    </form>
+
 </div>
+
+<script>
+
+document.getElementById("serviceForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    alert("Your request was successful!");
+
+    window.location.href = "MR.html";
+
+});
+
+</script>
+
 </body>
 </html>

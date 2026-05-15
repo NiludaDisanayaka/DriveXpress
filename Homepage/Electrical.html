@@ -95,6 +95,17 @@
     font-weight: 600;
     color: #1f3b6a;
   }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #c9d9ff;
+    outline: none;
+    font-size: 16px;
+  }
 
   .checkbox-group {
     display: flex;
@@ -159,15 +170,30 @@
   </div>
 
   <h3>Run Electrical Test</h3>
-  <form>
+  <form id="ElectricalForm">
     <div class="checkbox-group">
-      <label><input type="checkbox"> Car won’t start</label>
+      <label><input type="checkbox"> Car will not start</label>
       <label><input type="checkbox"> Warning lights</label>
       <label><input type="checkbox"> Battery issues</label>
     </div>
 
-    <button>Run Electrical Test</button>
+    <input type="text" placeholder="Owner Full Name" required>
+    <input type="email" placeholder="Owner Email" required>
+    <input type="tel" placeholder="Phone Number" required>
+
+    <button type="submit" class="book-btn">Run Electrical Test</button>
   </form>
 </div>
+<script>
+document.getElementById("ElectricalForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    alert("Your request was successful!");
+
+    window.location.href = "MR.html";
+
+});
+</script>
 </body>
 </html>

@@ -90,6 +90,8 @@
   }
 
   input[type="text"],
+  input[type="email"],
+  input[type="tel"],
   input[type="file"],
   select {
     width: 100%;
@@ -101,11 +103,22 @@
     font-size: 16px;
   }
 
+
+
   input:focus,
   select:focus {
     border-color: #003366;
     box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.15);
   }
+
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+
 
   label {
     display: block;
@@ -165,15 +178,31 @@
   </div>
 
   <h3>Submit Damage Details</h3>
-  <form>
+  <form id="AccidentForm">
+    <div class="checkbox-group">
+      <input type="text" placeholder="Owner Full Name" required>
+      <input type="email" placeholder="Owner Email" required>
+      <input type="tel" placeholder="Phone Number" required>
+    </div>
     <input type="text" placeholder="Accident Type">
     <input type="file">
     <select>
       <option>Insurance Claim</option>
       <option>Private Repair</option>
     </select>
-    <button>Submit Damage Details</button>
+    <button type="submit" class="book-btn">Submit Damage Details</button>
   </form>
 </div>
+<script>
+document.getElementById("AccidentForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    alert("Your request was successful!");
+
+    window.location.href = "MR.html";
+
+});
+</script>
 </body>
 </html>

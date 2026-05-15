@@ -101,7 +101,10 @@
     resize: none;
   }
 
-  input[type="date"] {
+  input[type="date"],
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
     width: 100%;
     padding: 14px;
     margin-top: 10px;
@@ -167,11 +170,25 @@
   </div>
 
   <h3>Book Diagnostics</h3>
-  <form>
+  <form id="DiagnosticForm">
+    <input type="text" placeholder="Owner Full Name" required>
+    <input type="email" placeholder="Owner Email" required>
+    <input type="tel" placeholder="Phone Number" required>
     <textarea placeholder="Describe the issue"></textarea>
     <input type="date">
-    <button>Book Diagnostics</button>
+    <button type="submit" class="book-btn">Book Diagnostics</button>
   </form>
 </div>
+<script>
+document.getElementById("DiagnosticForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    alert("Your request was successful!");
+
+    window.location.href = "MR.html";
+
+});
+</script>
 </body>
 </html>

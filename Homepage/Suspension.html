@@ -89,7 +89,10 @@
     margin-top: 25px;
   }
 
-  input[type="file"] {
+  input[type="file"],
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"]{
     width: 100%;
     padding: 14px;
     margin-top: 10px;
@@ -174,15 +177,29 @@
   </div>
 
   <h3>Request Suspension Check</h3>
-  <form>
+  <form id="SuspensionForm">
     <div class="checkbox-group">
       <label><input type="checkbox"> Uneven ride</label>
       <label><input type="checkbox"> Car pulls sideways</label>
     </div>
+    <input type="text" placeholder="Owner Full Name" required>
+      <input type="email" placeholder="Owner Email" required>
+      <input type="tel" placeholder="Phone Number" required>
 
     <input type="file">
-    <button>Request Suspension Check</button>
+    <button type="submit" class="book-btn">Request Suspension Check</button>
   </form>
 </div>
+<script>
+document.getElementById("SuspensionForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    alert("Your request was successful!");
+
+    window.location.href = "MR.html";
+
+});
+</script>
 </body>
 </html>
