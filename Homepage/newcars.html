@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="homepage.css">
     <title>DriveXPress</title>
-    <script src="C:\Users\nilud\Desktop\project\backend\vehicles.js"></script>
 </head>
 <script>
 function toggleMenu() {
@@ -20,22 +19,45 @@ window.onclick = function(event) {
         }
     }
 }
+/* OPEN DROPDOWN */
+
+function toggleMenu(){
+document.getElementById("userMenu").classList.toggle("show");
+}
+
+
+/* LOGIN POPUP */
 
 function openLogin(){
-    document.getElementById("loginPopup").style.display="flex";
+document.getElementById("loginPopup").style.display="flex";
 }
+
+
+/* REGISTER POPUP */
 
 function openRegister(){
-    document.getElementById("registerPopup").style.display="flex";
+document.getElementById("registerPopup").style.display="flex";
 }
 
+
+/* BOOKINGS POPUP */
+
+function openBooking(){
+document.getElementById("bookingPopup").style.display="flex";
+}
+
+
+/* CLOSE ALL POPUPS */
+
 function closePopup(){
-    document.getElementById("loginPopup").style.display="none";
-    document.getElementById("registerPopup").style.display="none";
-    if (document.getElementById('loginForm')) {
-        document.getElementById('loginForm').reset();
-        clearErrors();
-    }
+document.getElementById("loginPopup").style.display="none";
+document.getElementById("registerPopup").style.display="none";
+document.getElementById("bookingPopup").style.display="none";
+// Reset form validation
+if (document.getElementById('loginForm')) {
+    document.getElementById('loginForm').reset();
+    clearErrors();
+}
 }
 
 function clearErrors() {
@@ -48,9 +70,10 @@ function clearErrors() {
 }
 
 function validateName(name) {
-    const nameRegex = /^[A-Za-z\s]{2,}$/;
+    const nameRegex = /^[A-Za-z\\s]{2,}$/;
     return nameRegex.test(name);
 }
+
 </script>
 
 <body>
@@ -80,7 +103,7 @@ function validateName(name) {
                 <div class="dropdown-menu" id="userMenu">
                     <a href="#" onclick="openLogin()">Login</a>
                     <a href="#" onclick="openRegister()">Register</a>
-                    <a href="book a test drive.html">My Bookings</a>
+                    <a href="#" onclick="openBooking()">My Bookings</a>
                 </div>
             </div>
         </nav>
@@ -128,7 +151,18 @@ function validateName(name) {
                 </form>
             </div>
         </div>
+        
+        <!-- ========== BOOKING POPUP ========== -->
+    <div id="bookingPopup" class="popup">
+       <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>My Bookings</h2>
+        <p style="margin: 30px 0; color:#333;">You have no active bookings.</p>
+        <button onclick="closePopup()" style="width:auto; padding:10px 25px;">Close</button>
+       </div>
+    </div>
     </header>
+    
     <section class="hero-section">
         <div class="hero-slideshow">
             <div class="hero-slide active">

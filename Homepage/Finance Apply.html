@@ -617,52 +617,141 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Your name</label>
-                        <input type="text" id="name" name="name" class="form-input">
+                        <input type="text" id="name" name="name" class="form-input" required pattern="[A-Za-z\\s]{2,}" minlength="2" title="Name must contain at least 2 letters" placeholder="Enter your name">
+                        <span class="error-message" id="name-error"></span>
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone number</label>
-                        <input type="tel" id="phone" name="phone" class="form-input">
+                        <input type="tel" id="phone" name="phone" class="form-input" required pattern="^(?:\\+94|0)[0-9]{9,10}$" title="Phone: +94 followed by 9-10 digits or 0 followed by 9-10 digits" placeholder="Enter phone number">
+                        <span class="error-message" id="phone-error"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-input">
+                        <input type="email" id="email" name="email" class="form-input" required placeholder="Enter your email">
+                        <span class="error-message" id="email-error"></span>
                     </div>
                 </div>
 
                 <div class="form-group full-width">
                     <label for="vehicle-model">Vehicle Model</label>
-                    <select id="vehicle-model" name="vehicleModel" class="form-select">
+                    <select id="vehicle-model" name="vehicleModel" class="form-select" required>
                         <option value="">Select</option>
                         <option value="sedan">Sedan</option>
                         <option value="suv">SUV</option>
                         <option value="hatchback">Hatchback</option>
                         <option value="truck">Truck</option>
                     </select>
+                    <span class="error-message" id="vehicle-model-error"></span>
                 </div>
 
                 <div class="form-group full-width">
                     <label for="finance-type">Finance or Insurance</label>
-                    <select id="finance-type" name="financeType" class="form-select">
+                    <select id="finance-type" name="financeType" class="form-select" required>
                         <option value="">Select</option>
                         <option value="finance">Finance</option>
                         <option value="insurance">Insurance</option>
                         <option value="both">Both</option>
                     </select>
+                    <span class="error-message" id="finance-type-error"></span>
                 </div>
 
                 <div class="form-group full-width">
                     <label for="estimated-price">Estimated Price</label>
-                    <input type="text" id="estimated-price" name="estimatedPrice" class="form-input">
+                    <input type="text" id="estimated-price" name="estimatedPrice" class="form-input" required pattern="^[0-9]+(\\.[0-9]{1,2})?$" title="Enter a valid number (e.g., 250000 or 250000.50)">
+                    <span class="error-message" id="estimated-price-error"></span>
                 </div>
 
                 <div class="form-group full-width">
                     <label for="notes">Notes or conditions</label>
-                    <textarea id="notes" name="notes" class="form-textarea" rows="4"></textarea>
+                    <textarea id="notes" name="notes" class="form-textarea" rows="4" placeholder="Optional"></textarea>
+                    <span class="error-message" id="notes-error"></span>
                 </div>
 
                 <button type="submit" class="submit-btn">Submit application</button>
             </form>
         </div>
+        <script>
+       document.getElementById("financeForm").addEventListener("submit", function(event) {
+
+       event.preventDefault();
+
+       // ---- Finance form validation ----
+       const fields = {
+           name: document.getElementById('name'),
+           phone: document.getElementById('phone'),
+           email: document.getElementById('email'),
+           vehicleModel: document.getElementById('vehicle-model'),
+           financeType: document.getElementById('finance-type'),
+           estimatedPrice: document.getElementById('estimated-price'),
+           notes: document.getElementById('notes')
+       };
+
+       const errors = {
+           name: document.getElementById('name-error'),
+           phone: document.getElementById('phone-error'),
+           email: document.getElementById('email-error'),
+           vehicleModel: document.getElementById('vehicle-model-error'),
+           financeType: document.getElementById('finance-type-error'),
+           estimatedPrice: document.getElementById('estimated-price-error'),
+           notes: document.getElementById('notes-error')
+       };
+
+       function setError(key, msg) {
+           if (errors[key]) errors[key].textContent = msg || '';
+           if (key in fields && fields[key]) {
+               fields[key].style.borderColor = msg ? '#ef4444' : '#e2e8f0';
+           }
+       }
+
+       function clearAllErrors() {
+           Object.keys(errors).forEach(k => setError(k, ''));
+       }
+
+       function isValidEmail(v) {
+           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+       }
+
+       function isValidPhone(v) {
+           return /^(?:\+94|0)[0-9]{9,10}$/.test(v);
+       }
+
+       clearAllErrors();
+
+       let valid = true;
+
+       const nameVal = fields.name.value.trim();
+       if (!nameVal) { setError('name', 'Name is required'); valid = false; }
+       else if (!/^[A-Za-z\s]{2,}$/.test(nameVal)) { setError('name', 'Name must be at least 2 letters'); valid = false; }
+
+       const phoneVal = fields.phone.value.trim();
+       if (!phoneVal) { setError('phone', 'Phone number is required'); valid = false; }
+       else if (!isValidPhone(phoneVal)) { setError('phone', 'Invalid phone format (+94 or 0 followed by 9-10 digits)'); valid = false; }
+
+       const emailVal = fields.email.value.trim();
+       if (!emailVal) { setError('email', 'Email is required'); valid = false; }
+       else if (!isValidEmail(emailVal)) { setError('email', 'Invalid email format'); valid = false; }
+
+       if (!fields.vehicleModel.value) { setError('vehicleModel', 'Please select a vehicle model'); valid = false; }
+       if (!fields.financeType.value) { setError('financeType', 'Please select Finance or Insurance'); valid = false; }
+
+       const priceVal = fields.estimatedPrice.value.trim();
+       if (!priceVal) { setError('estimatedPrice', 'Estimated price is required'); valid = false; }
+       else if (!/^[0-9]+(\.[0-9]{1,2})?$/.test(priceVal)) { setError('estimatedPrice', 'Enter a valid price number'); valid = false; }
+
+       // Notes optional
+       const notesVal = fields.notes.value.trim();
+       if (notesVal.length > 500) { setError('notes', 'Notes must be 500 characters or less'); valid = false; }
+
+       if (!valid) {
+           alert('Please fix the errors above.');
+           return;
+       }
+
+       document.getElementById('confirmationMessage').innerHTML = '✅ Application received! We will contact you soon.';
+       alert("Your request was successful!");
+       window.location.href = "homepage.html";
+      });
+</script>
 
         <div class="confirmation-area" id="confirmationArea">
             <p id="confirmationMessage">✔️ Your request will be processed.</p>

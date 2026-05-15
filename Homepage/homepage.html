@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="homepage.css">
     <title>DriveXPress</title>
-    <script src="C:\Users\nilud\Desktop\project\backend\vehicles.js"></script>
 </head>
 <script>
 function toggleMenu() {
@@ -173,32 +172,45 @@ function validateName(name) {
     </div>
 
 </div>
+    <!-- ========== BOOKING POPUP ========== -->  
+ <div id="bookingPopup" class="popup">
+       <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>My Bookings</h2>
+        <p style="margin: 30px 0; color:#333;">You have no active bookings.</p>
+        <button onclick="closePopup()" style="width:auto; padding:10px 25px;">Close</button>
+       </div>
+    </div>
 
+    
 
     </header>
-    <section class="hero-section">
-        <div class="hero-slideshow">
-            <div class="hero-slide active">
-                <img src="herosection2.jpg" alt="Hero Image 1">
-            </div>
-            <div class="hero-slide">
-                <img src="herosection1.jpg" alt="Hero Image 2">
-            </div>
-            <div class="hero-slide">
-                <img src="herosection15.jpg" alt="Hero Image 3">
-            </div>
-            <div class="hero-slide">
-                <img src="herosection7.jpg" alt="Hero Image 4">
-            </div>
-        </div>
-        <div class="hero-overlay">
-            <div class="hero-content">
-                <h1>Find Your Perfect Vehicle Today</h1>
-                <p class="hero-sub">Quality cars · Trusted service · Great prices</p>
-                <a class="btn-cta" href="newcars.html">Explore Inventory</a>
+    <!-- VIDEO ABOVE FEATURED SECTION -->
+    <section class="video-above-featured" aria-label="Promotional Video">
+        <div class="video-above-featured-media">
+            <video class="video-above-featured-video" autoplay muted loop playsinline>
+                <!-- TODO: Link your video source manually -->
+                   <source src="homepagevideo.mp4" type="video/mp4">
+            </video>
+            <div class="video-above-featured-overlay">
+                <div class="video-above-featured-content">
+                    <h2 class="video-above-featured-heading">
+                        Find Your Perfect Car Today <br>
+                        Premium New & Used Vehicles in Sri Lanka
+                    </h2>
+                    <div class="video-above-featured-buttons">
+                        <button class="video-above-featured-btn video-above-featured-btn-primary" type="button" onclick="window.location.href='newcars.html'">
+                            Explore cars
+                        </button>
+                        <button class="video-above-featured-btn video-above-featured-btn-secondary" type="button" onclick="window.location.href='book a test drive.html'">
+                            Book a test drive
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
     <section class="featured-section">
         <div class="featured-header">
             <h2>Featured Vehicles</h2>
@@ -483,7 +495,7 @@ function validateName(name) {
     <section class="bookings-section">
         <h2>Quick Bookings</h2>
         <div class="bookings-text">
-            <div class="booking-item" onclick="window.location.href='cardetails.html'">
+            <div class="booking-item" onclick="window.location.href='cardetails.html?brand=BYD&model=Tang&year=2025&price=80520500&image=BYD Tang.jpg'">
                 <div class="booking-icon">
                     <svg viewBox="0 0 24 24" width="32" height="32">
                         <path d="M5 17h14v2H5v-2zm7-12l5 5H7l5-5zm0 4l-5 5h10l-5-5z" fill="currentColor"/>
@@ -577,7 +589,7 @@ function validateName(name) {
                         <li>✓ No Hidden Fees</li>
                     </ul>
                     <div class="finance-insurance-cta">
-                        <button class="btn-finance-insurance"onclick="window.location.href='Financepage.html'">Apply Now</button>
+                        <button class="btn-finance-insurance"onclick="window.location.href='Financepage.html'">Learn More</button>
                     </div>
                 </div>
             </div>
@@ -629,7 +641,7 @@ function validateName(name) {
                         <li>✓ Transferable Plans</li>
                     </ul>
                     <div class="finance-insurance-cta">
-                        <button class="btn-finance-insurance" onclick="window.location.href='Finance Apply.html'">Learn More</button>
+                        <button class="btn-finance-insurance" onclick="window.location.href='Finance Apply.html'">Apply Now</button>
                     </div>
                 </div>
             </div>
